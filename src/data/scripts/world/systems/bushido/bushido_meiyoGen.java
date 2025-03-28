@@ -10,8 +10,9 @@ import com.fs.starfarer.api.impl.campaign.procgen.StarAge;
 import com.fs.starfarer.api.impl.campaign.procgen.StarSystemGenerator;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceTerrainPlugin;
 import com.fs.starfarer.api.util.Misc;
-import data.scripts.utils.seven_util_sysgen;
-import data.scripts.world.ids.seven_Industries;
+import data.scripts.utils.takeshido_util_sysgen;
+import data.scripts.world.ids.takeshido_Industries;
+
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -125,7 +126,7 @@ public class bushido_meiyoGen {
                 442f); // orbit time
         meiyo_3.setCustomDescriptionId("bushido_oashisuxxx");  
         
-        MarketAPI meiyo_3_market = seven_util_sysgen.addMarketplace("pirates",
+        MarketAPI meiyo_3_market = takeshido_util_sysgen.addMarketplace("pirates",
                 meiyo_3,
                 null,
                 "Oashisu",
@@ -161,7 +162,7 @@ public class bushido_meiyoGen {
                         //Industries.LIGHTINDUSTRY,
                         Industries.PATROLHQ,
                         Industries.WAYSTATION,
-                        seven_Industries.BUSHIDO_RACEWAYS
+                        takeshido_Industries.TAKESHIDO_RACEWAYS
                     )
                 ),
                 true,
@@ -177,7 +178,7 @@ public class bushido_meiyoGen {
 
         meiyo_station.setCircularOrbitPointingDown(meiyo_3,300,300,180);
 
-        MarketAPI meiyo_station_market = seven_util_sysgen.addMarketplace("pirates",
+        MarketAPI meiyo_station_market = takeshido_util_sysgen.addMarketplace("pirates",
                 meiyo_station,
                 null,
                 "Nino Station",
@@ -207,7 +208,7 @@ public class bushido_meiyoGen {
                                 Industries.LIGHTINDUSTRY,
                                 Industries.ORBITALWORKS,
                                 Industries.WAYSTATION,
-                                seven_Industries.BUSHIDO_RACEWAYS
+                                takeshido_Industries.TAKESHIDO_RACEWAYS
                         )
                 ),
                 true,

@@ -1,0 +1,126 @@
+{
+  "hullName": "Mibitsu Hobi Custom",
+  "hullId": "takeshido_hobi_custom",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/mibitsu_hobi_custom.png",
+  "style": "BUSHIDO",
+  "height": 57,
+  "width": 30,
+  "center": [15, 28.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 0,
+  "viewOffset": 0,
+  "builtInMods": [
+      takeshido_strikecraftadder,
+    ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [23, -6.5]
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [23, 6.5]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 135,
+      "angle": 75,
+      "locations": [4, 5]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 135,
+      "angle": -75,
+      "locations": [4, -5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [12.5, -10],
+      "length": 8.982911,
+      "width": 3.77216,
+      "angle": -171.5,
+      "contrailSize": 3.77216,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [12.5, 10],
+      "length": 8.982911,
+      "width": 3.77216,
+      "angle": 171.5,
+      "contrailSize": 3.77216,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-16.5, -13.5],
+      "length": 8.982911,
+      "width": 3.77216,
+      "angle": -160,
+      "contrailSize": 3.77216,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-16.5, 13.5],
+      "length": 8.982911,
+      "width": 3.77216,
+      "angle": 160,
+      "contrailSize": 3.77216,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-28.5, 5.5],
+      "length": 10,
+      "width": 5,
+      "angle": 180,
+      "contrailSize": 5,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-28.5, -5.5],
+      "length": 10,
+      "width": 5,
+      "angle": 180,
+      "contrailSize": 5,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-26.5, -0],
+      "length": 22,
+      "width": 9,
+      "angle": 180,
+      "contrailSize": 9,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    }
+  ],
+  "bounds": [
+    26.5, 10.5,
+    -27.5, 13.5,
+    -27.5, -13.5,
+    26.5, -10.5
+  ]
+}

@@ -1,5 +1,5 @@
 id,name,cost mult,build time,income,upkeep,downgrade,upgrade,tags,data,image,plugin,desc,order
-takeshido_raceways,Takeshido Raceways,50,600,,6,,,"structure, patrol",,graphics/industries/takeshido_raceways.png,data.scripts.world.industries_and_buildings.seven_bushido_raceways,"While the Takeshido have seen better days, they remain a prominent gang in the Meiyo system, fiercely able and willing to defend their own turf.",500
+#takeshido_raceways,Takeshido Raceways,50,600,,6,,,"structure, patrol",,graphics/industries/takeshido_raceways.png,data.scripts.world.industries_and_buildings.takeshido_raceways,"While the Takeshido have seen better days, they remain a prominent gang in the Meiyo system, fiercely able and willing to defend their own turf.",500
 ,,,,,,,,,,,,,500
 ,,,,,,,,,,,,,500
 ,,,,,,,,,,,,,500

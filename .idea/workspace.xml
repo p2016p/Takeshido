@@ -1,7 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1d40e31-4fee-468d-bac3-ac8193595e94" name="Changes" comment="" />
+    <list default="true" id="9582f8a4-ef24-4756-ba28-527a78fdd486" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Takeshido.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Takeshido_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/LazyLib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/MagicLib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Nexerelin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/starfarer_api.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/starsector_core.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_350x_custom.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_350x_fighter.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_BR97_custom.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_BR97_fighter.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_NMW_G3_custom.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_NMW_G3_fighter.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_bionda_custom.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_bonta_custom.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_camirillo_custom.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_camirillo_fighter.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_hobi_custom.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_hobi_fighter.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_vroomicorn_custom.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_vroomicorn_fighter.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hulls/takeshido_wayfarer_bushido.ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/factions/crest_takeshido.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/factions/flag_takeshido.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/scripts/world/ids/takeshido_Industries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Takeshido.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Takeshido.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/campaign/industries.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/campaign/industries.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/config/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/config/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/fighters/don't put .hull files in folders, it doesn't work" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_350x_custom.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_350x_fighter.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_BR97_custom.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_BR97_fighter.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_NMW_G3_custom.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_NMW_G3_fighter.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_ananke.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_ananke_mission.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_bionda_custom.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_bonta_custom.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_camirillo_custom.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_camirillo_fighter.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_garage.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_heron_bushido_skin.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_hobi_custom.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_hobi_fighter.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_hound_bushido.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_overloud_bushido.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_phaeton_bushido.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_spider_bushido.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_tarsus_bushido.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_vroomicorn_custom.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_vroomicorn_fighter.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/seven_wayfarer_bushido.ship" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/ship_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/ship_data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hulls/wing_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/wing_data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/missions/TheGift/descriptor.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/missions/TheGift/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/missions/TheGift/mission_text.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/missions/mission_list.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/shipsystems/seven_gregariousness.system" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/shipsystems/seven_idash.system" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/shipsystems/seven_orgi.system" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/shipsystems/ship_systems.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/shipsystems/ship_systems.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/strings/descriptions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/strings/descriptions.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/variants/fighters/seven_350x_fighter_standard.variant" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/variants/seven_350x_custom_standard.variant" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/weapons/proj/seven_orgi_mote_shot.proj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/weapons/seven_omovrontia.wpn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/weapons/seven_orgi_mote.wpn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/weapons/weapon_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/weapons/weapon_data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/world/factions/bushido.faction" beforeDir="false" afterPath="$PROJECT_DIR$/data/world/factions/bushido.faction" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/world/factions/default_ship_roles.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/world/factions/default_ship_roles.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/world/factions/factions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/world/factions/factions.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/world/factions/narcepolis.faction" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/world/factions/pirates.faction" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphics/factions/crest_bushido_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphics/factions/flag_bushido_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mod_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/mod_info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/hullmods/seven_autorecall.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/hullmods/seven_commission_epta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/hullmods/takeshido_takeshido_comission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/missions/TheGift/MissionDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/campaign/rulecmd/isCommssionedChecks_rulecmd/isDiktatCommissioned_ruleCMD.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/campaign/rulecmd/isCommssionedChecks_rulecmd/isEptaCommissioned_ruleCMD.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/campaign/rulecmd/isCommssionedChecks_rulecmd/isHegemonyCommissioned_ruleCMD.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/campaign/rulecmd/isCommssionedChecks_rulecmd/isIronShellCommissioned_ruleCMD.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/campaign/rulecmd/isCommssionedChecks_rulecmd/isTTCommissioned_ruleCMD.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/campaign/rulecmd/seven_NPCDialogCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/campaign/rulecmd/takeshido_NPCDialogCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/characters/eptaCharacterFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/characters/seven_TrielaDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/everyframe/seven_PluginStarter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/everyframe/takeshido_PluginStarter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/sevencorp_ModPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/sevencorp_ModPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/utils/interactionUI/seven_RacecoordinatorDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/utils/interactionUI/takeshido_RacecoordinatorDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/utils/seven_util_characters.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/utils/seven_util_descriptions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/utils/seven_util_fleetCreation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/utils/seven_util_misc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/utils/takeshido_util_misc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/utils/seven_util_sysgen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/utils/takeshido_util_sysgen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/world/campaignListeners/repMatcherCampaignListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/world/ids/seven_Industries.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/world/industries_and_buildings/seven_bushido_raceways.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/world/industries_and_buildings/takeshido_raceways.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/world/sevencorpGenTakeshido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/world/takeshido_takeshidoGen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/world/specialTaskForceNamers/sevencorp_EptaNamer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/world/submarkets/TakeshidoUsedCar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/world/submarkets/TakeshidoUsedCar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/world/systems/bushido/bushido_meiyoGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/world/systems/bushido/bushido_meiyoGen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/shipsystems/AI/seven_SystemAI_idash.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/shipsystems/scripts/seven_shipSystem_gregariousness.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/shipsystems/scripts/seven_shipSystem_idash.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/weapons/onhit/seven_ArkhosOnFire.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/weapons/proj/scripts/seven_flare_effect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/weapons/projAI/seven_sminos_rocket_AI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/weapons/weaponAI/seven_sminos_autofireAI.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,26 +134,38 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2uvgktvo1b2niAjo5levGCpjKQv" />
+  <component name="ProjectId" id="2uvavptHrWxItFWuZwiCJYePuPV" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "jdk.selected.JAVA_MODULE": "corretto-17",
+    "last_opened_file_path": "C:/Users/cohen/Documents/Starsector/mods/Nexerelin_0.11.3c/Nexerelin/jars/ExerelinCore.jar",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f1d40e31-4fee-468d-bac3-ac8193595e94" name="Changes" comment="" />
-      <created>1743134607966</created>
+      <changelist id="9582f8a4-ef24-4756-ba28-527a78fdd486" name="Changes" comment="" />
+      <created>1743131734267</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1743134607966</updated>
+      <updated>1743131734267</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

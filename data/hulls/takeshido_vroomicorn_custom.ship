@@ -1,0 +1,76 @@
+{
+  "hullName": "Vroomicorn custom",
+  "hullId": "takeshido_vroomicorn_custom",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/vroomicorn_custom.PNG",
+  "style": "BUSHIDO",
+  "height": 40,
+  "width": 26,
+  "center": [13, 20],
+  "collisionRadius": 23,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.5,
+  "viewOffset": 0,
+  "builtInMods": [
+          takeshido_strikecraftadder,
+        ],
+  "builtInWeapons": {
+    "WS0001": "chaingun",
+    "WS0002": "chaingun"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-5.5, 9]
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-5.5, -9]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 135,
+      "angle": -75.5,
+      "locations": [0.5, -6.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-17.5, 7.5],
+      "length": 30,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-17.5, -7.5],
+      "length": 30,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    }
+  ],
+  "bounds": [
+    19, -6.5,
+    -19, -12.5,
+    -19, 12.5,
+    19, 6.5
+  ]
+}

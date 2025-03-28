@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Takeshido.iml" filepath="$PROJECT_DIR$/.idea/Takeshido.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Takeshido.iml" filepath="$PROJECT_DIR$/Takeshido.iml" />
     </modules>
   </component>
 </project>

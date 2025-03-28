@@ -42,14 +42,14 @@ public class TakeshidoUsedCar extends BaseSubmarketPlugin {
         }
         cargo.removeEmptyStacks();
         WeightedRandomPicker<String> cars = new WeightedRandomPicker<>();
-        cars.add("seven_hobi_custom",10);
-        cars.add("seven_350x_custom",8);
-        cars.add("seven_camirillo_custom",6);
-        cars.add("seven_BR97_custom",4);
-        cars.add("seven_NMW_G3_custom",2);
-        cars.add("seven_vroomicorn_custom",1);
-        cars.add("seven_bonta_custom",0.5f);
-        cars.add("seven_bionda_custom",0.5f);
+        cars.add("takeshido_hobi_custom",10);
+        cars.add("takeshido_350x_custom",8);
+        cars.add("takeshido_camirillo_custom",6);
+        cars.add("takeshido_BR97_custom",4);
+        cars.add("takeshido_NMW_G3_custom",2);
+        cars.add("takeshido_vroomicorn_custom",1);
+        cars.add("takeshido_bonta_custom",0.5f);
+        cars.add("takeshido_bionda_custom",0.5f);
 
         for (int i = 0; i < MathUtils.getRandomNumberInRange(4,10); i++) {
             FleetMemberAPI member = Global.getFactory().createFleetMember(FleetMemberType.SHIP, cars.pick()+"_Hull");

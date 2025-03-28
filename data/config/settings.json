@@ -3,7 +3,7 @@
 		"Takeshido": [103,213,65,255],
     },
 	"plugins":{
-		"seven_PluginStarter":"data.scripts.everyframe.takeshido_PluginStarter",
+		"takeshido_PluginStarter":"data.scripts.everyframe.takeshido_PluginStarter",
 	},
 
 	"ruleCommandPackages":[
@@ -12,11 +12,11 @@
 
     "graphics":{
 		"misc":{
-			"seven_ananke": "graphics/portraits/ananke.png",
+			"takeshido_ananke": "graphics/portraits/ananke.png",
 		},
 
         "blueprint_packages":{
-			"seven_takeshido_package":"graphics/icons/cargo/seven_takeshido_package.png",
+			"takeshido_package":"graphics/icons/cargo/seven_takeshido_package.png",
 	},
 
 }

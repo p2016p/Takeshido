@@ -1,17 +1,16 @@
 {
-    # Based in the Kyeltziv faction, credits for Amazigh	
-	"id":"bushido",
+	"id":"takeshido",
 
 	"color":[103,213,65,255],
 	"secondaryUIColor":[11,13,14,255],
 	"secondarySegments":4,
 
 	"displayName":"Takeshido",
-	"displayNameWithArticle":"The Takeshido",
+	"displayNameWithArticle":"Takeshido",
 	"displayNameIsOrAre":"are",
 
-	"logo":"graphics/factions/flag_bushido_2.png",
-	"crest":"graphics/factions/crest_bushido_2.png",
+	"logo":"graphics/factions/flag_takeshido.png",
+	"crest":"graphics/factions/crest_takeshido.png",
 
 	"showInIntelTab":false,
 	"shipNamePrefix":"TKS", 
@@ -107,8 +106,6 @@
 			"plasma",
 			"guardian",
 			"tachyonlance",
-			"seven_decoy_wpn",
-       "seven_ir_pulse_wpn",
 	   "autopulse",
 
 		],
@@ -229,15 +226,15 @@
 
 	"ranks":{
 		"ranks":{
-			"spaceAdmiral":{"name":"Teitoku"},
-			"spaceCommander":{"name":"Meishu"},
-			"factionLeader":{"name":"Gurīnsōdo"},
+			"spaceAdmiral":{"name":"k"},
+			"spaceCommander":{"name":"k"},
+			"factionLeader":{"name":"k"},
 		},
 		"posts":{
-			"factionLeader":{"name":"Gurīnsōdo"},
-			"patrolCommander":{"name":"Shirei-kan"},
-			"fleetCommander":{"name":"Meishu"},
-			"baseCommander":{"name":"Purizābā"},
+			"factionLeader":{"name":"k"},
+			"patrolCommander":{"name":"k"},
+			"fleetCommander":{"name":"k"},
+			"baseCommander":{"name":"k"},
 		},
 	},
 	"voices":{

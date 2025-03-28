@@ -1,0 +1,94 @@
+{
+  "hullName": "NMW G3 custom",
+  "hullId": "takeshido_NMW_G3_custom",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/NMW_G3_custom.PNG",
+  "style": "BUSHIDO",
+  "height": 50,
+  "width": 25,
+  "center": [12.5, 25],
+  "collisionRadius": 27,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 30.5,
+  "viewOffset": 0,
+  "builtInMods": [
+            takeshido_strikecraftadder,
+          ],
+  "builtInWeapons": {
+    "WS0001": "phasebeam",
+    "WS0002": "phasebeam"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [19, -9.5]
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [19, 9.5]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 135,
+      "angle": -75,
+      "locations": [3, -7]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 135,
+      "angle": -75,
+      "locations": [-4, -7]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 135,
+      "angle": 75,
+      "locations": [-4, 7]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-22.5, -5.5],
+      "length": 19,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-22.5, 5.5],
+      "length": 19,
+      "width": 8,
+      "angle": -180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    }
+  ],
+  "bounds": [
+    23.5, -10.5,
+    -24.5, -12,
+    -24.5, 12,
+    23.5, 10.5
+  ]
+}

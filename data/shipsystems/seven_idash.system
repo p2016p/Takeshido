@@ -1,8 +1,0 @@
-{
-	"id":"seven_idash",
-	"type":"STAT_MOD",
-	"aiType":"CUSTOM",
-    "aiScript":"data.shipsystems.AI.seven_SystemAI_idash",
-	
-	"statsScript":"data.shipsystems.scripts.seven_shipSystem_idash",
-}
