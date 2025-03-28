@@ -3,7 +3,7 @@
   "hullId": "takeshido_bonta_custom",
   "hullSize": "FRIGATE",
   "spriteName": "graphics/ships/mivelli_bonta_custom.png",
-  "style": "BUSHIDO",
+  "style": "TAKESHIDO",
   "height": 40,
   "width": 24,
   "center": [12, 20],

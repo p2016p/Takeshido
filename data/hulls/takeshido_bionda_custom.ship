@@ -3,7 +3,7 @@
   "hullId": "takeshido_bionda_custom",
   "hullSize": "FRIGATE",
   "spriteName": "graphics/ships/fiera_bionda_custom.png",
-  "style": "BUSHIDO",
+  "style": "TAKESHIDO",
   "height": 40,
   "width": 21,
   "center": [10.5, 20],

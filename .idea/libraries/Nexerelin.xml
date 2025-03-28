@@ -1,13 +1,9 @@
 <component name="libraryTable">
   <library name="Nexerelin">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../Nexerelin_0.11.3c" />
-      <root url="jar://$PROJECT_DIR$/../Nexerelin_0.11.3c/Nexerelin/jars/ExerelinCore.jar!/" />
+      <root url="file://$PROJECT_DIR$/../Nexerelin" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../Nexerelin_0.11.3c/Nexerelin/jars/ExerelinCore.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../Nexerelin_0.11.3c/Nexerelin/jars/ExerelinCore.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

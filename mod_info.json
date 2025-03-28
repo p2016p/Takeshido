@@ -4,7 +4,7 @@
  "author": "Dalton and co",
  "version": "1.0.0",
  "description": "",
- "gameVersion": "0.96a-RC7",
+ "gameVersion": "0.98",
 
  "modPlugin":"data.scripts.takeshido_ModPlugin",
  "jars":["jars/Takeshido.jar"],

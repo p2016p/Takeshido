@@ -3,7 +3,7 @@
   "hullId": "takeshido_NMW_G3_fighter",
   "hullSize": "FIGHTER",
   "spriteName": "graphics/ships/NMW_G3_custom.PNG",
-  "style": "BUSHIDO",
+  "style": "TAKESHIDO",
   "height": 50,
   "width": 27,
   "center": [12.5, 25],
@@ -33,7 +33,7 @@
       "angle": 180,
       "contrailSize": 8,
       "style": "CUSTOM",
-      "styleId": "BUSHIDO"
+      "styleId": "TAKESHIDO"
     },
     {
       "location": [-22.5, 5.5],
@@ -42,7 +42,7 @@
       "angle": -180,
       "contrailSize": 8,
       "style": "CUSTOM",
-      "styleId": "BUSHIDO"
+      "styleId": "TAKESHIDO"
     }
   ],
   "bounds": [

@@ -16,7 +16,7 @@
 		},
 
         "blueprint_packages":{
-			"takeshido_package":"graphics/icons/cargo/seven_takeshido_package.png",
+			"takeshido_package":"graphics/icons/cargo/takeshido_package.png",
 	},
 
 }

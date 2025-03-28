@@ -3,7 +3,7 @@
   "hullId": "takeshido_vroomicorn_custom",
   "hullSize": "FRIGATE",
   "spriteName": "graphics/ships/vroomicorn_custom.PNG",
-  "style": "BUSHIDO",
+  "style": "TAKESHIDO",
   "height": 40,
   "width": 26,
   "center": [13, 20],
@@ -55,7 +55,7 @@
       "angle": 180,
       "contrailSize": 30,
       "style": "CUSTOM",
-      "styleId": "BUSHIDO"
+      "styleId": "TAKESHIDO"
     },
     {
       "location": [-17.5, -7.5],
@@ -64,7 +64,7 @@
       "angle": 180,
       "contrailSize": 30,
       "style": "CUSTOM",
-      "styleId": "BUSHIDO"
+      "styleId": "TAKESHIDO"
     }
   ],
   "bounds": [

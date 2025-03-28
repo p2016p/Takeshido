@@ -3,7 +3,7 @@
   "hullId": "takeshido_camirillo_fighter",
   "hullSize": "FIGHTER",
   "spriteName": "graphics/ships/evade_camirillo_gt_custom.png",
-  "style": "BUSHIDO",
+  "style": "TAKESHIDO",
   "height": 40,
   "width": 32,
   "center": [16, 20],

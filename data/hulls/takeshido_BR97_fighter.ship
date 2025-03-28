@@ -3,7 +3,7 @@
   "hullId": "takeshido_BR97_fighter",
   "hullSize": "FIGHTER",
   "spriteName": "graphics/ships/shifuka_BR97_custom.png",
-  "style": "BUSHIDO",
+  "style": "TAKESHIDO",
   "height": 39,
   "width": 18,
   "center": [9, 19.5],

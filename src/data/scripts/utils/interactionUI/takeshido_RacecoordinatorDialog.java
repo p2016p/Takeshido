@@ -61,7 +61,6 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
             textPanel.addParagraph(text, Global.getSettings().getColor("buttonText"));
         }
 
-        Color sc = Global.getSector().getFaction("sevencorp").getBaseUIColor();
 
         MemoryAPI memory = Global.getSector().getMemoryWithoutUpdate();
 
@@ -97,7 +96,7 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
                         }
 
                         memory.set("$racerarray", racerarrayinit);
-                        memory.set("$seven_pilotupdatedate", Global.getSector().getClock().getDay());
+                        memory.set("$takeshido_pilotupdatedate", Global.getSector().getClock().getDay());
                     }
                     options.addOption("\"What races?\"", OptionId.askaboutraces, null);
                     options.addOption("\"Who's racing?\"", OptionId.askaboutracers, null);
@@ -163,14 +162,14 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
                 if(car.getVariant().hasDMods()) upkeep = "poorly maintained";
 
                 String carstyle = "good car";
-                if(car.getHullSpec().getHullId().equals("seven_hobi_custom")) carstyle = "a jack of all trades, possessing decent speed, acceleration, and cornering ability, but not really excelling in any one area";
-                else if(car.getHullSpec().getHullId().equals("seven_350x_Custom")) carstyle = "an older model with decent offroading capabilities, but not much else going for it";
-                else if(car.getHullSpec().getHullId().equals("seven_camirillo_Custom")) carstyle = "a bulky ponderous vehicle without much going for it besides a good quarter mile and an overengineered frame";
-                else if(car.getHullSpec().getHullId().equals("seven_BR97_Custom")) carstyle = "a car with a unique drivetrain that allows it to excel in extremely technical city roads";
-                else if(car.getHullSpec().getHullId().equals("seven_NMW_G3_Custom")) carstyle = "a powerful car with great handling and speed without any obvious flaws";
-                else if(car.getHullSpec().getHullId().equals("seven_vroomicorn_Custom")) carstyle = "a car with ridiculous low range acceleration and decent handling, but relatively poor top speed";
-                else if(car.getHullSpec().getHullId().equals("seven_bonta_Custom")) carstyle = "a stellar car with phenomenal performance across the board";
-                else if(car.getHullSpec().getHullId().equals("seven_350x_Custom")) carstyle = "a phenomenal car with stellar performance across the board";
+                if(car.getHullSpec().getHullId().equals("takeshido_hobi_custom")) carstyle = "a jack of all trades, possessing decent speed, acceleration, and cornering ability, but not really excelling in any one area";
+                else if(car.getHullSpec().getHullId().equals("takeshido_350x_Custom")) carstyle = "an older model with decent offroading capabilities, but not much else going for it";
+                else if(car.getHullSpec().getHullId().equals("takeshido_camirillo_Custom")) carstyle = "a bulky ponderous vehicle without much going for it besides a good quarter mile and an overengineered frame";
+                else if(car.getHullSpec().getHullId().equals("takeshido_BR97_Custom")) carstyle = "a car with a unique drivetrain that allows it to excel in extremely technical city roads";
+                else if(car.getHullSpec().getHullId().equals("takeshido_NMW_G3_Custom")) carstyle = "a powerful car with great handling and speed without any obvious flaws";
+                else if(car.getHullSpec().getHullId().equals("takeshido_vroomicorn_Custom")) carstyle = "a car with ridiculous low range acceleration and decent handling, but relatively poor top speed";
+                else if(car.getHullSpec().getHullId().equals("takeshido_bonta_Custom")) carstyle = "a stellar car with phenomenal performance across the board";
+                else if(car.getHullSpec().getHullId().equals("takeshido_350x_Custom")) carstyle = "a phenomenal car with stellar performance across the board";
 
                 float victoryodds = pilot.getStats().getLevel()/8f;
 
@@ -210,7 +209,7 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
                 else if(option.equals(OptionId.betracer5)) bo = 5;
                 else if(option.equals(OptionId.betracer6)) bo = 6;
 
-                memory.set("$seven_racerbeton",bo);
+                memory.set("takeshido_racerbeton",bo);
 
                 textPanel.addParagraph("\"got it, and how much do you wanna put down?\"");
 
@@ -239,7 +238,7 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
                 else if(option.equals(OptionId.money4)) ba = 100000f;
                 else if(option.equals(OptionId.money5)) ba = 500000f;
                 playerFleet.getCargo().getCredits().subtract(ba);
-                memory.set("$seven_racerbetamount",ba);
+                memory.set("$takeshido_racerbetamount",ba);
 
                 textPanel.addParagraph("\"Alrighty, your bet is locked in. You can come down to the surface to watch in person or you can tune in from your ship, race starts at noon.\"");
 
@@ -253,9 +252,9 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
                 PersonAPI winner = (PersonAPI)racerarray[MathUtils.getRandomNumberInRange(0,5)][0];
                 textPanel.addParagraph("You pull up the race on your holo projector. Six racing machines of undoubtedly high caliber line up at the starting line and rocket off a few moments later, spraying asphalt and hot air at the haphazardly arranged crowd behind them. \n The race is fast and dangerous with many sharp turns that your brain can barely keep up with just as a spectator. \n Within minutes the racers rocket over the finish line and a winner is chosen.");
                 textPanel.addParagraph(winner.getName().getFullName()+" walks up to the podium to collect their trophy and winnings, chugging champagne and flipping wads of credits at the provocatively dressed women that stand trackside.");
-                if(winner.equals(memory.get("$seven_racerbeton"))){
-                    playerFleet.getCargo().getCredits().add(Math.max((Float) memory.get("$seven_racerbetamount")*1.2f,5000f));
-                    textPanel.addParagraph("Your bet winnings totalling "+Math.max((Float) memory.get("$seven_racerbetamount")*1.2f,5000f)+" are wired to your account shortly afterwards");
+                if(winner.equals(memory.get("$takeshido_racerbeton"))){
+                    playerFleet.getCargo().getCredits().add(Math.max((Float) memory.get("$takeshido_racerbetamount")*1.2f,5000f));
+                    textPanel.addParagraph("Your bet winnings totalling "+Math.max((Float) memory.get("$takeshido_racerbetamount")*1.2f,5000f)+" are wired to your account shortly afterwards");
                 }else{
                     textPanel.addParagraph("Unfortunately this bet didn't quite pan out for you, better luck next time");
                 }
@@ -267,12 +266,12 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
                 break;
 
             case CONT:
-                if(Global.getSector().getPersistentData().get("seven_originaldialog")!=null) {
-                    InteractionDialogPlugin original = (InteractionDialogPlugin) Global.getSector().getPersistentData().get("seven_originaldialog");
+                if(Global.getSector().getPersistentData().get("takeshido_originaldialog")!=null) {
+                    InteractionDialogPlugin original = (InteractionDialogPlugin) Global.getSector().getPersistentData().get("takeshido_originaldialog");
                     dialog.setPlugin(original);
                     options.clearOptions();
                     FireAll.fire(null, dialog, original.getMemoryMap(), "PopulateOptions");
-                    Global.getSector().getPersistentData().remove("seven_originaldialog");
+                    Global.getSector().getPersistentData().remove("takeshido_originaldialog");
                 }else{
                     dialog.dismiss();
                 }

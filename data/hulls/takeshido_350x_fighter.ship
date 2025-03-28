@@ -3,7 +3,7 @@
   "hullId": "takeshido_350x_fighter",
   "hullSize": "FIGHTER",
   "spriteName": "graphics/ships/dismoon_350x_custom.png",
-  "style": "BUSHIDO",
+  "style": "TAKESHIDO",
   "height": 30,
   "width": 41,
   "center": [20.5, 15],
