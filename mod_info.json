@@ -1,0 +1,21 @@
+{
+ "id": "takeshido_nexus",
+ "name": "Takeshido",
+ "author": "Dalton and co",
+ "version": "1.0.0",
+ "description": "",
+ "gameVersion": "0.96a-RC7",
+
+ "modPlugin":"data.scripts.takeshido_ModPlugin",
+ "jars":["jars/Takeshido.jar"],
+
+ "totalConversion": "false",
+ "utility": "false",
+ "dependencies": [
+  {"id": "lw_lazylib", "name": "LazyLib"},
+  {"id": "MagicLib", "name": "MagicLib"}
+ ],
+ "ruleCommandPackages":[
+  "data.scripts.rulecmds",
+ ],
+}

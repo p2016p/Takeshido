@@ -1,0 +1,99 @@
+{
+  "hullName": "Hound (BHD)",
+  "hullId": "seven_hound_bushido",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/seven_hound_bushido.png",
+  "style": "BUSHIDO",
+  "height": 64,
+  "width": 63,
+  "center": [31, 33.5],
+  "collisionRadius": 45,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 45,
+  "viewOffset": 0,
+  "builtInMods": [
+    "seven_takeshido_overhaul_combat"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 15,
+      "angle": 0,
+      "locations": [23.5, -6]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 15,
+      "angle": 0,
+      "locations": [24, 9]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 240,
+      "angle": 90,
+      "locations": [-10.5, 4.5]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 240,
+      "angle": -90,
+      "locations": [-5.5, -23]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-29.5, -22],
+      "length": 44,
+      "width": 17,
+      "angle": 180,
+      "contrailSize": 17,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-29.5, 23.5],
+      "length": 44,
+      "width": 17,
+      "angle": -180,
+      "contrailSize": 17,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-32, -7],
+      "length": 22,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-32, 9],
+      "length": 22,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    }
+  ],
+  "bounds": [
+    -31, 27.5,
+    -31, -27.5,
+    20, -23,
+    20, 23
+  ]
+}

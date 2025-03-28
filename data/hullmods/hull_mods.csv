@@ -1,0 +1,3 @@
+name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hiddenEverywhere,cost_frigate,cost_dest,cost_cruiser,cost_capital,script,desc,short,sprite
+,,,,,,,,,,,,,,,,,,
+Takeshido Converted Car,takeshido_converted_car,,,Takeshido,,,,,TRUE,,99,99,99,99,data.hullmods.takeshido_converted_car,"The speed-obsessed pirates of the Takeshido clan have rebuilt this ship to favor speed and firepower above all else. Significantly increased top speeds, acceleration, and ammo regeneration come at the cost of increased deployment costs and reduced weapon/engine durability. A unique ""drifting"" mechanic affects the handling of these craft, making them more challenging to pilot.",,graphics/hullmods/takeshido_converted_car.png

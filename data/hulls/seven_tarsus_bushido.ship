@@ -1,0 +1,128 @@
+{
+  "hullName": "Tarsus (BHD)",
+  "hullId": "seven_tarsus_bushido",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/seven_tarsus_bushido.png",
+  "style": "BUSHIDO",
+  "height": 197,
+  "width": 124,
+  "center": [60, 98.5],
+  "collisionRadius": 105,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 106.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "civgrade"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 180,
+      "angle": 0,
+      "locations": [75, -27]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 180,
+      "angle": -0,
+      "locations": [75, 27]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 240,
+      "angle": -90,
+      "locations": [-62.5, -10.5]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 240,
+      "angle": 90,
+      "locations": [-62.5, 8.5]
+    },
+    {
+      "id": "LB 1",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [
+        13.5, -0,
+        15, -0
+      ]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-95.5, -20],
+      "length": 41,
+      "width": 17,
+      "angle": 180,
+      "contrailSize": 17,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-95.5, 17],
+      "length": 41,
+      "width": 17,
+      "angle": -180,
+      "contrailSize": 17,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-79.5, -47],
+      "length": 53.5,
+      "width": 20,
+      "angle": 180,
+      "contrailSize": 128,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-79.5, 45],
+      "length": 53.5,
+      "width": 20,
+      "angle": -180,
+      "contrailSize": 128,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-88.5, -1],
+      "length": 33,
+      "width": 12,
+      "angle": 180,
+      "contrailSize": 128,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    }
+  ],
+  "bounds": [
+    -80, 51,
+    -93, 29.5,
+    -93, -33.5,
+    -80, -55,
+    -37.5, -63,
+    -4.5, -43,
+    75, -41.5,
+    93, -15,
+    93, 11,
+    75, 37.5,
+    -4.5, 39,
+    -37.5, 59
+  ]
+}

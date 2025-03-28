@@ -1,0 +1,71 @@
+{
+  "hullName": "Dismoon 350x Fighter",
+  "hullId": "seven_350x_fighter",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/dismoon_350x_custom.png",
+  "style": "BUSHIDO",
+  "height": 30,
+  "width": 41,
+  "center": [20.5, 15],
+  "collisionRadius": 18,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 19.5,
+  "viewOffset": 0,
+  "builtInWeapons": {
+    "WS0001": "fragbomb",
+    "WS0002": "fragbomb"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-0.5, -9]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-0.5, 9]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 135,
+      "angle": -75,
+      "locations": [-3, -4]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-9, -9],
+      "length": 9.043262,
+      "width": 3.142864,
+      "angle": -163.5,
+      "contrailSize": 3.142864,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-9, 9],
+      "length": 9.043262,
+      "width": 3.142864,
+      "angle": 163.5,
+      "contrailSize": 3.142864,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    14.5, -6.5,
+    -13.5, -9,
+    -13.5, 9,
+    14.5, 6.5
+  ]
+}
