@@ -1,0 +1,286 @@
+{
+    # Based in the Kyeltziv faction, credits for Amazigh	
+	"id":"bushido",
+
+	"color":[103,213,65,255],
+	"secondaryUIColor":[11,13,14,255],
+	"secondarySegments":4,
+
+	"displayName":"Takeshido",
+	"displayNameWithArticle":"The Takeshido",
+	"displayNameIsOrAre":"are",
+
+	"logo":"graphics/factions/flag_bushido_2.png",
+	"crest":"graphics/factions/crest_bushido_2.png",
+
+	"showInIntelTab":false,
+	"shipNamePrefix":"TKS", 
+	"shipNameSources":{
+	},
+	"names":{
+		"modern":5,
+		"fringe":1,
+		"future":1,
+		"japanese":5,
+		# "myth":1,
+	},
+	# variantOverrides restricts hulls to listed variants and adjusts their probability
+	"variantOverrides":{
+	},
+	
+	# multiplier for how often hulls show up in the faction's fleets
+	"hullFrequency":{
+		"tags":{
+
+		},
+		"hulls":{
+
+		},
+	},
+	# ships the faction gets access to when importing S&W out-of-faction
+	"shipsWhenImporting":{
+		"tags":[bushido],
+		"hulls":[
+
+		],
+	},
+	"knownShips":{
+		"tags":["bushido"],
+		"hulls":[
+
+
+		],
+	},
+	# listing ships here will make the faction mostly use them even if other hulls become available
+	"priorityShips":{
+		"tags":[bushido],
+		"hulls":[
+
+		],
+	},
+	"knownFighters":{
+		"tags":["base_bp", "lowtech_bp", "midline_bp", "hightech_bp", "bushido"],
+		"fighters":[
+			"xyphos_wing",
+			"thunder_wing",
+			"claw_wing",
+			"hoplon_wing",
+			"trident_wing",
+			"longbow_wing",
+		],
+	},
+	"priorityFighters":{
+
+		"fighters":[
+		],
+	},
+	"knownWeapons":{
+		"tags":[bushido, missile_bp],
+		"weapons":[
+		    "lightneedler",
+			"railgun",
+			"dualflak",
+			"heavymauler",
+			"hveldriver",
+			"lightag",
+			"devastator",
+			"mark9",
+			"heavyneedler",
+			"gauss",
+			"mjolnir",
+			"ioncannon",
+			"multineedler",
+			"breachpod",
+			"sabotpod",
+			"phasecl",
+			"cyclone",
+			"hurricane",
+			"squall",
+			"locust",
+			"pdburst",
+			"amblaster",
+			"phasebeam",
+			"heavyblaster",
+			"heavyburst",
+			"ionpulser",
+			"ionbeam",
+			"plasma",
+			"guardian",
+			"tachyonlance",
+			"seven_decoy_wpn",
+       "seven_ir_pulse_wpn",
+	   "autopulse",
+
+		],
+	},
+	"priorityWeapons":{
+		"tags":[bushido],
+		"weapons":[
+		
+		
+
+		],
+	},
+	knownHullMods:{
+		tags:[base_bp, bushido],
+		hullMods:[
+			eccm,
+			magazines,
+			missleracks,
+			extendedshieldemitter,
+			hardenedshieldemitter,
+			pointdefenseai,
+			targetingunit,
+		],
+	},
+	
+	priorityHullMods:{
+	tags:[bushido],
+	HullMods:[
+	    ],
+    },
+	
+	"factionDoctrine":{
+		"warships":3,
+		"carriers":4,
+		"phaseShips":1, 
+		
+		"officerQuality":5,
+		"shipQuality":5,
+		"numShips":3,
+		
+		"shipSize":2,
+		
+		"aggression":5,
+		
+		"combatFreighterProbability":0.2,     				# instead of some portion of the freighters in a fleet
+		"combatFreighterCombatUseFraction":0.2,  				# as part of the normal combat lineup
+		"combatFreighterCombatUseFractionWhenPriority":0.3,   # as part of normal combat lineup, when marked as priority ship
+		"autofitRandomizeProbability":0.4,
+
+		"commanderSkillsShuffleProbability":1,
+		"commanderSkills":[
+			"coordinated_maneuvers",
+			"electronic_warfare",
+			"fighter_uplink",
+			"carrier_group",
+			"flux_regulation",
+		],
+	},
+	"illegalCommodities":[
+            # This faction is more reckless than Tritachyon
+	],
+	"music":{
+		"theme":"music_pirates_market_neutral",
+		"market_neutral":"music_pirates_market_neutral",
+		"market_hostile":"music_pirates_market_hostile",
+		"market_friendly":"music_default_market_neutral",
+		"encounter_neutral":"music_pirates_encounter_neutral",
+		"encounter_hostile":"music_pirates_encounter_hostile",
+		"encounter_friendly":"music_default_market_neutral",
+	},
+	"internalComms":"bushido_internal",
+
+
+	"portraits":{
+		"standard_male":[
+			"graphics/portraits/portrait_pirate02.png",
+			"graphics/portraits/portrait_pirate03.png",
+			"graphics/portraits/portrait_mercenary01.png",
+			"graphics/portraits/portrait_mercenary03.png",
+			"graphics/portraits/portrait_mercenary04.png",
+			"graphics/portraits/portrait_mercenary06.png",	
+			"graphics/portraits/portrait12.png",
+			"graphics/portraits/portrait15.png",
+			"graphics/portraits/portrait17.png",
+			"graphics/portraits/portrait18.png",
+			"graphics/portraits/portrait20.png",
+			"graphics/portraits/portrait40.png",
+			"graphics/portraits/portrait13.png",
+			"graphics/portraits/portrait25.png",
+			"graphics/portraits/portrait26.png",
+			"graphics/portraits/portrait30.png",
+			"graphics/portraits/portrait31.png",
+			"graphics/portraits/portrait33.png",
+			"graphics/portraits/portrait35.png",
+			"graphics/portraits/portrait36.png",
+			"graphics/portraits/portrait40.png",
+		],
+		"standard_female":[
+			"graphics/portraits/portrait_pirate01.png",
+			"graphics/portraits/portrait_pirate04.png",
+			"graphics/portraits/portrait_pirate05.png",
+			"graphics/portraits/portrait_mercenary02.png",
+			"graphics/portraits/portrait_mercenary05.png",
+			"graphics/portraits/portrait_mercenary07.png",
+			"graphics/portraits/portrait_mercenary08.png",
+			"graphics/portraits/portrait14.png",
+			"graphics/portraits/portrait16.png",
+			"graphics/portraits/portrait21.png",
+			"graphics/portraits/portrait22.png",
+			"graphics/portraits/portrait24.png",
+			"graphics/portraits/portrait29.png",
+			"graphics/portraits/portrait32.png",
+			"graphics/portraits/portrait37.png",
+			"graphics/portraits/portrait39.png",
+			"graphics/portraits/portrait42.png",
+		],
+	},
+
+	"ranks":{
+		"ranks":{
+			"spaceAdmiral":{"name":"Teitoku"},
+			"spaceCommander":{"name":"Meishu"},
+			"factionLeader":{"name":"Gurīnsōdo"},
+		},
+		"posts":{
+			"factionLeader":{"name":"Gurīnsōdo"},
+			"patrolCommander":{"name":"Shirei-kan"},
+			"fleetCommander":{"name":"Meishu"},
+			"baseCommander":{"name":"Purizābā"},
+		},
+	},
+	"voices":{
+		"LOW":{
+			"soldier":10,
+		},
+		"MEDIUM":{
+			"business":10,
+		},
+		"HIGH":{
+			"business":7,
+			"scientist":7,
+		},
+	},
+	"custom":{
+	    "decentralized":true,
+		"offersCommissions":false,
+		"engagesInHostilities":false,
+		"buysAICores":true,
+		"AICoreValueMult":3,
+		"AICoreRepMult":1,
+		"buysSurveyData":true,
+		"hostilityImpactOnGrowth":false,
+		"punitiveExpeditionData":{
+			"vsCompetitors":true,
+			"vsFreePort":false,
+			"canBombard":true,
+			"territorial":true,
+		},
+	},	
+	"fleetTypeNames":{
+		"trade":"Freighter Runners",
+		"tradeLiner":"Trade Runners",
+		"tradeSmuggler":"Ghost Runners",
+		"smallTrader":"Runners",
+
+		"patrolSmall":"Norite Patrol",
+		"patrolMedium":"Riki Patrol",
+		"patrolLarge":"Bunri Force",
+
+		"inspectionFleet":"Kaji Outcome",
+		"taskForce":"Midori Ken",
+
+		"foodReliefFleet":"Fukyuu Fleet",
+	}
+},

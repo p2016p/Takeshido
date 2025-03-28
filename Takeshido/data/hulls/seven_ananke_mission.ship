@@ -1,0 +1,226 @@
+{
+  "hullName": "Ananke's Gift",
+  "hullId": "seven_ananke_mission",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/seven_kataigida_phase_4.png",
+  "style": "SEVEN_TECH",
+  "height": 169,
+  "width": 200,
+  "center": [100, 81],
+  "collisionRadius": 146.5,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 140.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "seven_FluxOverwhelmingCompensation",
+    "seven_AIcoremod_ananke",
+    "hardened_subsystems",
+    "hardenedshieldemitter"
+  ],
+  "builtInWeapons": {
+    "WS0001": "harpoonpod",
+    "WS0002": "harpoonpod",
+    "WS0003": "seven_ir_pulsearray_wpn",
+    "WS0004": "seven_ir_pulsearray_wpn",
+    "WS0005": "seven_scala_autocannon",
+    "WS0006": "seven_scala_autocannon",
+    "WS0007": "graphicsweapon",
+    "WS0008": "seven_scala_autocannon",
+    "WS0009": "seven_scala_autocannon",
+    "WS0010": "seven_brachinos",
+    "WS0011": "seven_brachinos",
+    "WS0012": "seven_cryptodeimos"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "HARDPOINT",
+      "arc": 15,
+      "angle": -0,
+      "locations": [67, -29]
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "HARDPOINT",
+      "arc": 15,
+      "angle": 0,
+      "locations": [67, 29]
+    },
+    {
+      "id": "WS0003",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 240,
+      "angle": 0,
+      "locations": [11, -18]
+    },
+    {
+      "id": "WS0004",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 240,
+      "angle": -0,
+      "locations": [11, 18]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 270,
+      "angle": -45,
+      "locations": [50, -15]
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 270,
+      "angle": 45,
+      "locations": [50, 15]
+    },
+    {
+      "id": "WS0007",
+      "size": "LARGE",
+      "type": "DECORATIVE",
+      "mount": "HIDDEN",
+      "arc": 240,
+      "angle": 0,
+      "locations": [0, -0]
+    },
+    {
+      "id": "WS0008",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 270,
+      "angle": -90,
+      "locations": [-18, -18]
+    },
+    {
+      "id": "WS0009",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 270,
+      "angle": 90,
+      "locations": [-18, 18]
+    },
+    {
+      "id": "WS0010",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 170,
+      "angle": -90,
+      "locations": [-24, -60.5]
+    },
+    {
+      "id": "WS0011",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 170,
+      "angle": 90,
+      "locations": [-24, 60.5]
+    },
+    {
+      "id": "WS0012",
+      "size": "LARGE",
+      "type": "BUILT_IN",
+      "mount": "HARDPOINT",
+      "arc": 30,
+      "angle": 0,
+      "locations": [70.5, -0],
+      "renderOrderMod": 1
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-67.5, -45.5],
+      "length": 31,
+      "width": 9,
+      "angle": -180,
+      "contrailSize": 9,
+      "style": "CUSTOM",
+      "styleId": "SEVEN_TECH"
+    },
+    {
+      "location": [-67.5, 45.5],
+      "length": 31,
+      "width": 9,
+      "angle": 180,
+      "contrailSize": 9,
+      "style": "CUSTOM",
+      "styleId": "SEVEN_TECH"
+    },
+    {
+      "location": [-69.5, -37.5],
+      "length": 31,
+      "width": 9,
+      "angle": -180,
+      "contrailSize": 9,
+      "style": "CUSTOM",
+      "styleId": "SEVEN_TECH"
+    },
+    {
+      "location": [-69.5, 37.5],
+      "length": 31,
+      "width": 9,
+      "angle": 180,
+      "contrailSize": 9,
+      "style": "CUSTOM",
+      "styleId": "SEVEN_TECH"
+    },
+    {
+      "location": [-68.5, -28.5],
+      "length": 31,
+      "width": 9,
+      "angle": -180,
+      "contrailSize": 9,
+      "style": "CUSTOM",
+      "styleId": "SEVEN_TECH"
+    },
+    {
+      "location": [-68.5, 28.5],
+      "length": 31,
+      "width": 9,
+      "angle": 180,
+      "contrailSize": 9,
+      "style": "CUSTOM",
+      "styleId": "SEVEN_TECH"
+    },
+    {
+      "location": [-73.5, -0],
+      "length": 51.5,
+      "width": 26,
+      "angle": -180,
+      "contrailSize": 26,
+      "style": "CUSTOM",
+      "styleId": "SEVEN_TECH"
+    }
+  ],
+  "bounds": [
+    82.5, 2.5,
+    66.5, 14.5,
+    60.5, 41,
+    39.5, 49.5,
+    20.5, 70,
+    -8.5, 81.5,
+    -68, 49,
+    -68, -49,
+    -8.5, -81.5,
+    20.5, -70,
+    39.5, -49.5,
+    60.5, -41,
+    66.5, -14.5,
+    82.5, -2.5
+  ]
+}

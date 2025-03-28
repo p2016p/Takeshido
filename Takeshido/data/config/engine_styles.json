@@ -1,0 +1,16 @@
+{
+	
+	"Takeshido":{
+		"engineColor":[69,255,90,255],
+		"contrailParticleSizeMult":4,
+		"contrailParticleDuration":2,
+		"contrailParticleFinalSizeMult":2.5,
+		"contrailMaxSpeedMult":0.5,
+		"contrailAngularVelocityMult":0,
+		"contrailColor":[23,69,26,50],
+		"contrailCampaignColor":[69,255,90,100],
+		"type":"GLOW" # GLOW or SMOKE
+	},
+
+}
+

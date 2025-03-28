@@ -1,0 +1,139 @@
+{
+  "hullName": "Phaeton (BHD)",
+  "hullId": "seven_phaeton_bushido",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/seven_phaeton_bushido.png",
+  "style": "BUSHIDO",
+  "height": 233,
+  "width": 133,
+  "center": [66.5, 116.5],
+  "collisionRadius": 126.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 133,
+  "viewOffset": 0,
+  "builtInMods": [
+    "civgrade"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 210,
+      "angle": 0,
+      "locations": [101, 12.5]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 210,
+      "angle": -90,
+      "locations": [14.5, -36.5]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 210,
+      "angle": 90,
+      "locations": [14.5, 36.5]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 210,
+      "angle": 180,
+      "locations": [-98.5, -0.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-114.5, -36.5],
+      "length": 30,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-114.5, 36.5],
+      "length": 30,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-114.5, -24.5],
+      "length": 30,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-114.5, 24.5],
+      "length": 30,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-114.5, -9.5],
+      "length": 30,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-114.5, 9.5],
+      "length": 30,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-24.5, -49],
+      "length": 85,
+      "width": 14,
+      "angle": 180,
+      "contrailSize": 128,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    },
+    {
+      "location": [-24.5, 49],
+      "length": 85,
+      "width": 14,
+      "angle": -180,
+      "contrailSize": 128,
+      "style": "CUSTOM",
+      "styleId": "BUSHIDO"
+    }
+  ],
+  "bounds": [
+    -19.5, 57,
+    -114, 41,
+    -114, -41,
+    -19.5, -57,
+    44, -56.5,
+    98.5, -35,
+    98.5, 35,
+    44, 56.5
+  ]
+}

@@ -1,0 +1,8 @@
+{
+	"id":"seven_orgi",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+    "aiScript":"data.shipsystems.AI.seven_SystemAI_spam",
+
+	statsScript:"data.shipsystems.scripts.seven_shipSystem_orgi",
+}
