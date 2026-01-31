@@ -1,23 +1,26 @@
 {
-    "designTypeColors":{
-		"Takeshido": [103,213,65,255],
+  "designTypeColors": {
+    "Takeshido": [
+      103,
+      213,
+      65,
+      255
+    ]
+  },
+  "plugins": {
+    "takeshido_PluginStarter": "data.scripts.everyframe.takeshido_PluginStarter"
+  },
+  "ruleCommandPackages": [
+    "data.scripts.campaign.rulecmd"
+  ],
+  "graphics": {
+    "misc": {
+      "takeshido_ananke": "graphics/portraits/ananke.png",
+      "whitepixel": "graphics/misc/smolwhitepixel.png"
     },
-	"plugins":{
-		"takeshido_PluginStarter":"data.scripts.everyframe.takeshido_PluginStarter",
-	},
+    "blueprint_packages": {
+      "takeshido_package": "graphics/icons/cargo/takeshido_package.png"
+    },
 
-	"ruleCommandPackages":[
-		"data.scripts.campaign.rulecmd"
-	],
-
-    "graphics":{
-		"misc":{
-			"takeshido_ananke": "graphics/portraits/ananke.png",
-		},
-
-        "blueprint_packages":{
-			"takeshido_package":"graphics/icons/cargo/takeshido_package.png",
-	},
-
-}
+  }
 }

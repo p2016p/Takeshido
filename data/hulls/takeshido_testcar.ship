@@ -1,0 +1,29 @@
+{
+  "hullName": "tks test",
+  "hullId": "takeshido_testcar",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/testcar.png",
+  "style": "TAKESHIDO",
+  "height": 40,
+  "width": 40,
+  "center": [20, 20],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 0,
+  "viewOffset": 0,
+  "builtInMods": [
+      takeshido_strikecraftadder,
+    ],
+  "weaponSlots": [
+
+  ],
+  "engineSlots": [
+
+  ],
+  "bounds": [
+    26.5, 10.5,
+    -27.5, 13.5,
+    -27.5, -13.5,
+    26.5, -10.5
+  ]
+}
