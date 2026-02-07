@@ -1,4 +1,4 @@
 name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hiddenEverywhere,cost_frigate,cost_dest,cost_cruiser,cost_capital,script,desc,short,sprite
 ,,,,,,,,,,,,,,,,,,
 strikecraftadder,takeshido_strikecraftadder,,,Dev Tool,"no_drop, no_drop_salvage, no_build_in, restricted",DEVTOOL,,,TRUE,TRUE,0,0,0,0,data.hullmods.takeshido_strikecraftadder,DEBUG: You should never see this in game.,,graphics/hullmods/takeshido_default.png
-Takeshido Racing Spec,takeshido_racemod,,,Dev Tool,"no_drop, no_drop_salvage, no_build_in, restricted",DEVTOOL,,,TRUE,TRUE,0,0,0,0,data.hullmods.takeshido_racemod,DEBUG: You should never see this in game.,,graphics/hullmods/takeshido_default.png
+Takeshido Racing Spec,takeshido_racemod,,,Dev Tool,"no_drop, no_drop_salvage, no_build_in, restricted",,,,TRUE,,0,0,0,0,data.hullmods.takeshido_racemod,DEBUG: You should never see this in game.,,graphics/hullmods/takeshido_default.png

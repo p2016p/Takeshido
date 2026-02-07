@@ -10,13 +10,14 @@ import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
+import com.fs.starfarer.api.combat.CollisionClass;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
+import com.fs.starfarer.api.combat.CombatEntityAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 
 import data.scripts.ai.TakeshidoRaceShipAI;
-import org.magiclib.util.MagicRender;
 
 public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
@@ -31,26 +32,26 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     // to figure out what checkpoint we start at
     public int startIndex = 0;
 
-    // Track wall tuning
-    private float wallOffsetExtra = 0f;   // set to e.g. 50f later if you want wider lane than checkpointRadius
-
-    // Visual edge markers (non-physics walls)
-    private float edgeMarkerSpacing = 200f;     // along the segment
-    private float edgeMarkerSize = 90f;         // particle size
-    private float edgeMarkerBrightness = 0.85f; // 0..1
-    private float edgeMarkerDuration = 0.35f;   // seconds
+    // Wall asteroid tuning
+    private float wallAsteroidSpacing = 180f;
+    private int wallAsteroidType = 0;
+    private float wallAsteroidTrackBuffer = 40f;
 
 
     // Starting grid tuning
     private int gridColumns = 4;              // keep 4
-    private float desiredLaneSpacing = 260f;  // what you want, but will be clamped
     private float rowSpacing = 320f;          // constant is fine
     private float gridEdgeMargin = 80f;       // safety gap from the walls
-    private float gridWidthMult = 1.0f;       // adjustable width knob (0.5 = tighter, 1.0 = normal)
     private float aheadOffset = 900f;
 
 
     private static final String OFFTRACK_MOD_ID = "takeshido_offtrack";
+    private static final String START_LOCK_ID = "takeshido_start_lock";
+    private static final float START_PUSH_TIME = 3f;
+    private static final float START_PUSH_SPEED = 30f;
+    private static final float WALL_PUSH_PER_SEC = 260f;
+    private static final float WALL_PUSH_MULT = 1.0f;
+    private static final float WALL_LATERAL_DAMP = 0.7f;
 
     // How harsh the penalty is
     private float offTrackMaxSpeedMult = 0.20f;  // 20% top speed when off track
@@ -65,6 +66,13 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
     // track marker timing
     private float markerTimer = 0f;
+    private boolean countdownActive = false;
+    private float countdownTimer = 0f;
+    private float countdownDelayTimer = 0f;
+    private int lastCountdownSecond = -1;
+    private boolean enginesSuppressed = false;
+    private boolean raceMusicStarted = false;
+    private float raceStartTime = -1f;
 
     public TakeshidoRaceCombatPlugin(String raceHullmodId, int lapsToWin, int expectedRacers, boolean isDeathRace, String trackId) {
         this.raceHullmodId = raceHullmodId;
@@ -101,6 +109,21 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             }
         }
 
+        if (countdownActive) {
+            // draw/refresh track markers
+            markerTimer += amount;
+            if (markerTimer >= 0.25f) {
+                markerTimer = 0f;
+                spawnTrackMarkers();
+            }
+
+            // keep wall asteroids in place
+            maintainWallAsteroids();
+
+            updateCountdown(amount);
+            return;
+        }
+
 
         // draw/refresh track markers
         markerTimer += amount;
@@ -109,12 +132,14 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             spawnTrackMarkers();
         }
 
-        // spawn the edge markers
-        spawnTrackEdgeMarkers();
+        // keep wall asteroids in place
+        maintainWallAsteroids();
 
         updateRaceProgress();
 
         applyOffTrackPenalty();
+        applyStartPush(amount);
+        applySoftWall(amount);
 
         ShipAPI player = engine.getPlayerShip();
         if (player != null) {
@@ -145,26 +170,57 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
         TrackSpec track = data.scripts.combat.TrackLoader.get(trackId);
 
+        this.wallAsteroidSpacing = track.wallAsteroidSpacing;
+        this.wallAsteroidType = track.wallAsteroidType;
+        this.wallAsteroidTrackBuffer = track.wallAsteroidTrackBuffer;
+
+        race.checkpoints = track.checkpoints;
+        race.checkpointRadius = track.checkpointRadius;
+
+        if (track.centerline != null && !track.centerline.isEmpty()) {
+            race.centerline = track.centerline;
+            race.wLeft = track.wLeft;
+            race.wRight = track.wRight;
+            race.useWidths = track.useCsvWidths && track.wLeft.size() == track.centerline.size() && track.wRight.size() == track.centerline.size();
+        } else {
+            // fallback: treat checkpoints as centerline
+            race.centerline = race.checkpoints;
+            race.useWidths = false;
+        }
+        if (track.raceline != null) {
+            race.raceline = new ArrayList<Vector2f>(track.raceline);
+            race.racelineS = new ArrayList<Float>(track.racelineS);
+            race.racelinePsi = new ArrayList<Float>(track.racelinePsi);
+            race.racelineKappa = new ArrayList<Float>(track.racelineKappa);
+            race.racelineVx = new ArrayList<Float>(track.racelineVx);
+        } else {
+            race.raceline = new ArrayList<Vector2f>();
+            race.racelineS = new ArrayList<Float>();
+            race.racelinePsi = new ArrayList<Float>();
+            race.racelineKappa = new ArrayList<Float>();
+            race.racelineVx = new ArrayList<Float>();
+        }
+        race.unitsPerMeter = track.unitsPerMeter;
+
+// If you’re not using CSV widths, keep your existing corridor definition:
+        race.corridorHalfWidth = race.checkpointRadius;
+
+
 // If you want per-mission laps to override JSON, keep lapsToWin as-is.
 // If you want the track to define laps when mission passes 0, do:
 // if (this.lapsToWin <= 0 && track.lapsToWin != null) race.lapsToWin = track.lapsToWin;
 
-        race.checkpoints = track.checkpoints;
-        race.checkpointRadius = track.checkpointRadius;
         race.startIndex = ((track.startIndex % race.checkpoints.size()) + race.checkpoints.size()) % race.checkpoints.size();
 
 
-// Visual corridor width + marker spacing from track
-        this.wallOffsetExtra = track.wallOffsetExtra;
-        this.edgeMarkerSpacing = track.edgeMarkerSpacing;
-
-// Grid tuning from track
+        // Grid tuning from track
         this.gridColumns = track.grid.columns;
-        this.desiredLaneSpacing = track.grid.desiredLaneSpacing;
         this.rowSpacing = track.grid.rowSpacing;
         this.gridEdgeMargin = track.grid.edgeMargin;
-        this.gridWidthMult = track.grid.widthMult;
-        this.aheadOffset = track.grid.aheadOffset; // you’ll add this as a field and use it in placeStartingGrid
+        this.aheadOffset = track.grid.aheadOffset;
+
+        race.gates = buildGates();
+        race.wallAsteroids = buildWallAsteroids();
 
 
 
@@ -186,6 +242,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
             int firstTarget = (race.startIndex + 1) % race.checkpoints.size();
             rs.nextCheckpoint = firstTarget;
+            rs.lastPos = new Vector2f(s.getLocation());
 
             if (s != player) {
                 s.setShipAI(new TakeshidoRaceShipAI(s, race, rs));
@@ -193,65 +250,277 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
 
 
-        engine.getCombatUI().addMessage(1, "Race start! Complete " + lapsToWin + " laps.");
+        startCountdown();
         return true;
     }
 
-    private void spawnTrackEdgeMarkers() {
-        if (race.checkpoints == null || race.checkpoints.size() < 2) return;
+    private List<GateSpec> buildGates() {
+        List<GateSpec> gates = new ArrayList<>();
+        if (race.centerline == null || race.centerline.size() < 2 || race.checkpoints == null) return gates;
 
-        float offset = race.checkpointRadius + wallOffsetExtra;
-        int n = race.checkpoints.size();
+        for (Vector2f cp : race.checkpoints) {
+            ClosestPoint closest = findClosestPointOnCenterline(cp);
+            if (closest == null) continue;
 
-        for (int i = 0; i < n; i++) {
-            Vector2f a = race.checkpoints.get(i);
-            Vector2f b = race.checkpoints.get((i + 1) % n);
+            Vector2f a = race.centerline.get(closest.segIndex);
+            Vector2f b = race.centerline.get((closest.segIndex + 1) % race.centerline.size());
 
-            float dx = b.x - a.x;
-            float dy = b.y - a.y;
-            float len = (float) Math.sqrt(dx * dx + dy * dy);
-            if (len < 1f) continue;
+            Vector2f tangent = unit(b.x - a.x, b.y - a.y);
+            Vector2f normal = new Vector2f(-tangent.y, tangent.x);
 
-            // Unit direction along segment
-            float ux = dx / len;
-            float uy = dy / len;
+            float wl = getWallLeftWidth(closest.segIndex, closest.t);
+            float wr = getWallRightWidth(closest.segIndex, closest.t);
 
-            // Unit perpendicular (left/right)
-            float px = -uy;
-            float py = ux;
+            gates.add(new GateSpec(new Vector2f(closest.point), tangent, normal, wl, wr));
+        }
 
-            // Dots down the segment on both sides
-            for (float t = edgeMarkerSpacing; t < len; t += edgeMarkerSpacing) {
-                float x = a.x + ux * t;
-                float y = a.y + uy * t;
+        return gates;
+    }
 
-                float lx = x + px * offset;
-                float ly = y + py * offset;
+    private List<WallAsteroidSpec> buildWallAsteroids() {
+        List<WallAsteroidSpec> out = new ArrayList<>();
+        if (race.centerline == null || race.centerline.size() < 2) return out;
 
-                float rx = x - px * offset;
-                float ry = y - py * offset;
+        float spacing = Math.max(40f, wallAsteroidSpacing);
+        float inset = 0f;
 
-                // Two edge colors: slightly different alpha so you can “read” the corridor
-                engine.addSmoothParticle(
-                        new Vector2f(lx, ly),
-                        new Vector2f(0f, 0f),
-                        edgeMarkerSize,
-                        edgeMarkerBrightness,
-                        edgeMarkerDuration,
-                        new java.awt.Color(160, 170, 180, 170)
-                );
+        List<Vector2f> leftEdge = buildOffsetPolyline(true, inset);
+        List<Vector2f> rightEdge = buildOffsetPolyline(false, inset);
 
-                engine.addSmoothParticle(
-                        new Vector2f(rx, ry),
-                        new Vector2f(0f, 0f),
-                        edgeMarkerSize,
-                        edgeMarkerBrightness,
-                        edgeMarkerDuration,
-                        new java.awt.Color(160, 170, 180, 170)
-                );
+        float effectiveSpacing = spacing;
+
+        for (Vector2f p : samplePolylineAtSpacing(leftEdge, effectiveSpacing)) {
+            Vector2f pos = pushOutOfTrackAgainstCenterline(p);
+            out.add(spawnWallAsteroid(pos));
+        }
+        for (Vector2f p : samplePolylineAtSpacing(rightEdge, effectiveSpacing)) {
+            Vector2f pos = pushOutOfTrackAgainstCenterline(p);
+            out.add(spawnWallAsteroid(pos));
+        }
+
+        return out;
+    }
+
+    private WallAsteroidSpec spawnWallAsteroid(Vector2f location) {
+        WallAsteroidSpec spec = new WallAsteroidSpec(location, wallAsteroidType);
+        if (engine == null) return spec;
+
+        CombatEntityAPI entity = engine.spawnAsteroid(spec.type, location.x, location.y, 0f, 0f);
+        if (entity != null) {
+            entity.setCollisionClass(CollisionClass.NONE);
+            entity.setHitpoints(1000000f);
+            if (entity.getVelocity() != null) {
+                entity.getVelocity().set(0f, 0f);
+            }
+            entity.setAngularVelocity(0f);
+        }
+        spec.entity = entity;
+        return spec;
+    }
+
+    private void maintainWallAsteroids() {
+        if (race.wallAsteroids == null || race.wallAsteroids.isEmpty() || engine == null) return;
+
+        for (WallAsteroidSpec spec : race.wallAsteroids) {
+            if (spec == null) continue;
+            if (spec.entity == null || !engine.isEntityInPlay(spec.entity)) {
+                spec.entity = engine.spawnAsteroid(spec.type, spec.location.x, spec.location.y, 0f, 0f);
+                if (spec.entity != null) {
+                    spec.entity.setCollisionClass(CollisionClass.NONE);
+                    spec.entity.setHitpoints(1000000f);
+                }
+            }
+            if (spec.entity != null) {
+                spec.entity.getLocation().set(spec.location);
+                if (spec.entity.getVelocity() != null) {
+                    spec.entity.getVelocity().set(0f, 0f);
+                }
+                spec.entity.setAngularVelocity(0f);
+                spec.entity.setHitpoints(1000000f);
             }
         }
     }
+
+    private float getLeftWidth(int segIndex, float tSeg) {
+        if (!race.useWidths || race.wLeft.size() < race.centerline.size()) return race.corridorHalfWidth;
+        int j = (segIndex + 1) % race.centerline.size();
+        float wlA = race.wLeft.get(segIndex);
+        float wlB = race.wLeft.get(j);
+        return (wlA + (wlB - wlA) * tSeg);
+    }
+
+    private float getRightWidth(int segIndex, float tSeg) {
+        if (!race.useWidths || race.wRight.size() < race.centerline.size()) return race.corridorHalfWidth;
+        int j = (segIndex + 1) % race.centerline.size();
+        float wrA = race.wRight.get(segIndex);
+        float wrB = race.wRight.get(j);
+        return (wrA + (wrB - wrA) * tSeg);
+    }
+
+    private float getWallLeftWidth(int segIndex, float tSeg) {
+        return getLeftWidth(segIndex, tSeg) + wallAsteroidTrackBuffer;
+    }
+
+    private float getWallRightWidth(int segIndex, float tSeg) {
+        return getRightWidth(segIndex, tSeg) + wallAsteroidTrackBuffer;
+    }
+
+    private ClosestPoint findClosestPointOnCenterline(Vector2f p) {
+        if (race.centerline == null || race.centerline.size() < 2) return null;
+
+        float best = Float.MAX_VALUE;
+        ClosestPoint bestPoint = null;
+
+        for (int i = 0; i < race.centerline.size(); i++) {
+            Vector2f a = race.centerline.get(i);
+            Vector2f b = race.centerline.get((i + 1) % race.centerline.size());
+            ClosestPoint cp = closestPointOnSegment(p, a, b, i);
+            if (cp != null && cp.distSq < best) {
+                best = cp.distSq;
+                bestPoint = cp;
+            }
+        }
+
+        return bestPoint;
+    }
+
+    private ClosestPoint closestPointOnSegment(Vector2f p, Vector2f a, Vector2f b, int segIndex) {
+        float abx = b.x - a.x;
+        float aby = b.y - a.y;
+        float abLen2 = abx * abx + aby * aby;
+        if (abLen2 <= 0.0001f) return null;
+
+        float apx = p.x - a.x;
+        float apy = p.y - a.y;
+        float t = (apx * abx + apy * aby) / abLen2;
+        if (t < 0f) t = 0f;
+        if (t > 1f) t = 1f;
+
+        Vector2f point = new Vector2f(a.x + abx * t, a.y + aby * t);
+        float dx = p.x - point.x;
+        float dy = p.y - point.y;
+        float distSq = dx * dx + dy * dy;
+
+        return new ClosestPoint(segIndex, t, point, distSq);
+    }
+
+    private Vector2f pushOutOfTrackAgainstCenterline(Vector2f pos) {
+        ClosestPoint cp = findClosestPointOnCenterline(pos);
+        if (cp == null) return pos;
+
+        Vector2f a = race.centerline.get(cp.segIndex);
+        Vector2f b = race.centerline.get((cp.segIndex + 1) % race.centerline.size());
+        Vector2f tangent = unit(b.x - a.x, b.y - a.y);
+        Vector2f normal = new Vector2f(-tangent.y, tangent.x);
+
+        float wl = getLeftWidth(cp.segIndex, cp.t);
+        float wr = getRightWidth(cp.segIndex, cp.t);
+
+        float dx = pos.x - cp.point.x;
+        float dy = pos.y - cp.point.y;
+        float side = dx * normal.x + dy * normal.y;
+
+        float desired = (side >= 0f ? wl : wr) + Math.max(0f, wallAsteroidTrackBuffer);
+        float deficit = desired - Math.abs(side);
+        if (deficit > 0f) {
+            float sign = side >= 0f ? 1f : -1f;
+            pos.x += normal.x * deficit * sign;
+            pos.y += normal.y * deficit * sign;
+        }
+
+        return pos;
+    }
+
+    private List<Vector2f> buildOffsetPolyline(boolean leftSide, float inset) {
+        List<Vector2f> out = new ArrayList<>();
+        int n = race.centerline.size();
+        if (n < 2) return out;
+
+        for (int i = 0; i < n; i++) {
+            Vector2f prev = race.centerline.get((i - 1 + n) % n);
+            Vector2f cur = race.centerline.get(i);
+            Vector2f next = race.centerline.get((i + 1) % n);
+
+            Vector2f t1 = unit(cur.x - prev.x, cur.y - prev.y);
+            Vector2f t2 = unit(next.x - cur.x, next.y - cur.y);
+            Vector2f n1 = new Vector2f(-t1.y, t1.x);
+            Vector2f n2 = new Vector2f(-t2.y, t2.x);
+
+            Vector2f miter = unit(n1.x + n2.x, n1.y + n2.y);
+            float dot = miter.x * n1.x + miter.y * n1.y;
+            if (Math.abs(dot) < 0.1f) {
+                miter = n1;
+                dot = 1f;
+            }
+
+            float width = leftSide ? getLeftWidth(i, 0f) : getRightWidth(i, 0f);
+            float dist = width + wallAsteroidTrackBuffer + inset;
+            float miterScale = dist / dot;
+            float maxMiter = dist * 2f;
+            if (miterScale > maxMiter) miterScale = maxMiter;
+            if (miterScale < -maxMiter) miterScale = -maxMiter;
+
+            Vector2f offset = new Vector2f(
+                    cur.x + miter.x * miterScale * (leftSide ? 1f : -1f),
+                    cur.y + miter.y * miterScale * (leftSide ? 1f : -1f)
+            );
+
+            out.add(offset);
+        }
+
+        return out;
+    }
+
+    private List<Vector2f> samplePolylineAtSpacing(List<Vector2f> line, float spacing) {
+        List<Vector2f> samples = new ArrayList<>();
+        if (line == null || line.size() < 2) return samples;
+
+        float totalLen = 0f;
+        for (int i = 0; i < line.size(); i++) {
+            Vector2f a = line.get(i);
+            Vector2f b = line.get((i + 1) % line.size());
+            totalLen += distance(a, b);
+        }
+        if (totalLen <= 0.001f) return samples;
+
+        int steps = Math.max(1, Math.round(totalLen / spacing));
+        float stepLen = totalLen / steps;
+
+        float acc = 0f;
+        Vector2f prev = new Vector2f(line.get(0));
+        samples.add(new Vector2f(prev));
+
+        for (int i = 0; i < line.size(); i++) {
+            Vector2f cur = line.get((i + 1) % line.size());
+            float seg = distance(prev, cur);
+            float remaining = seg;
+            Vector2f start = new Vector2f(prev);
+
+            while (acc + remaining >= stepLen) {
+                float step = stepLen - acc;
+                float f = (seg - remaining + step) / seg;
+                Vector2f p = new Vector2f(
+                        start.x + (cur.x - start.x) * f,
+                        start.y + (cur.y - start.y) * f
+                );
+                samples.add(p);
+                remaining -= step;
+                acc = 0f;
+            }
+
+            acc += remaining;
+            prev = cur;
+        }
+
+        return samples;
+    }
+
+    private Vector2f unit(float x, float y) {
+        float len = (float) Math.sqrt(x * x + y * y);
+        if (len < 0.0001f) return new Vector2f(1f, 0f);
+        return new Vector2f(x / len, y / len);
+    }
+
 
 
     private void spawnTrackMarkers() {
@@ -292,8 +561,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private void applyOffTrackPenalty() {
         if (race.checkpoints == null || race.checkpoints.size() < 2) return;
 
-        float halfWidth = race.checkpointRadius + wallOffsetExtra;
-
         for (ShipAPI ship : race.racers.keySet()) {
             if (ship == null || ship.isHulk()) continue;
 
@@ -305,8 +572,30 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             ship.getMutableStats().getAcceleration().unmodify(OFFTRACK_MOD_ID);
             ship.getMutableStats().getDeceleration().unmodify(OFFTRACK_MOD_ID);
 
-            float dist = distanceToTrackCenterline(ship.getLocation());
-            boolean offTrack = dist > halfWidth;
+            float distSq = distanceToTrackCenterlineSq(ship.getLocation());
+            ClosestPoint cp = findClosestPointOnCenterline(ship.getLocation());
+            boolean offTrack = true;
+
+            if (cp != null) {
+                Vector2f a = race.centerline.get(cp.segIndex);
+                Vector2f b = race.centerline.get((cp.segIndex + 1) % race.centerline.size());
+                Vector2f tangent = unit(b.x - a.x, b.y - a.y);
+                Vector2f normal = new Vector2f(-tangent.y, tangent.x);
+
+                float wl = getWallLeftWidth(cp.segIndex, cp.t);
+                float wr = getWallRightWidth(cp.segIndex, cp.t);
+
+                float dx = ship.getLocation().x - cp.point.x;
+                float dy = ship.getLocation().y - cp.point.y;
+                float side = dx * normal.x + dy * normal.y;
+                float allowed = side >= 0f ? wl : wr;
+
+                offTrack = Math.abs(side) > allowed;
+            } else {
+                float halfWidthSq = race.corridorHalfWidth * race.corridorHalfWidth;
+                offTrack = distSq > halfWidthSq;
+            }
+
 
             if (offTrack) {
                 ship.getMutableStats().getMaxSpeed().modifyMult(OFFTRACK_MOD_ID, offTrackMaxSpeedMult);
@@ -326,20 +615,20 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
     }
 
-    private float distanceToTrackCenterline(Vector2f p) {
-        int n = race.checkpoints.size();
+    private float distanceToTrackCenterlineSq(Vector2f p) {
+        int n = race.centerline.size();
         float best = Float.MAX_VALUE;
 
         for (int i = 0; i < n; i++) {
-            Vector2f a = race.checkpoints.get(i);
-            Vector2f b = race.checkpoints.get((i + 1) % n);
-            float d = distancePointToSegment(p, a, b);
-            if (d < best) best = d;
+            Vector2f a = race.centerline.get(i);
+            Vector2f b = race.centerline.get((i + 1) % n);
+            float d2 = distancePointToSegmentSq(p, a, b);
+            if (d2 < best) best = d2;
         }
         return best;
     }
 
-    private float distancePointToSegment(Vector2f p, Vector2f a, Vector2f b) {
+    private float distancePointToSegmentSq(Vector2f p, Vector2f a, Vector2f b) {
         float abx = b.x - a.x;
         float aby = b.y - a.y;
 
@@ -348,10 +637,9 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
         float abLen2 = abx * abx + aby * aby;
         if (abLen2 <= 0.0001f) {
-            // a and b are the same point
             float dx = p.x - a.x;
             float dy = p.y - a.y;
-            return (float) Math.sqrt(dx * dx + dy * dy);
+            return dx * dx + dy * dy;
         }
 
         float t = (apx * abx + apy * aby) / abLen2;
@@ -363,8 +651,9 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
         float dx = p.x - cx;
         float dy = p.y - cy;
-        return (float) Math.sqrt(dx * dx + dy * dy);
+        return dx * dx + dy * dy;
     }
+
 
 
 
@@ -394,8 +683,31 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             if (rs.finished) continue;
             if (ship == null || ship.isHulk()) continue;
 
-            Vector2f cp = race.checkpoints.get(rs.nextCheckpoint);
-            if (distance(ship.getLocation(), cp) <= race.checkpointRadius) {
+            boolean crossed = false;
+            GateSpec gate = (race.gates != null && race.gates.size() == race.checkpoints.size())
+                    ? race.gates.get(rs.nextCheckpoint)
+                    : null;
+
+            if (gate != null && rs.lastPos != null) {
+                Vector2f cur = ship.getLocation();
+                float prevS = dotDelta(rs.lastPos, gate.center, gate.tangent);
+                float curS = dotDelta(cur, gate.center, gate.tangent);
+
+                if (prevS < 0f && curS >= 0f) {
+                    float lat = dotDelta(cur, gate.center, gate.normal);
+                    float pad = Math.max(20f, ship.getCollisionRadius() * 0.25f);
+                    if (lat <= gate.wLeft + pad && lat >= -gate.wRight - pad) {
+                        crossed = true;
+                    }
+                }
+            } else {
+                Vector2f cp = race.checkpoints.get(rs.nextCheckpoint);
+                if (distance(ship.getLocation(), cp) <= race.checkpointRadius) {
+                    crossed = true;
+                }
+            }
+
+            if (crossed) {
                 rs.nextCheckpoint++;
                 if (rs.nextCheckpoint >= race.checkpoints.size()) rs.nextCheckpoint = 0;
 
@@ -416,6 +728,12 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
                         return;
                     }
                 }
+            }
+
+            if (rs.lastPos == null) {
+                rs.lastPos = new Vector2f(ship.getLocation());
+            } else {
+                rs.lastPos.set(ship.getLocation());
             }
         }
     }
@@ -446,6 +764,186 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private Vector2f startPoint() {
         if (race.checkpoints == null || race.checkpoints.isEmpty()) return new Vector2f(0f, 0f);
         return race.checkpoints.get(race.startIndex);
+    }
+
+    private void startCountdown() {
+        countdownActive = true;
+        countdownDelayTimer = 3f;
+        countdownTimer = 3f;
+        lastCountdownSecond = -1;
+        enginesSuppressed = false;
+        raceMusicStarted = false;
+        applyStartLockout();
+    }
+
+    private void updateCountdown(float amount) {
+        if (!countdownActive) return;
+
+        applyStartLockout();
+        if (countdownDelayTimer > 0f) {
+            countdownDelayTimer -= amount;
+            if (!enginesSuppressed) {
+                setEngineFlameLevel(0f);
+                enginesSuppressed = true;
+            }
+            return;
+        }
+
+        if (enginesSuppressed) {
+            setEngineFlameLevel(1f);
+            enginesSuppressed = false;
+        }
+
+        countdownTimer -= amount;
+
+        int currentSecond = (int) Math.ceil(Math.max(0f, countdownTimer));
+        if (currentSecond != lastCountdownSecond) {
+            lastCountdownSecond = currentSecond;
+            String text = currentSecond > 0 ? String.valueOf(currentSecond) : "GO!";
+            Vector2f center = engine.getViewport().getCenter();
+            engine.addFloatingText(new Vector2f(center.x, center.y), text, 160f, Color.WHITE, null, 0f, 0f);
+        }
+
+        if (countdownTimer <= 0f) {
+            countdownActive = false;
+            releaseStartLockout();
+            raceStartTime = engine.getTotalElapsedTime(false);
+            startRaceMusic();
+            engine.getCombatUI().addMessage(1, "Race start! Complete " + lapsToWin + " laps.");
+        }
+    }
+
+    private void startRaceMusic() {
+        if (raceMusicStarted) return;
+        raceMusicStarted = true;
+        Global.getSoundPlayer().setSuspendDefaultMusicPlayback(true);
+        Global.getSoundPlayer().playCustomMusic(1, 1, "takeshido_race", true);
+    }
+
+    private void applySoftWall(float amount) {
+        if (race.centerline == null || race.centerline.size() < 2) return;
+
+        for (ShipAPI ship : race.racers.keySet()) {
+            if (ship == null || ship.isHulk()) continue;
+
+            ClosestPoint cp = findClosestPointOnCenterline(ship.getLocation());
+            if (cp == null) continue;
+
+            Vector2f a = race.centerline.get(cp.segIndex);
+            Vector2f b = race.centerline.get((cp.segIndex + 1) % race.centerline.size());
+            Vector2f tangent = unit(b.x - a.x, b.y - a.y);
+            Vector2f normal = new Vector2f(-tangent.y, tangent.x);
+
+            float wl = getWallLeftWidth(cp.segIndex, cp.t);
+            float wr = getWallRightWidth(cp.segIndex, cp.t);
+
+            float dx = ship.getLocation().x - cp.point.x;
+            float dy = ship.getLocation().y - cp.point.y;
+            float side = dx * normal.x + dy * normal.y;
+            float allowed = side >= 0f ? wl : wr;
+            float penetration = Math.abs(side) - allowed;
+
+            if (penetration <= 0f) continue;
+
+            float sign = side >= 0f ? 1f : -1f;
+            float push = Math.min(penetration * WALL_PUSH_MULT, WALL_PUSH_PER_SEC * amount);
+
+            ship.getLocation().x -= normal.x * sign * push;
+            ship.getLocation().y -= normal.y * sign * push;
+
+            Vector2f vel = ship.getVelocity();
+            if (vel != null) {
+                float lateral = vel.x * normal.x + vel.y * normal.y;
+                if (lateral * sign > 0f) {
+                    vel.x -= normal.x * lateral * WALL_LATERAL_DAMP;
+                    vel.y -= normal.y * lateral * WALL_LATERAL_DAMP;
+                }
+            }
+
+            float face = ship.getFacing();
+            float desired = (float) Math.toDegrees(Math.atan2(tangent.y, tangent.x));
+            float delta = shortestRotation(face, desired);
+            ship.setFacing(face + delta * 0.15f);
+            ship.setAngularVelocity(ship.getAngularVelocity() * 0.5f);
+        }
+    }
+
+    private float shortestRotation(float fromDeg, float toDeg) {
+        float a = normalizeAngle(toDeg) - normalizeAngle(fromDeg);
+        if (a > 180f) a -= 360f;
+        if (a < -180f) a += 360f;
+        return a;
+    }
+
+    private float normalizeAngle(float a) {
+        while (a < 0f) a += 360f;
+        while (a >= 360f) a -= 360f;
+        return a;
+    }
+
+    private void applyStartLockout() {
+        float face = startFacing();
+        for (ShipAPI s : race.racers.keySet()) {
+            if (s == null || s.isHulk()) continue;
+            s.getVelocity().set(0f, 0f);
+            s.setAngularVelocity(0f);
+            s.setFacing(face);
+            s.getMutableStats().getMaxSpeed().modifyMult(START_LOCK_ID, 0f);
+            s.getMutableStats().getAcceleration().modifyMult(START_LOCK_ID, 0f);
+            s.getMutableStats().getDeceleration().modifyMult(START_LOCK_ID, 0f);
+        }
+    }
+
+    private void releaseStartLockout() {
+        for (ShipAPI s : race.racers.keySet()) {
+            if (s == null || s.isHulk()) continue;
+            s.getMutableStats().getMaxSpeed().unmodify(START_LOCK_ID);
+            s.getMutableStats().getAcceleration().unmodify(START_LOCK_ID);
+            s.getMutableStats().getDeceleration().unmodify(START_LOCK_ID);
+        }
+    }
+
+    private void applyStartPush(float amount) {
+        if (raceStartTime < 0f) return;
+        float elapsed = engine.getTotalElapsedTime(false) - raceStartTime;
+        if (elapsed > START_PUSH_TIME) return;
+
+        ShipAPI player = engine.getPlayerShip();
+        for (ShipAPI s : race.racers.keySet()) {
+            if (s == null || s.isHulk()) continue;
+            if (s == player) continue;
+            Vector2f vel = s.getVelocity();
+            if (vel != null && vel.length() <= 0.01f) {
+                float facing = s.getFacing();
+                float fx = (float) Math.cos(Math.toRadians(facing));
+                float fy = (float) Math.sin(Math.toRadians(facing));
+                vel.set(fx * START_PUSH_SPEED, fy * START_PUSH_SPEED);
+            }
+        }
+    }
+
+    private void setEngineFlameLevel(float level) {
+        for (ShipAPI s : race.racers.keySet()) {
+            if (s == null || s.isHulk()) continue;
+            if (s.getEngineController() == null) continue;
+            for (com.fs.starfarer.api.combat.ShipEngineControllerAPI.ShipEngineAPI e : s.getEngineController().getShipEngines()) {
+                if (e == null) continue;
+                s.getEngineController().setFlameLevel(e.getEngineSlot(), level);
+            }
+        }
+    }
+
+    private float startFacing() {
+        if (race.checkpoints == null || race.checkpoints.size() < 2) return 0f;
+        int n = race.checkpoints.size();
+        int start = ((race.startIndex % n) + n) % n;
+        int next = (start + 1) % n;
+        Vector2f cpStart = race.checkpoints.get(start);
+        Vector2f cpNext = race.checkpoints.get(next);
+        float dx = cpNext.x - cpStart.x;
+        float dy = cpNext.y - cpStart.y;
+        if (Math.abs(dx) < 0.0001f && Math.abs(dy) < 0.0001f) return 0f;
+        return (float) Math.toDegrees(Math.atan2(dy, dx));
     }
 
 
@@ -479,16 +977,13 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
                 cpNext.y - dirY * aheadOffset
         );
 
-        // Corridor half-width (visual edges and offtrack math use the same concept)
-        float halfWidth = race.checkpointRadius + wallOffsetExtra;
-        float safeHalfWidth = Math.max(0f, halfWidth - gridEdgeMargin);
+        // Corridor half-width based on the actual track walls at the start segment
+        float leftWidth = getWallLeftWidth(start, 0f);
+        float rightWidth = getWallRightWidth(start, 0f);
+        float safeHalfWidth = Math.max(0f, Math.min(leftWidth, rightWidth) - gridEdgeMargin);
 
-        // Clamp lane spacing so outer columns remain within the corridor
         float cols = Math.max(2, gridColumns);
-        float maxLaneSpacing = (2f * safeHalfWidth) / (cols - 1f);
-
-        float laneSpacing = desiredLaneSpacing * gridWidthMult;
-        laneSpacing = Math.min(laneSpacing, maxLaneSpacing);
+        float laneSpacing = (2f * safeHalfWidth) / (cols - 1f);
         laneSpacing = Math.max(80f, laneSpacing); // prevent collapsing into a stack
 
         float facing = (float) Math.toDegrees(Math.atan2(dirY, dirX));
@@ -526,6 +1021,53 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         return (float) Math.sqrt(dx * dx + dy * dy);
     }
 
+    private float dotDelta(Vector2f p, Vector2f center, Vector2f axis) {
+        float dx = p.x - center.x;
+        float dy = p.y - center.y;
+        return dx * axis.x + dy * axis.y;
+    }
+
+    private static class GateSpec {
+        public final Vector2f center;
+        public final Vector2f tangent;
+        public final Vector2f normal;
+        public final float wLeft;
+        public final float wRight;
+
+        public GateSpec(Vector2f center, Vector2f tangent, Vector2f normal, float wLeft, float wRight) {
+            this.center = center;
+            this.tangent = tangent;
+            this.normal = normal;
+            this.wLeft = wLeft;
+            this.wRight = wRight;
+        }
+    }
+
+    private static class WallAsteroidSpec {
+        public final Vector2f location;
+        public final int type;
+        public CombatEntityAPI entity;
+
+        public WallAsteroidSpec(Vector2f location, int type) {
+            this.location = location;
+            this.type = type;
+        }
+    }
+
+    private static class ClosestPoint {
+        public final int segIndex;
+        public final float t;
+        public final Vector2f point;
+        public final float distSq;
+
+        public ClosestPoint(int segIndex, float t, Vector2f point, float distSq) {
+            this.segIndex = segIndex;
+            this.t = t;
+            this.point = point;
+            this.distSq = distSq;
+        }
+    }
+
     public static class RaceState {
         public int lapsToWin;
         public float checkpointRadius = 350f;
@@ -534,6 +1076,21 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         public boolean finished = false;
         public FleetSide winnerSide = FleetSide.PLAYER;
         public int startIndex;
+
+        public List<Vector2f> centerline = new ArrayList<>();
+        public List<Vector2f> raceline = new ArrayList<>();
+        public List<Float> racelineS = new ArrayList<>();
+        public List<Float> racelinePsi = new ArrayList<>();
+        public List<Float> racelineKappa = new ArrayList<>();
+        public List<Float> racelineVx = new ArrayList<>();
+        public float unitsPerMeter = 100f;
+        public List<Float> wLeft = new ArrayList<>();
+        public List<Float> wRight = new ArrayList<>();
+        public boolean useWidths = false;
+        public float corridorHalfWidth = 350f; // fallback
+        public List<GateSpec> gates = new ArrayList<>();
+        public List<WallAsteroidSpec> wallAsteroids = new ArrayList<>();
+
 
         public RaceState(int lapsToWin) {
             this.lapsToWin = lapsToWin;
@@ -544,6 +1101,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         public int lap = 0;
         public int nextCheckpoint = 1;
         public boolean finished = false;
+        public Vector2f lastPos;
     }
 }
-

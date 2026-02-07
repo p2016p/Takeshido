@@ -27,22 +27,26 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         // IMPORTANT: These are VARIANT ids (data/variants/*.variant), not hull ids. :contentReference[oaicite:5]{index=5}
         api.addToFleet(FleetSide.PLAYER, "takeshido_vroomicorn_custom_standard", FleetMemberType.SHIP, "TKS Player", true);
 
-        api.addToFleet(FleetSide.ENEMY, "takeshido_vroomicorn_custom_standard", FleetMemberType.SHIP, "CPU 2", false);
-        api.addToFleet(FleetSide.ENEMY, "takeshido_vroomicorn_custom_standard", FleetMemberType.SHIP, "CPU 3", false);
-        api.addToFleet(FleetSide.ENEMY, "takeshido_vroomicorn_custom_standard", FleetMemberType.SHIP, "CPU 4", false);
-        api.addToFleet(FleetSide.ENEMY, "takeshido_vroomicorn_custom_standard", FleetMemberType.SHIP, "CPU 5", false);
-        api.addToFleet(FleetSide.ENEMY, "takeshido_vroomicorn_custom_standard", FleetMemberType.SHIP, "CPU 6", false);
-        api.addToFleet(FleetSide.ENEMY, "takeshido_vroomicorn_custom_standard", FleetMemberType.SHIP, "CPU 7", false);
-        api.addToFleet(FleetSide.ENEMY, "takeshido_vroomicorn_custom_standard", FleetMemberType.SHIP, "CPU 8", false);
+        api.addToFleet(FleetSide.ENEMY, "takeshido_bionda_custom_standard", FleetMemberType.SHIP, "CPU 2", false);
+        api.addToFleet(FleetSide.ENEMY, "takeshido_bonta_custom_standard", FleetMemberType.SHIP, "CPU 3", false);
+        api.addToFleet(FleetSide.ENEMY, "takeshido_camirillo_custom_standard", FleetMemberType.SHIP, "CPU 4", false);
+        api.addToFleet(FleetSide.ENEMY, "takeshido_NMW_G3_custom_standard", FleetMemberType.SHIP, "CPU 5", false);
+        api.addToFleet(FleetSide.ENEMY, "takeshido_350x_custom_standard", FleetMemberType.SHIP, "CPU 6", false);
+        api.addToFleet(FleetSide.ENEMY, "takeshido_BR97_custom_standard", FleetMemberType.SHIP, "CPU 7", false);
+        api.addToFleet(FleetSide.ENEMY, "takeshido_hobi_custom_standard", FleetMemberType.SHIP, "CPU 8", false);
 
         // If the player ship dies, call it a loss
         api.defeatOnShipLoss("TKS Player");
 
         // Map
-        api.initMap(-12000f, 12000f, -12000f, 12000f);
+        api.initMap(-40000f, 40000f, -40000f, 40000f);
+
+        // Ensure all AI racers deploy (no reserves).
+        api.getContext().enemyDeployAll = true;
+        api.getContext().fightToTheLast = true;
 
         // Race controller plugin :contentReference[oaicite:6]{index=6}
-        api.addPlugin(new TakeshidoRaceCombatPlugin("takeshido_racemod", 3, 8, false, "circle_small"));
+        api.addPlugin(new TakeshidoRaceCombatPlugin("takeshido_racemod", 3, 8, false, "austin"));
 
     }
 }

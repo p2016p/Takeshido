@@ -1,0 +1,14 @@
+{
+  "variantId": "takeshido_bonta_custom_standard",
+  "hullId": "takeshido_bonta_custom",
+  "displayName": "standard",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [],
+  "modules": [],
+  "wings": []
+}

@@ -2,7 +2,7 @@
 
 #collapseopen MUSIC
 	
-"music":{
+	"music":{
 		####################################
 		# "source" can also be a directory #
 		####################################
@@ -70,6 +70,16 @@
 					"takeshido_upgrade.ogg",
 				],
 				"randomStart":false, 
+			},
+		],
+		"takeshido_race":[
+			{
+				"source":"sounds/music",
+				"volume":1,
+				"files":[
+					"KissYouGoodbye.ogg",
+				],
+				"randomStart":false,
 			},
 		],
 

@@ -19,7 +19,10 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
     private final ShipwideAIFlags flags = new ShipwideAIFlags();
     private final ShipAIConfig config = new ShipAIConfig();
 
-    private float doNotFire = 0f;
+    private static final float LOOKAHEAD_MIN_UNITS = 30f;
+    private static final float LOOKAHEAD_MAX_UNITS = 280f;
+    private static final float LINE_DIST_FOR_MAX_LOOKAHEAD = 600f;
+    private static final float TURN_RATE_MARGIN = 0.9f;
 
     public TakeshidoRaceShipAI(ShipAPI ship, RaceState race, RacerState state) {
         this.ship = ship;
@@ -30,44 +33,40 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
     @Override
     public void advance(float amount) {
         if (ship == null || ship.isHulk()) return;
-        if (race == null || race.checkpoints == null || race.checkpoints.isEmpty()) return;
+        if (race == null || race.raceline == null || race.raceline.isEmpty()) return;
 
-        if (doNotFire > 0f) doNotFire -= amount;
-
-        Vector2f target = race.checkpoints.get(clampIndex(state.nextCheckpoint, race.checkpoints.size()));
         Vector2f loc = ship.getLocation();
+        int closest = findClosestIndex(race.raceline, loc);
+        Vector2f closestPt = race.raceline.get(closest);
+        float distToLine = distance(loc, closestPt);
 
-        // Always face the next checkpoint (kills the turn-oscillation issue)
+        float t = clamp(distToLine / LINE_DIST_FOR_MAX_LOOKAHEAD, 0f, 1f);
+        float lookaheadUnits = LOOKAHEAD_MIN_UNITS + (LOOKAHEAD_MAX_UNITS - LOOKAHEAD_MIN_UNITS) * t;
+        int targetIdx = findLookaheadIndex(closest, lookaheadUnits);
+        Vector2f target = race.raceline.get(targetIdx);
+
         float desired = angleTo(loc, target);
-        ship.setFacing(desired);
-        ship.setAngularVelocity(0f);
-
-        float dist = distance(loc, target);
-
-        // Simple throttle: mostly just go
-        ship.giveCommand(ShipCommand.ACCELERATE, null, 0);
-
-        // If we’re very close, bleed speed a bit so we don’t orbit forever
-        if (dist < race.checkpointRadius * 0.85f) {
-            ship.giveCommand(ShipCommand.DECELERATE, null, 0);
+        float delta = shortestRotation(ship.getFacing(), desired);
+        float maxTurnRate = ship.getMutableStats().getMaxTurnRate().getModifiedValue();
+        if (amount > 0f && maxTurnRate > 0f) {
+            float desiredAngVel = clamp(delta / amount, -maxTurnRate, maxTurnRate);
+            ship.setAngularVelocity(desiredAngVel);
         }
 
-        // Optional: small strafe “nudge” toward target if you want tighter cornering
-        // (comment out if your cars should be strictly nose-forward)
-        Vector2f vel = ship.getVelocity();
-        if (vel != null && vel.length() > 50f && dist > race.checkpointRadius * 0.75f) {
-            // Strafe toward target based on whether target is left/right of forward direction
-            float forward = ship.getFacing();
-            float toTgt = desired;
-            float side = shortestRotation(forward, toTgt);
-            if (side > 8f) ship.giveCommand(ShipCommand.STRAFE_LEFT, null, 0);
-            else if (side < -8f) ship.giveCommand(ShipCommand.STRAFE_RIGHT, null, 0);
+        boolean tooTight = false;
+        if (race.racelineKappa.size() == race.raceline.size() && race.unitsPerMeter > 0f) {
+            float speedUnits = ship.getVelocity() != null ? ship.getVelocity().length() : 0f;
+            float speedMps = speedUnits / race.unitsPerMeter;
+            float kappa = Math.abs(race.racelineKappa.get(closest));
+            float requiredTurnRateDeg = (speedMps * kappa) * 57.2958f;
+            tooTight = requiredTurnRateDeg > (maxTurnRate * TURN_RATE_MARGIN);
         }
+
+        ship.giveCommand(tooTight ? ShipCommand.DECELERATE : ShipCommand.ACCELERATE, null, 0);
     }
 
     @Override
     public void setDoNotFireDelay(float amount) {
-        doNotFire = Math.max(doNotFire, amount);
     }
 
     @Override public void forceCircumstanceEvaluation() {}
@@ -77,12 +76,48 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
     @Override public ShipAIConfig getConfig() { return config; }
     @Override public void setTargetOverride(ShipAPI target) {}
 
-    private int clampIndex(int idx, int size) {
-        if (size <= 0) return 0;
-        while (idx < 0) idx += size;
+    private int findLookaheadIndex(int closest, float lookaheadUnits) {
+        if (race.racelineS.size() == race.raceline.size() && race.unitsPerMeter > 0f) {
+            float lookaheadM = lookaheadUnits / race.unitsPerMeter;
+            float sClosest = race.racelineS.get(closest);
+            float lastS = race.racelineS.get(race.racelineS.size() - 1);
+            float targetS = sClosest + lookaheadM;
+
+            if (targetS <= lastS && targetS >= sClosest) {
+                for (int i = closest; i < race.racelineS.size(); i++) {
+                    if (race.racelineS.get(i) >= targetS) return i;
+                }
+            } else {
+                if (targetS > lastS) targetS -= lastS;
+                for (int i = 0; i < race.racelineS.size(); i++) {
+                    if (race.racelineS.get(i) >= targetS) return i;
+                }
+            }
+        }
+
+        int steps = Math.max(1, Math.round(lookaheadUnits / 40f));
+        int idx = closest + steps;
+        int size = race.raceline.size();
         while (idx >= size) idx -= size;
         return idx;
     }
+
+    private int findClosestIndex(java.util.List<Vector2f> line, Vector2f pos) {
+        int bestIdx = 0;
+        float best = Float.MAX_VALUE;
+        for (int i = 0; i < line.size(); i++) {
+            Vector2f p = line.get(i);
+            float dx = p.x - pos.x;
+            float dy = p.y - pos.y;
+            float d2 = dx * dx + dy * dy;
+            if (d2 < best) {
+                best = d2;
+                bestIdx = i;
+            }
+        }
+        return bestIdx;
+    }
+
 
     private float distance(Vector2f a, Vector2f b) {
         float dx = a.x - b.x;
@@ -106,5 +141,8 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
         while (a >= 360f) a -= 360f;
         return a;
     }
-}
 
+    private float clamp(float value, float min, float max) {
+        return Math.max(min, Math.min(max, value));
+    }
+}
