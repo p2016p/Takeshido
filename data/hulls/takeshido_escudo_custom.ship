@@ -1,0 +1,31 @@
+{
+  "hullName": "Suzuki Escudo Custom",
+  "hullId": "takeshido_escudo_custom",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/Escudo.png",
+  "style": "TAKESHIDO",
+  "height": 45,
+  "width": 21.78,
+  "center": [10.89, 22.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.88,
+  "viewOffset": 0,
+  "builtInMods": [
+      "takeshido_racemod",
+      "strikeCraft",
+      "armaa_strikeCraftFrig",
+    ],
+  "weaponSlots": [
+
+  ],
+  "engineSlots": [
+
+  ],
+  "bounds": [
+    9.8, 20.25,
+    -9.8, 20.25,
+    -9.8, -20.25,
+    9.8, -20.25
+  ]
+}

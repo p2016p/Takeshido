@@ -1,96 +1,94 @@
 {
-
-#collapseopen MUSIC
-	
-	"music":{
-		####################################
-		# "source" can also be a directory #
-		####################################
-
-		"takeshido_good":[
-			{
-				"source":"sounds/music",
-				"volume":1,
-				"files":[
-					"takeshido_upgrade.ogg",
-				],
-				"randomStart":false, 
-			},
-		],
-		
-		"takeshido_neutral":[
-			{
-				"source":"sounds/music",
-				"volume":1,
-				"files":[
-					"takeshido_upgrade.ogg",
-				],
-				"randomStart":false,
-			},
-		],
-
-		"takeshido_bad":[
-			{
-				"source":"sounds/music",
-				"volume":1,
-				"files":[
-					"takeshido_upgrade.ogg",
-				],
-				"randomStart":false, 
-			},
-		],
-		
-		"takeshido_good_fleet":[
-			{
-				"source":"sounds/music",
-				"volume":1,
-				"files":[
-					"takeshido_upgrade.ogg",
-				],
-				"randomStart":false, 
-			},
-		],
-		
-		"takeshido_neutral_fleet":[
-			{
-				"source":"sounds/music",
-				"volume":1,
-				"files":[
-					"takeshido_upgrade.ogg",
-				],
-				"randomStart":false, 
-			},
-		],
-
-		"takeshido_bad_fleet":[
-			{
-				"source":"sounds/music",
-				"volume":1,
-				"files":[
-					"takeshido_upgrade.ogg",
-				],
-				"randomStart":false, 
-			},
-		],
-		"takeshido_race":[
-			{
-				"source":"sounds/music",
-				"volume":1,
-				"files":[
-					"KissYouGoodbye.ogg",
-				],
-				"randomStart":false,
-			},
-		],
-
-		
-	},
-	#"seven_tempestuous_dash_start":
-	#[
-	#	{"file":"sounds/shipsystems/seven_tempestuous_dash_start.ogg","pitch":1,"volume":1},
-	#],
-
+  "music": {
+    "takeshido_good": [
+      {
+        "source": "sounds/music",
+        "volume": 1,
+        "files": [
+          "takeshido_upgrade.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_neutral": [
+      {
+        "source": "sounds/music",
+        "volume": 1,
+        "files": [
+          "takeshido_upgrade.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_bad": [
+      {
+        "source": "sounds/music",
+        "volume": 1,
+        "files": [
+          "takeshido_upgrade.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_good_fleet": [
+      {
+        "source": "sounds/music",
+        "volume": 1,
+        "files": [
+          "takeshido_upgrade.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_neutral_fleet": [
+      {
+        "source": "sounds/music",
+        "volume": 1,
+        "files": [
+          "takeshido_upgrade.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_bad_fleet": [
+      {
+        "source": "sounds/music",
+        "volume": 1,
+        "files": [
+          "takeshido_upgrade.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_race": [
+      {
+        "source": "sounds/music",
+        "volume": 1,
+        "files": [
+          "KissYouGoodbye.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_countdown": [
+      {
+        "source": "sounds/music",
+        "volume": 1,
+        "files": [
+          "countdown.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_race_finish": [
+      {
+        "source": "sounds/music",
+        "volume": 1,
+        "files": [
+          "racefinish1.ogg"
+        ],
+        "randomStart": false
+      }
+    ]
+  }
 }
-
-
-

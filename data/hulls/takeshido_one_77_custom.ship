@@ -1,0 +1,31 @@
+{
+  "hullName": "Aston Martin One-77 Custom",
+  "hullId": "takeshido_one_77_custom",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/One-77.png",
+  "style": "TAKESHIDO",
+  "height": 45,
+  "width": 22.92,
+  "center": [11.46, 22.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.88,
+  "viewOffset": 0,
+  "builtInMods": [
+      "takeshido_racemod",
+      "strikeCraft",
+      "armaa_strikeCraftFrig",
+    ],
+  "weaponSlots": [
+
+  ],
+  "engineSlots": [
+
+  ],
+  "bounds": [
+    10.31, 20.25,
+    -10.31, 20.25,
+    -10.31, -20.25,
+    10.31, -20.25
+  ]
+}

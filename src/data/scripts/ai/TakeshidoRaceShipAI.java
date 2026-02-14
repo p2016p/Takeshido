@@ -22,7 +22,10 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
     private static final float LOOKAHEAD_MIN_UNITS = 30f;
     private static final float LOOKAHEAD_MAX_UNITS = 280f;
     private static final float LINE_DIST_FOR_MAX_LOOKAHEAD = 600f;
-    private static final float TURN_RATE_MARGIN = 0.9f;
+    private static final float TURN_RATE_MARGIN = 0.75f;
+    private static final float OVERTAKE_DIST = 220f;
+    private static final float OVERTAKE_LANE_WIDTH = 120f;
+    private static final float OVERTAKE_OFFSET = 40f;
 
     public TakeshidoRaceShipAI(ShipAPI ship, RaceState race, RacerState state) {
         this.ship = ship;
@@ -36,14 +39,31 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
         if (race == null || race.raceline == null || race.raceline.isEmpty()) return;
 
         Vector2f loc = ship.getLocation();
-        int closest = findClosestIndex(race.raceline, loc);
-        Vector2f closestPt = race.raceline.get(closest);
+        int closestRace = findClosestIndex(race.raceline, loc);
+        Vector2f closestPt = race.raceline.get(closestRace);
         float distToLine = distance(loc, closestPt);
 
         float t = clamp(distToLine / LINE_DIST_FOR_MAX_LOOKAHEAD, 0f, 1f);
         float lookaheadUnits = LOOKAHEAD_MIN_UNITS + (LOOKAHEAD_MAX_UNITS - LOOKAHEAD_MIN_UNITS) * t;
-        int targetIdx = findLookaheadIndex(closest, lookaheadUnits);
-        Vector2f target = race.raceline.get(targetIdx);
+        int targetRaceIdx = findLookaheadIndex(closestRace, lookaheadUnits);
+        Vector2f targetRace = race.raceline.get(targetRaceIdx);
+
+        Vector2f target = targetRace;
+        int closestCenter = -1;
+        if (race.centerline != null && !race.centerline.isEmpty()) {
+            closestCenter = findClosestIndex(race.centerline, loc);
+            int targetCenterIdx = findLookaheadIndexOnLine(race.centerline, closestCenter, lookaheadUnits);
+            Vector2f targetCenter = race.centerline.get(targetCenterIdx);
+            float skill = clamp(state != null ? state.skill : 0f, 0f, 1f);
+            target = lerp(targetCenter, targetRace, skill);
+        }
+
+        if (closestCenter >= 0) {
+            Vector2f offset = computeOvertakeOffset(closestCenter);
+            if (offset != null) {
+                target = new Vector2f(target.x + offset.x, target.y + offset.y);
+            }
+        }
 
         float desired = angleTo(loc, target);
         float delta = shortestRotation(ship.getFacing(), desired);
@@ -57,7 +77,7 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
         if (race.racelineKappa.size() == race.raceline.size() && race.unitsPerMeter > 0f) {
             float speedUnits = ship.getVelocity() != null ? ship.getVelocity().length() : 0f;
             float speedMps = speedUnits / race.unitsPerMeter;
-            float kappa = Math.abs(race.racelineKappa.get(closest));
+            float kappa = Math.abs(race.racelineKappa.get(closestRace));
             float requiredTurnRateDeg = (speedMps * kappa) * 57.2958f;
             tooTight = requiredTurnRateDeg > (maxTurnRate * TURN_RATE_MARGIN);
         }
@@ -118,6 +138,65 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
         return bestIdx;
     }
 
+    private int findLookaheadIndexOnLine(java.util.List<Vector2f> line, int closest, float lookaheadUnits) {
+        int steps = Math.max(1, Math.round(lookaheadUnits / 40f));
+        int idx = closest + steps;
+        int size = line.size();
+        while (idx >= size) idx -= size;
+        return idx;
+    }
+
+    private Vector2f computeOvertakeOffset(int centerIdx) {
+        if (race.centerline == null || race.centerline.size() < 2) return null;
+        if (race.racers == null || race.racers.size() < 2) return null;
+
+        int next = centerIdx + 1;
+        if (next >= race.centerline.size()) next = 0;
+        Vector2f a = race.centerline.get(centerIdx);
+        Vector2f b = race.centerline.get(next);
+        float tx = b.x - a.x;
+        float ty = b.y - a.y;
+        float tLen = (float) Math.sqrt(tx * tx + ty * ty);
+        if (tLen < 0.0001f) return null;
+        tx /= tLen;
+        ty /= tLen;
+        float nx = -ty;
+        float ny = tx;
+
+        ShipAPI closestAhead = null;
+        float closestDist = Float.MAX_VALUE;
+        for (ShipAPI other : race.racers.keySet()) {
+            if (other == null || other == ship || other.isHulk()) continue;
+            Vector2f toOther = Vector2f.sub(other.getLocation(), ship.getLocation(), null);
+            float dist = toOther.length();
+            if (dist > OVERTAKE_DIST) continue;
+            float along = toOther.x * tx + toOther.y * ty;
+            float lat = toOther.x * nx + toOther.y * ny;
+            if (along <= 0f) continue;
+            if (Math.abs(lat) > OVERTAKE_LANE_WIDTH) continue;
+            if (dist < closestDist) {
+                closestDist = dist;
+                closestAhead = other;
+            }
+        }
+
+        if (closestAhead == null) return null;
+
+        float leftSpace = race.corridorHalfWidth;
+        float rightSpace = race.corridorHalfWidth;
+        if (race.useWidths && centerIdx < race.wLeft.size() && centerIdx < race.wRight.size()) {
+            leftSpace = race.wLeft.get(centerIdx);
+            rightSpace = race.wRight.get(centerIdx);
+        }
+
+        float sign = (leftSpace >= rightSpace) ? 1f : -1f;
+        float maxOffset = Math.max(0f, Math.min(leftSpace, rightSpace) - ship.getCollisionRadius() * 0.5f);
+        float offset = Math.min(OVERTAKE_OFFSET, maxOffset);
+        if (offset <= 0f) return null;
+
+        return new Vector2f(nx * sign * offset, ny * sign * offset);
+    }
+
 
     private float distance(Vector2f a, Vector2f b) {
         float dx = a.x - b.x;
@@ -144,5 +223,12 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
 
     private float clamp(float value, float min, float max) {
         return Math.max(min, Math.min(max, value));
+    }
+
+    private Vector2f lerp(Vector2f a, Vector2f b, float t) {
+        return new Vector2f(
+                a.x + (b.x - a.x) * t,
+                a.y + (b.y - a.y) * t
+        );
     }
 }

@@ -28,6 +28,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private final int expectedRacers;
     private final boolean isDeathRace;
     private final String trackId;
+    private final Map<String, Float> skillOverrides;
 
     // to figure out what checkpoint we start at
     public int startIndex = 0;
@@ -52,6 +53,8 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private static final float WALL_PUSH_PER_SEC = 260f;
     private static final float WALL_PUSH_MULT = 1.0f;
     private static final float WALL_LATERAL_DAMP = 0.7f;
+    private static final float CAR_REPEL_BUFFER = 8f;
+    private static final float CAR_REPEL_PER_SEC = 120f;
 
     // How harsh the penalty is
     private float offTrackMaxSpeedMult = 0.20f;  // 20% top speed when off track
@@ -70,8 +73,10 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private float countdownTimer = 0f;
     private float countdownDelayTimer = 0f;
     private int lastCountdownSecond = -1;
+    private boolean countdownSoundPlayed = false;
     private boolean enginesSuppressed = false;
     private boolean raceMusicStarted = false;
+    private boolean raceFinishPlayed = false;
     private float raceStartTime = -1f;
 
     public TakeshidoRaceCombatPlugin(String raceHullmodId, int lapsToWin, int expectedRacers, boolean isDeathRace, String trackId) {
@@ -80,6 +85,17 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         this.expectedRacers = Math.max(1, expectedRacers);
         this.isDeathRace = isDeathRace;
         this.trackId = trackId;
+        this.skillOverrides = null;
+    }
+
+    public TakeshidoRaceCombatPlugin(String raceHullmodId, int lapsToWin, int expectedRacers, boolean isDeathRace, String trackId,
+                                     Map<String, Float> skillOverrides) {
+        this.raceHullmodId = raceHullmodId;
+        this.lapsToWin = Math.max(1, lapsToWin);
+        this.expectedRacers = Math.max(1, expectedRacers);
+        this.isDeathRace = isDeathRace;
+        this.trackId = trackId;
+        this.skillOverrides = skillOverrides;
     }
 
     @Override
@@ -140,6 +156,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         applyOffTrackPenalty();
         applyStartPush(amount);
         applySoftWall(amount);
+        applySoftCarRepulsion(amount);
 
         ShipAPI player = engine.getPlayerShip();
         if (player != null) {
@@ -152,6 +169,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         if (race.finished) {
+            playRaceFinish();
             engine.endCombat(1f, race.winnerSide);
         }
     }
@@ -238,6 +256,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         race.racers.clear();
         for (ShipAPI s : cars) {
             RacerState rs = new RacerState();
+            rs.skill = getSkillForShip(s);
             race.racers.put(s, rs);
 
             int firstTarget = (race.startIndex + 1) % race.checkpoints.size();
@@ -746,6 +765,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
     }
 
+
     private void disableAllWeapons(ShipAPI s) {
         // WeaponAPI.disable() exists and permanently disables that weapon for the battle. :contentReference[oaicite:2]{index=2}
         for (com.fs.starfarer.api.combat.WeaponAPI w : s.getAllWeapons()) {
@@ -771,6 +791,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         countdownDelayTimer = 3f;
         countdownTimer = 3f;
         lastCountdownSecond = -1;
+        countdownSoundPlayed = false;
         enginesSuppressed = false;
         raceMusicStarted = false;
         applyStartLockout();
@@ -787,6 +808,11 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
                 enginesSuppressed = true;
             }
             return;
+        }
+
+        if (!countdownSoundPlayed && Global.getSoundPlayer() != null) {
+            Global.getSoundPlayer().playCustomMusic(0, 0, "takeshido_countdown", false);
+            countdownSoundPlayed = true;
         }
 
         if (enginesSuppressed) {
@@ -817,7 +843,14 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         if (raceMusicStarted) return;
         raceMusicStarted = true;
         Global.getSoundPlayer().setSuspendDefaultMusicPlayback(true);
-        Global.getSoundPlayer().playCustomMusic(1, 1, "takeshido_race", true);
+        Global.getSoundPlayer().playCustomMusic(0, 0, "takeshido_race", true);
+    }
+
+    private void playRaceFinish() {
+        if (raceFinishPlayed || Global.getSoundPlayer() == null) return;
+        raceFinishPlayed = true;
+        Global.getSoundPlayer().pauseCustomMusic();
+        Global.getSoundPlayer().playCustomMusic(0, 0, "takeshido_race_finish", false);
     }
 
     private void applySoftWall(float amount) {
@@ -865,6 +898,45 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             float delta = shortestRotation(face, desired);
             ship.setFacing(face + delta * 0.15f);
             ship.setAngularVelocity(ship.getAngularVelocity() * 0.5f);
+        }
+    }
+
+    private void applySoftCarRepulsion(float amount) {
+        if (amount <= 0f) return;
+        if (race.racers == null || race.racers.isEmpty()) return;
+
+        List<ShipAPI> cars = new ArrayList<>(race.racers.keySet());
+        int n = cars.size();
+        for (int i = 0; i < n; i++) {
+            ShipAPI a = cars.get(i);
+            if (a == null || a.isHulk()) continue;
+            a.setCollisionClass(CollisionClass.NONE);
+            for (int j = i + 1; j < n; j++) {
+                ShipAPI b = cars.get(j);
+                if (b == null || b.isHulk()) continue;
+                b.setCollisionClass(CollisionClass.NONE);
+
+                float dx = b.getLocation().x - a.getLocation().x;
+                float dy = b.getLocation().y - a.getLocation().y;
+                float r = a.getCollisionRadius() + b.getCollisionRadius() + CAR_REPEL_BUFFER;
+                float distSq = dx * dx + dy * dy;
+                if (distSq <= 0.0001f || distSq > r * r) continue;
+
+                float dist = (float) Math.sqrt(distSq);
+                float nx = dx / dist;
+                float ny = dy / dist;
+                float penetration = r - dist;
+                float push = Math.min(penetration * 0.5f, CAR_REPEL_PER_SEC * amount);
+
+                if (a.getVelocity() != null) {
+                    a.getVelocity().x -= nx * push;
+                    a.getVelocity().y -= ny * push;
+                }
+                if (b.getVelocity() != null) {
+                    b.getVelocity().x += nx * push;
+                    b.getVelocity().y += ny * push;
+                }
+            }
         }
     }
 
@@ -1102,5 +1174,41 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         public int nextCheckpoint = 1;
         public boolean finished = false;
         public Vector2f lastPos;
+        public float skill = 0f;
+    }
+
+    private float getSkillForShip(ShipAPI ship) {
+        if (ship == null) return 0f;
+        if (skillOverrides != null && ship.getFleetMember() != null) {
+            String id = ship.getFleetMember().getId();
+            Float override = skillOverrides.get(id);
+            if (override != null) return clamp(override, 0f, 1f);
+        }
+
+        if (Global.getSector() == null) return 0f;
+        if (ship.getCaptain() == null || ship.getCaptain().isDefault()) return 0f;
+        String key = ship.getCaptain().getId();
+        if (key == null || key.trim().isEmpty()) return 0f;
+
+        Object data = Global.getSector().getPersistentData().get("takeshido_race_skills");
+        if (!(data instanceof Map)) {
+            Map<String, Float> map = new HashMap<>();
+            map.put(key, 0f);
+            Global.getSector().getPersistentData().put("takeshido_race_skills", map);
+            return 0f;
+        }
+
+        @SuppressWarnings("unchecked")
+        Map<String, Float> map = (Map<String, Float>) data;
+        Float skill = map.get(key);
+        if (skill == null) {
+            map.put(key, 0f);
+            return 0f;
+        }
+        return clamp(skill, 0f, 1f);
+    }
+
+    private float clamp(float value, float min, float max) {
+        return Math.max(min, Math.min(max, value));
     }
 }

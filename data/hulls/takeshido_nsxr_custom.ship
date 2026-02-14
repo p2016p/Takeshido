@@ -1,0 +1,31 @@
+{
+  "hullName": "Honda NSX-R Custom",
+  "hullId": "takeshido_nsxr_custom",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/NSX-R.png",
+  "style": "TAKESHIDO",
+  "height": 45,
+  "width": 23.35,
+  "center": [11.68, 22.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.88,
+  "viewOffset": 0,
+  "builtInMods": [
+      "takeshido_racemod",
+      "strikeCraft",
+      "armaa_strikeCraftFrig",
+    ],
+  "weaponSlots": [
+
+  ],
+  "engineSlots": [
+
+  ],
+  "bounds": [
+    10.51, 20.25,
+    -10.51, 20.25,
+    -10.51, -20.25,
+    10.51, -20.25
+  ]
+}

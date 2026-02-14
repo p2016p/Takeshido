@@ -1,0 +1,31 @@
+{
+  "hullName": "Ford GT40 Custom",
+  "hullId": "takeshido_gt40_custom",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/GT40.png",
+  "style": "TAKESHIDO",
+  "height": 45,
+  "width": 22.5,
+  "center": [11.25, 22.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.88,
+  "viewOffset": 0,
+  "builtInMods": [
+      "takeshido_racemod",
+      "strikeCraft",
+      "armaa_strikeCraftFrig",
+    ],
+  "weaponSlots": [
+
+  ],
+  "engineSlots": [
+
+  ],
+  "bounds": [
+    10.13, 20.25,
+    -10.13, 20.25,
+    -10.13, -20.25,
+    10.13, -20.25
+  ]
+}

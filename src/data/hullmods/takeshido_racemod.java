@@ -33,7 +33,6 @@ public class takeshido_racemod extends BaseHullMod {
         float forwardSpeed = Vector2f.dot(vel, forward);
         Vector2f forwardVel = new Vector2f(forward);
         forwardVel.scale(forwardSpeed);
-
         vel.set(forwardVel);
     }
 }

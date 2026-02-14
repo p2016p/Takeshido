@@ -1,0 +1,31 @@
+{
+  "hullName": "Porsche 959 Custom",
+  "hullId": "takeshido_959_custom",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/959.png",
+  "style": "TAKESHIDO",
+  "height": 45,
+  "width": 22.08,
+  "center": [11.04, 22.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.88,
+  "viewOffset": 0,
+  "builtInMods": [
+      "takeshido_racemod",
+      "strikeCraft",
+      "armaa_strikeCraftFrig",
+    ],
+  "weaponSlots": [
+
+  ],
+  "engineSlots": [
+
+  ],
+  "bounds": [
+    9.94, 20.25,
+    -9.94, 20.25,
+    -9.94, -20.25,
+    9.94, -20.25
+  ]
+}

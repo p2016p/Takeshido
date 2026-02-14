@@ -1,0 +1,31 @@
+{
+  "hullName": "Jaguar XJ13 Custom",
+  "hullId": "takeshido_xj13_custom",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/XJ13.png",
+  "style": "TAKESHIDO",
+  "height": 45,
+  "width": 20.64,
+  "center": [10.32, 22.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.88,
+  "viewOffset": 0,
+  "builtInMods": [
+      "takeshido_racemod",
+      "strikeCraft",
+      "armaa_strikeCraftFrig",
+    ],
+  "weaponSlots": [
+
+  ],
+  "engineSlots": [
+
+  ],
+  "bounds": [
+    9.29, 20.25,
+    -9.29, 20.25,
+    -9.29, -20.25,
+    9.29, -20.25
+  ]
+}
