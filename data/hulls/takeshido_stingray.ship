@@ -1,0 +1,84 @@
+{
+  "hullName": "Chevrolet Corvette Stingray",
+  "hullId": "takeshido_stingray",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/Stingray.png",
+  "style": "TAKESHIDO",
+  "height": 45,
+  "width": 21.75,
+  "center": [10.88, 22.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.88,
+  "viewOffset": 0,
+  "builtInMods": [
+      "takeshido_racemod",
+      "strikeCraft",
+      "armaa_strikeCraftFrig",
+    ],
+  "weaponSlots": [
+
+  ],
+                  "engineSlots": [
+    {
+      "location": [-21.3, -4.79],
+      "length": 8,
+      "width": 3,
+      "angle": 180,
+      "contrailSize": 3,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-21.3, -3.26],
+      "length": 8,
+      "width": 3,
+      "angle": 180,
+      "contrailSize": 3,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-21.3, 3.26],
+      "length": 8,
+      "width": 3,
+      "angle": 180,
+      "contrailSize": 3,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-21.3, 4.79],
+      "length": 8,
+      "width": 3,
+      "angle": 180,
+      "contrailSize": 3,
+      "style": "LOW_TECH"
+    }
+  ],
+
+
+
+
+
+
+
+
+  "bounds": [
+    20.25, 9.79,
+    20.25, -9.79,
+    -20.25, -9.79,
+    -20.25, 9.79
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,60 @@
+{
+  "hullName": "Lamborghini Aventador",
+  "hullId": "takeshido_aventador",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/Aventador.png",
+  "style": "TAKESHIDO",
+  "height": 45,
+  "width": 22.43,
+  "center": [11.22, 22.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.88,
+  "viewOffset": 0,
+  "builtInMods": [
+      "takeshido_racemod",
+      "strikeCraft",
+      "armaa_strikeCraftFrig",
+    ],
+  "weaponSlots": [
+
+  ],
+                  "engineSlots": [
+    {
+      "location": [-21.3, 0],
+      "length": 8,
+      "width": 3,
+      "angle": 180,
+      "contrailSize": 3,
+      "style": "LOW_TECH"
+    }
+  ],
+
+
+
+
+
+
+
+
+  "bounds": [
+    20.25, 10.09,
+    20.25, -10.09,
+    -20.25, -10.09,
+    -20.25, 10.09
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

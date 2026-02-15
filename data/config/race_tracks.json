@@ -1,34 +1,571 @@
 {
-  "tracks": [
-    {
-      "id": "austin",
-      "name": "Austin (F1TENTH)",
-      "centerlineCsv": "data/config/tracks/Austin_centerline.csv",
-      "racelineCsv": "data/config/tracks/Austin_raceline.csv",
-
-      "unitsPerMeter": 250.0,
-      "rotationDeg": 0.0,
-      "autoCenter": true,
-      "offset": [0.0, 0.0],
-
-      "useCsvWidths": true,
-      "widthScale": 1.1,
-
-      "checkpointRadius": 350.0,
-      "checkpointSpacing": 900.0,
-
-      "edgeMarkerSpacing": 180.0,
-      "wallAsteroidSpacing": 50.0,
-      "wallAsteroidType": 2,
-      "wallAsteroidTrackBuffer": 0.0,
-
-      "grid": {
-        "columns": 4,
-        "rowSpacing": 320,
-        "edgeMargin": 80,
-        "aheadOffset": 900
-      }
-    }
-  ]
+    "tracks":  [
+                   {
+                       "id":  "austin",
+                       "name":  "Austin (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Austin_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Austin_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "brandshatch",
+                       "name":  "Brands Hatch (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/BrandsHatch_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/BrandsHatch_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "budapest",
+                       "name":  "Budapest (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Budapest_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Budapest_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "catalunya",
+                       "name":  "Catalunya (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Catalunya_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Catalunya_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "hockenheim",
+                       "name":  "Hockenheim (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Hockenheim_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Hockenheim_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "ims",
+                       "name":  "IMS (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/IMS_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/IMS_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "melbourne",
+                       "name":  "Melbourne (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Melbourne_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Melbourne_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "mexicocity",
+                       "name":  "Mexico City (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/MexicoCity_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/MexicoCity_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "monza",
+                       "name":  "Monza (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Monza_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Monza_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "moscowraceway",
+                       "name":  "Moscow Raceway (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/MoscowRaceway_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/MoscowRaceway_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "nuerburgring",
+                       "name":  "Nuerburgring (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Nuerburgring_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Nuerburgring_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "oschersleben",
+                       "name":  "Oschersleben (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Oschersleben_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Oschersleben_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "sakhir",
+                       "name":  "Sakhir (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Sakhir_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Sakhir_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "saopaulo",
+                       "name":  "Sao Paulo (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/SaoPaulo_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/SaoPaulo_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "sepang",
+                       "name":  "Sepang (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Sepang_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Sepang_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "silverstone",
+                       "name":  "Silverstone (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Silverstone_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Silverstone_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "sochi",
+                       "name":  "Sochi (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Sochi_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Sochi_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "spa",
+                       "name":  "Spa (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Spa_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Spa_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "spielberg",
+                       "name":  "Spielberg (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Spielberg_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Spielberg_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "yasmarina",
+                       "name":  "Yas Marina (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/YasMarina_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/YasMarina_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   },
+                   {
+                       "id":  "zandvoort",
+                       "name":  "Zandvoort (F1TENTH)",
+                       "centerlineCsv":  "data/config/tracks/Zandvoort_centerline.csv",
+                       "racelineCsv":  "data/config/tracks/Zandvoort_raceline.csv",
+                       "unitsPerMeter":  250,
+                       "rotationDeg":  0,
+                       "autoCenter":  true,
+                       "offset":  [
+                                      0,
+                                      0
+                                  ],
+                       "useCsvWidths":  true,
+                       "widthScale":  1.1,
+                       "checkpointRadius":  350,
+                       "checkpointSpacing":  900,
+                       "edgeMarkerSpacing":  180,
+                       "wallAsteroidSpacing":  50,
+                       "wallAsteroidType":  2,
+                       "wallAsteroidTrackBuffer":  0,
+                       "grid":  {
+                                    "columns":  4,
+                                    "rowSpacing":  320,
+                                    "edgeMargin":  80,
+                                    "aheadOffset":  900
+                                }
+                   }
+               ]
 }
-

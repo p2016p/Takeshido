@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ConsoleCommands">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../mods/Console Commands-4.0.8/jars/lw_Console.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

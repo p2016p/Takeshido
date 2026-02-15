@@ -48,8 +48,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
     private static final String OFFTRACK_MOD_ID = "takeshido_offtrack";
     private static final String START_LOCK_ID = "takeshido_start_lock";
-    private static final float START_PUSH_TIME = 3f;
-    private static final float START_PUSH_SPEED = 30f;
     private static final float WALL_PUSH_PER_SEC = 260f;
     private static final float WALL_PUSH_MULT = 1.0f;
     private static final float WALL_LATERAL_DAMP = 0.7f;
@@ -77,7 +75,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private boolean enginesSuppressed = false;
     private boolean raceMusicStarted = false;
     private boolean raceFinishPlayed = false;
-    private float raceStartTime = -1f;
+    private boolean postCountdownAIEnsured = false;
 
     public TakeshidoRaceCombatPlugin(String raceHullmodId, int lapsToWin, int expectedRacers, boolean isDeathRace, String trackId) {
         this.raceHullmodId = raceHullmodId;
@@ -117,7 +115,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         if (!isDeathRace) {
-            // USE_SYSTEM is a ShipCommand; blocking it stops both AI and player from activating the ship system. :contentReference[oaicite:4]{index=4}
+            // USE_SYSTEM is a ShipCommand; blocking it stops both AI and player from activating the ship system.
             for (ShipAPI s : race.racers.keySet()) {
                 if (s == null || s.isHulk()) continue;
                 s.blockCommandForOneFrame(ShipCommand.USE_SYSTEM);
@@ -126,12 +124,12 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         if (countdownActive) {
-            // draw/refresh track markers
-            markerTimer += amount;
-            if (markerTimer >= 0.25f) {
-                markerTimer = 0f;
-                spawnTrackMarkers();
-            }
+            // Track markers disabled
+//            markerTimer += amount;
+//            if (markerTimer >= 0.25f) {
+//                markerTimer = 0f;
+//                // spawnTrackMarkers(); // disabled: track markers no longer needed
+//            }
 
             // keep wall asteroids in place
             maintainWallAsteroids();
@@ -141,12 +139,12 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
 
 
-        // draw/refresh track markers
-        markerTimer += amount;
-        if (markerTimer >= 0.25f) {
-            markerTimer = 0f;
-            spawnTrackMarkers();
-        }
+        // Track markers disabled
+//        markerTimer += amount;
+//        if (markerTimer >= 0.25f) {
+//            markerTimer = 0f;
+//            // spawnTrackMarkers(); // disabled: track markers no longer needed
+//        }
 
         // keep wall asteroids in place
         maintainWallAsteroids();
@@ -154,9 +152,8 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         updateRaceProgress();
 
         applyOffTrackPenalty();
-        applyStartPush(amount);
         applySoftWall(amount);
-        applySoftCarRepulsion(amount);
+        // applySoftCarRepulsion(amount); // disabled: allow normal ship-ship collisions
 
         ShipAPI player = engine.getPlayerShip();
         if (player != null) {
@@ -833,9 +830,34 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         if (countdownTimer <= 0f) {
             countdownActive = false;
             releaseStartLockout();
-            raceStartTime = engine.getTotalElapsedTime(false);
+            ensureRaceAI();
             startRaceMusic();
             engine.getCombatUI().addMessage(1, "Race start! Complete " + lapsToWin + " laps.");
+        }
+    }
+
+    private void ensureRaceAI() {
+        if (postCountdownAIEnsured || engine == null) return;
+        postCountdownAIEnsured = true;
+
+        ShipAPI player = engine.getPlayerShip();
+        int firstTarget = (race.startIndex + 1) % race.checkpoints.size();
+
+        for (ShipAPI s : engine.getShips()) {
+            if (!isRacer(s)) continue;
+
+            RacerState rs = race.racers.get(s);
+            if (rs == null) {
+                rs = new RacerState();
+                rs.skill = getSkillForShip(s);
+                rs.nextCheckpoint = firstTarget;
+                rs.lastPos = new Vector2f(s.getLocation());
+                race.racers.put(s, rs);
+            }
+
+            if (s != player) {
+                s.setShipAI(new TakeshidoRaceShipAI(s, race, rs));
+            }
         }
     }
 
@@ -975,24 +997,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
     }
 
-    private void applyStartPush(float amount) {
-        if (raceStartTime < 0f) return;
-        float elapsed = engine.getTotalElapsedTime(false) - raceStartTime;
-        if (elapsed > START_PUSH_TIME) return;
-
-        ShipAPI player = engine.getPlayerShip();
-        for (ShipAPI s : race.racers.keySet()) {
-            if (s == null || s.isHulk()) continue;
-            if (s == player) continue;
-            Vector2f vel = s.getVelocity();
-            if (vel != null && vel.length() <= 0.01f) {
-                float facing = s.getFacing();
-                float fx = (float) Math.cos(Math.toRadians(facing));
-                float fy = (float) Math.sin(Math.toRadians(facing));
-                vel.set(fx * START_PUSH_SPEED, fy * START_PUSH_SPEED);
-            }
-        }
-    }
 
     private void setEngineFlameLevel(float level) {
         for (ShipAPI s : race.racers.keySet()) {

@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_r34_skyline_standard",
+    "hullId":  "takeshido_r34_skyline",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "quality":  1,
+    "permaMods":  [
+
+                  ],
+    "hullMods":  [
+
+                 ],
+    "weaponGroups":  [
+
+                     ],
+    "modules":  [
+
+                ],
+    "wings":  [
+
+              ]
+}

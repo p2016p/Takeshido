@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_nsxr_standard",
+    "hullId":  "takeshido_nsxr",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "quality":  1,
+    "permaMods":  [
+
+                  ],
+    "hullMods":  [
+
+                 ],
+    "weaponGroups":  [
+
+                     ],
+    "modules":  [
+
+                ],
+    "wings":  [
+
+              ]
+}

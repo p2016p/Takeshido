@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_delorean_bttf_standard",
+    "hullId":  "takeshido_delorean_bttf",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "quality":  1,
+    "permaMods":  [
+
+                  ],
+    "hullMods":  [
+
+                 ],
+    "weaponGroups":  [
+
+                     ],
+    "modules":  [
+
+                ],
+    "wings":  [
+
+              ]
+}

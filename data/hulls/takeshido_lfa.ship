@@ -1,0 +1,76 @@
+{
+  "hullName": "Lexus LFA",
+  "hullId": "takeshido_lfa",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/LFA.png",
+  "style": "TAKESHIDO",
+  "height": 45,
+  "width": 22.99,
+  "center": [11.5, 22.5],
+  "collisionRadius": 30.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 25.88,
+  "viewOffset": 0,
+  "builtInMods": [
+      "takeshido_racemod",
+      "strikeCraft",
+      "armaa_strikeCraftFrig",
+    ],
+  "weaponSlots": [
+
+  ],
+                  "engineSlots": [
+    {
+      "location": [-21.3, -1.84],
+      "length": 8,
+      "width": 3,
+      "angle": 180,
+      "contrailSize": 3,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-21.3, 0],
+      "length": 8,
+      "width": 3,
+      "angle": 180,
+      "contrailSize": 3,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-21.3, 1.84],
+      "length": 8,
+      "width": 3,
+      "angle": 180,
+      "contrailSize": 3,
+      "style": "LOW_TECH"
+    }
+  ],
+
+
+
+
+
+
+
+
+  "bounds": [
+    20.25, 10.35,
+    20.25, -10.35,
+    -20.25, -10.35,
+    -20.25, 10.35
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

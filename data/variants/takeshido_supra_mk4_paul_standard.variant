@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_supra_mk4_paul_standard",
+    "hullId":  "takeshido_supra_mk4_paul",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "quality":  1,
+    "permaMods":  [
+
+                  ],
+    "hullMods":  [
+
+                 ],
+    "weaponGroups":  [
+
+                     ],
+    "modules":  [
+
+                ],
+    "wings":  [
+
+              ]
+}

@@ -42,14 +42,14 @@ public class TakeshidoUsedCar extends BaseSubmarketPlugin {
         }
         cargo.removeEmptyStacks();
         WeightedRandomPicker<String> cars = new WeightedRandomPicker<>();
-        cars.add("takeshido_hobi_custom",10);
-        cars.add("takeshido_350x_custom",8);
-        cars.add("takeshido_camirillo_custom",6);
-        cars.add("takeshido_BR97_custom",4);
-        cars.add("takeshido_NMW_G3_custom",2);
-        cars.add("takeshido_vroomicorn_custom",1);
-        cars.add("takeshido_bonta_custom",0.5f);
-        cars.add("takeshido_bionda_custom",0.5f);
+        cars.add("takeshido_037",10);
+        cars.add("takeshido_stratos",8);
+        cars.add("takeshido_db5",6);
+        cars.add("takeshido_miura",4);
+        cars.add("takeshido_aventador",2);
+        cars.add("takeshido_rs200",1);
+        cars.add("takeshido_wrx_sti",0.5f);
+        cars.add("takeshido_r35gtr",0.5f);
 
         for (int i = 0; i < MathUtils.getRandomNumberInRange(4,10); i++) {
             FleetMemberAPI member = Global.getFactory().createFleetMember(FleetMemberType.SHIP, cars.pick()+"_Hull");
@@ -90,4 +90,5 @@ public class TakeshidoUsedCar extends BaseSubmarketPlugin {
         return false;
     }
 }
+
 

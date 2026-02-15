@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_crown_vic_taxi_standard",
+    "hullId":  "takeshido_crown_vic_taxi",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "quality":  1,
+    "permaMods":  [
+
+                  ],
+    "hullMods":  [
+
+                 ],
+    "weaponGroups":  [
+
+                     ],
+    "modules":  [
+
+                ],
+    "wings":  [
+
+              ]
+}

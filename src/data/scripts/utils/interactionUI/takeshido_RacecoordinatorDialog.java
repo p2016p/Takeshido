@@ -80,14 +80,14 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
                 }else {
                     if(!memory.contains("$takeshido_pilotupdatedate")||!memory.get("$takeshido_pilotupdatedate").equals(Global.getSector().getClock().getDay())) {
                         WeightedRandomPicker<String> cars = new WeightedRandomPicker<>();
-                        cars.add("takeshido_hobi_custom", 10);
-                        cars.add("takeshido_350x_custom", 8);
-                        cars.add("takeshido_camirillo_custom", 6);
-                        cars.add("takeshido_BR97_custom", 4);
-                        cars.add("takeshido_NMW_G3_custom", 2);
-                        cars.add("takeshido_vroomicorn_custom", 1);
-                        cars.add("takeshido_bonta_custom", 0.5f);
-                        cars.add("takeshido_bionda_custom", 0.5f);
+                        cars.add("takeshido_037", 10);
+                        cars.add("takeshido_stratos", 8);
+                        cars.add("takeshido_db5", 6);
+                        cars.add("takeshido_miura", 4);
+                        cars.add("takeshido_aventador", 2);
+                        cars.add("takeshido_rs200", 1);
+                        cars.add("takeshido_wrx_sti", 0.5f);
+                        cars.add("takeshido_r35gtr", 0.5f);
 
                         Object[][] racerarrayinit = new Object[6][2];
                         for (int i = 0; i < 6; i++) {
@@ -161,15 +161,15 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
                 String upkeep = "well maintained";
                 if(car.getVariant().hasDMods()) upkeep = "poorly maintained";
 
-                String carstyle = "good car";
-                if(car.getHullSpec().getHullId().equals("takeshido_hobi_custom")) carstyle = "a jack of all trades, possessing decent speed, acceleration, and cornering ability, but not really excelling in any one area";
-                else if(car.getHullSpec().getHullId().equals("takeshido_350x_Custom")) carstyle = "an older model with decent offroading capabilities, but not much else going for it";
-                else if(car.getHullSpec().getHullId().equals("takeshido_camirillo_Custom")) carstyle = "a bulky ponderous vehicle without much going for it besides a good quarter mile and an overengineered frame";
-                else if(car.getHullSpec().getHullId().equals("takeshido_BR97_Custom")) carstyle = "a car with a unique drivetrain that allows it to excel in extremely technical city roads";
-                else if(car.getHullSpec().getHullId().equals("takeshido_NMW_G3_Custom")) carstyle = "a powerful car with great handling and speed without any obvious flaws";
-                else if(car.getHullSpec().getHullId().equals("takeshido_vroomicorn_Custom")) carstyle = "a car with ridiculous low range acceleration and decent handling, but relatively poor top speed";
-                else if(car.getHullSpec().getHullId().equals("takeshido_bonta_Custom")) carstyle = "a stellar car with phenomenal performance across the board";
-                else if(car.getHullSpec().getHullId().equals("takeshido_350x_Custom")) carstyle = "a phenomenal car with stellar performance across the board";
+                String carstyle = "a solid performer with balanced stats";
+                if(car.getHullSpec().getHullId().equals("takeshido_037")) carstyle = "a rally-bred classic with sharp handling and strong midrange pull";
+                else if(car.getHullSpec().getHullId().equals("takeshido_stratos")) carstyle = "a short-wheelbase legend that corners hard but can be twitchy";
+                else if(car.getHullSpec().getHullId().equals("takeshido_db5")) carstyle = "a refined grand tourer with steady, predictable performance";
+                else if(car.getHullSpec().getHullId().equals("takeshido_miura")) carstyle = "a mid-engine icon with blazing top speed and lively handling";
+                else if(car.getHullSpec().getHullId().equals("takeshido_aventador")) carstyle = "a modern monster with brutal acceleration and heavy steering";
+                else if(car.getHullSpec().getHullId().equals("takeshido_rs200")) carstyle = "a compact Group B beast with excellent traction and burst speed";
+                else if(car.getHullSpec().getHullId().equals("takeshido_wrx_sti")) carstyle = "a rally sedan with strong grip and stability";
+                else if(car.getHullSpec().getHullId().equals("takeshido_r35gtr")) carstyle = "a tech-heavy powerhouse with balanced speed and control";
 
                 float victoryodds = pilot.getStats().getLevel()/8f;
 
@@ -292,3 +292,4 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
     }
 
 }
+

@@ -22,10 +22,13 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
     private static final float LOOKAHEAD_MIN_UNITS = 30f;
     private static final float LOOKAHEAD_MAX_UNITS = 280f;
     private static final float LINE_DIST_FOR_MAX_LOOKAHEAD = 600f;
-    private static final float TURN_RATE_MARGIN = 0.75f;
+    private static final float TURN_RATE_MARGIN = 0.65f;
     private static final float OVERTAKE_DIST = 220f;
     private static final float OVERTAKE_LANE_WIDTH = 120f;
     private static final float OVERTAKE_OFFSET = 40f;
+    private static final float BRAKE_LOOKAHEAD_TIME = 0.65f;
+    private static final float BRAKE_LOOKAHEAD_MIN_UNITS = 40f;
+    private static final float BRAKE_LOOKAHEAD_MAX_UNITS = 420f;
 
     public TakeshidoRaceShipAI(ShipAPI ship, RaceState race, RacerState state) {
         this.ship = ship;
@@ -58,12 +61,12 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
             target = lerp(targetCenter, targetRace, skill);
         }
 
-        if (closestCenter >= 0) {
-            Vector2f offset = computeOvertakeOffset(closestCenter);
-            if (offset != null) {
-                target = new Vector2f(target.x + offset.x, target.y + offset.y);
-            }
-        }
+//        if (closestCenter >= 0) {
+//            Vector2f offset = computeOvertakeOffset(closestCenter);
+//            if (offset != null) {
+//                target = new Vector2f(target.x + offset.x, target.y + offset.y);
+//            }
+//        }
 
         float desired = angleTo(loc, target);
         float delta = shortestRotation(ship.getFacing(), desired);
@@ -74,12 +77,91 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
         }
 
         boolean tooTight = false;
-        if (race.racelineKappa.size() == race.raceline.size() && race.unitsPerMeter > 0f) {
+//        if (race.racelineKappa.size() == race.raceline.size() && race.unitsPerMeter > 0f) {
+//            float speedUnits = ship.getVelocity() != null ? ship.getVelocity().length() : 0f;
+//            float speedMps = speedUnits / race.unitsPerMeter;
+//            float kappa = Math.abs(race.racelineKappa.get(closestRace));
+//            float requiredTurnRateDeg = (speedMps * kappa) * 57.2958f;
+//            tooTight = requiredTurnRateDeg > (maxTurnRate * TURN_RATE_MARGIN);
+//        }
+
+        // Braking based on curvature of the actual line being targeted (centerline/raceline blend)
+        if (race.unitsPerMeter > 0f) {
             float speedUnits = ship.getVelocity() != null ? ship.getVelocity().length() : 0f;
-            float speedMps = speedUnits / race.unitsPerMeter;
-            float kappa = Math.abs(race.racelineKappa.get(closestRace));
-            float requiredTurnRateDeg = (speedMps * kappa) * 57.2958f;
-            tooTight = requiredTurnRateDeg > (maxTurnRate * TURN_RATE_MARGIN);
+            float brakeLookaheadUnits = clamp(speedUnits * BRAKE_LOOKAHEAD_TIME,
+                    BRAKE_LOOKAHEAD_MIN_UNITS, BRAKE_LOOKAHEAD_MAX_UNITS);
+            int brakeSteps = Math.max(1, Math.round(brakeLookaheadUnits / 40f));
+
+            float maxDecel = ship.getMutableStats().getDeceleration().getModifiedValue();
+            if (race.centerline != null && !race.centerline.isEmpty()
+                    && race.raceline != null
+                    && race.raceline.size() == race.centerline.size()
+                    && closestCenter >= 0) {
+                float skill = clamp(state != null ? state.skill : 0f, 0f, 1f);
+                int n = race.centerline.size();
+                float distAlong = 0f;
+                int prevIdx = closestCenter;
+                Vector2f prevPt = lerp(race.centerline.get(prevIdx), race.raceline.get(prevIdx), skill);
+                for (int i = 0; i <= brakeSteps; i++) {
+                    int idx = closestCenter + i;
+                    while (idx >= n) idx -= n;
+                    if (i > 0) {
+                        Vector2f curPt = lerp(race.centerline.get(idx), race.raceline.get(idx), skill);
+                        distAlong += distance(prevPt, curPt);
+                        prevPt = curPt;
+                    }
+
+                    float kappa = Math.abs(curvatureAtBlend(idx, skill));
+                    if (kappa <= 0f) continue;
+
+                    float maxAllowedSpeed = (maxTurnRate * TURN_RATE_MARGIN) / (kappa * 57.2958f);
+                    if (speedUnits <= maxAllowedSpeed) continue;
+
+                    float timeTo = distAlong / Math.max(speedUnits, 1f);
+                    if (timeTo <= 0.01f) {
+                        tooTight = true;
+                        break;
+                    }
+
+                    float requiredDecel = (speedUnits - maxAllowedSpeed) / timeTo;
+                    if (requiredDecel >= maxDecel) {
+                        tooTight = true;
+                        break;
+                    }
+                }
+            } else if (race.raceline != null && race.raceline.size() >= 3) {
+                int n = race.raceline.size();
+                float distAlong = 0f;
+                int prevIdx = closestRace;
+                Vector2f prevPt = race.raceline.get(prevIdx);
+                for (int i = 0; i <= brakeSteps; i++) {
+                    int idx = closestRace + i;
+                    while (idx >= n) idx -= n;
+                    if (i > 0) {
+                        Vector2f curPt = race.raceline.get(idx);
+                        distAlong += distance(prevPt, curPt);
+                        prevPt = curPt;
+                    }
+
+                    float kappa = Math.abs(curvatureAt(race.raceline, idx));
+                    if (kappa <= 0f) continue;
+
+                    float maxAllowedSpeed = (maxTurnRate * TURN_RATE_MARGIN) / (kappa * 57.2958f);
+                    if (speedUnits <= maxAllowedSpeed) continue;
+
+                    float timeTo = distAlong / Math.max(speedUnits, 1f);
+                    if (timeTo <= 0.01f) {
+                        tooTight = true;
+                        break;
+                    }
+
+                    float requiredDecel = (speedUnits - maxAllowedSpeed) / timeTo;
+                    if (requiredDecel >= maxDecel) {
+                        tooTight = true;
+                        break;
+                    }
+                }
+            }
         }
 
         ship.giveCommand(tooTight ? ShipCommand.DECELERATE : ShipCommand.ACCELERATE, null, 0);
@@ -230,5 +312,68 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
                 a.x + (b.x - a.x) * t,
                 a.y + (b.y - a.y) * t
         );
+    }
+
+    private float curvatureAt(java.util.List<Vector2f> line, int idx) {
+        int n = line.size();
+        if (n < 3) return 0f;
+        int i0 = (idx - 1 + n) % n;
+        int i1 = idx % n;
+        int i2 = (idx + 1) % n;
+        return curvatureFromThree(line.get(i0), line.get(i1), line.get(i2));
+    }
+
+    private float curvatureAtBlend(int idx, float skill) {
+        int n = race.centerline.size();
+        if (n < 3 || race.raceline == null || race.raceline.size() != n) return 0f;
+        int i0 = (idx - 1 + n) % n;
+        int i1 = idx % n;
+        int i2 = (idx + 1) % n;
+
+        Vector2f a = lerp(race.centerline.get(i0), race.raceline.get(i0), skill);
+        Vector2f b = lerp(race.centerline.get(i1), race.raceline.get(i1), skill);
+        Vector2f c = lerp(race.centerline.get(i2), race.raceline.get(i2), skill);
+        return curvatureFromThree(a, b, c);
+    }
+
+    private float distanceAlongLine(java.util.List<Vector2f> line, int startIdx, int steps) {
+        if (line == null || line.size() < 2 || steps <= 0) return 0f;
+        int n = line.size();
+        float dist = 0f;
+        for (int i = 0; i < steps; i++) {
+            int aIdx = startIdx + i;
+            int bIdx = startIdx + i + 1;
+            while (aIdx >= n) aIdx -= n;
+            while (bIdx >= n) bIdx -= n;
+            dist += distance(line.get(aIdx), line.get(bIdx));
+        }
+        return dist;
+    }
+
+    private float distanceAlongBlend(int startIdx, int steps, float skill) {
+        int n = race.centerline.size();
+        if (n < 2 || race.raceline == null || race.raceline.size() != n || steps <= 0) return 0f;
+        float dist = 0f;
+        for (int i = 0; i < steps; i++) {
+            int aIdx = startIdx + i;
+            int bIdx = startIdx + i + 1;
+            while (aIdx >= n) aIdx -= n;
+            while (bIdx >= n) bIdx -= n;
+            Vector2f a = lerp(race.centerline.get(aIdx), race.raceline.get(aIdx), skill);
+            Vector2f b = lerp(race.centerline.get(bIdx), race.raceline.get(bIdx), skill);
+            dist += distance(a, b);
+        }
+        return dist;
+    }
+
+    private float curvatureFromThree(Vector2f a, Vector2f b, Vector2f c) {
+        float ab = distance(a, b);
+        float bc = distance(b, c);
+        float ca = distance(c, a);
+        if (ab < 0.0001f || bc < 0.0001f || ca < 0.0001f) return 0f;
+
+        float cross = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+        float area2 = Math.abs(cross); // 2 * triangle area
+        return (2f * area2) / (ab * bc * ca); // curvature = 1/R
     }
 }

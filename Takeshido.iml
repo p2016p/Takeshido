@@ -17,7 +17,9 @@
     <orderEntry type="library" name="starsector-core" level="project" />
     <orderEntry type="library" name="MagicLib" level="project" />
     <orderEntry type="library" name="LazyLib" level="project" />
+    <orderEntry type="library" name="ConsoleCommands" level="project" />
     <orderEntry type="library" name="Nexerelin" level="project" />
     <orderEntry type="library" name="ExerelinCore" level="application" />
+    <orderEntry type="library" name="Console Commands-4.0" level="application" />
   </component>
 </module>

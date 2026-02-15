@@ -1,1 +1,2 @@
 command,class,tags,syntax,help
+takeshido_add_strikecraft,data.console.commands.TakeshidoAddStrikecraft,takeshido,takeshido_add_strikecraft,Adds all takeshidostrikecraft hulls to the player fleet if missing.

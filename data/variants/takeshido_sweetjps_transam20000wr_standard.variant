@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_sweetjps_transam20000wr_standard",
+    "hullId":  "takeshido_sweetjps_transam20000wr",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "quality":  1,
+    "permaMods":  [
+
+                  ],
+    "hullMods":  [
+
+                 ],
+    "weaponGroups":  [
+
+                     ],
+    "modules":  [
+
+                ],
+    "wings":  [
+
+              ]
+}
