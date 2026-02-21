@@ -2,3 +2,4 @@ name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hid
 ,,,,,,,,,,,,,,,,,,
 strikecraftadder,takeshido_strikecraftadder,,,Dev Tool,"no_drop, no_drop_salvage, no_build_in, restricted",DEVTOOL,,,TRUE,TRUE,0,0,0,0,data.hullmods.takeshido_strikecraftadder,DEBUG: You should never see this in game.,,graphics/hullmods/takeshido_default.png
 Takeshido Racing Spec,takeshido_racemod,,,Dev Tool,"no_drop, no_drop_salvage, no_build_in, restricted",,,,TRUE,,0,0,0,0,data.hullmods.takeshido_racemod,DEBUG: You should never see this in game.,,graphics/hullmods/takeshido_default.png
+Takeshido Powertrain,takeshido_powertrain,,,Takeshido,,"Engines, Speed",5000,,,,0,0,0,0,data.hullmods.takeshido_powertrain,"Increases top speed by %s. Acceleration scales down as speed approaches max, bottoming out at %s of normal.",Boosts speed; accel tapers near max.,graphics/hullmods/takeshido_default.png

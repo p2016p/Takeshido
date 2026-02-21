@@ -1,0 +1,280 @@
+{
+    "bounds":  [
+                   -101,
+                   -67,
+                   -11,
+                   -181,
+                   10,
+                   -181,
+                   100,
+                   -67,
+                   100,
+                   161,
+                   99,
+                   164,
+                   90,
+                   175,
+                   -52,
+                   190,
+                   -91,
+                   175,
+                   -100,
+                   164,
+                   -101,
+                   161
+               ],
+    "center":  [
+                   107,
+                   197
+               ],
+    "collisionRadius":  197.25,
+    "coversColor":  "",
+    "engineSlots":  [
+                        {
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "length":  60,
+                            "location":  [
+                                             -94.58,
+                                             148.4
+                                         ],
+                            "style":  "MIDLINE",
+                            "width":  24
+                        },
+                        {
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "length":  60,
+                            "location":  [
+                                             -94.58,
+                                             92.75
+                                         ],
+                            "style":  "MIDLINE",
+                            "width":  24
+                        },
+                        {
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "length":  60,
+                            "location":  [
+                                             -94.58,
+                                             37.1
+                                         ],
+                            "style":  "MIDLINE",
+                            "width":  24
+                        },
+                        {
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "length":  60,
+                            "location":  [
+                                             -94.58,
+                                             -37.1
+                                         ],
+                            "style":  "MIDLINE",
+                            "width":  24
+                        },
+                        {
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "length":  60,
+                            "location":  [
+                                             -94.58,
+                                             -92.75
+                                         ],
+                            "style":  "MIDLINE",
+                            "width":  24
+                        },
+                        {
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "length":  60,
+                            "location":  [
+                                             -94.58,
+                                             -148.4
+                                         ],
+                            "style":  "MIDLINE",
+                            "width":  24
+                        }
+                    ],
+    "height":  394,
+    "hullId":  "takeshido_megagarage",
+    "hullName":  "megagarage",
+    "hullSize":  "CAPITAL_SHIP",
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  157.8,
+    "spriteName":  "graphics/ships/NormalShips/takeshido_megagarage.png",
+    "style":  "MIDLINE",
+    "viewOffset":  0,
+    "weaponSlots":  [
+                        {
+                            "angle":  0,
+                            "arc":  160,
+                            "id":  "WS 001",
+                            "locations":  [
+                                              69.85,
+                                              74.2
+                                          ],
+                            "mount":  "TURRET",
+                            "size":  "LARGE",
+                            "type":  "BALLISTIC"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  160,
+                            "id":  "WS 002",
+                            "locations":  [
+                                              69.85,
+                                              -74.2
+                                          ],
+                            "mount":  "TURRET",
+                            "size":  "LARGE",
+                            "type":  "BALLISTIC"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  180,
+                            "id":  "WS 003",
+                            "locations":  [
+                                              19.6,
+                                              111.3
+                                          ],
+                            "mount":  "TURRET",
+                            "size":  "MEDIUM",
+                            "type":  "MISSILE"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  180,
+                            "id":  "WS 004",
+                            "locations":  [
+                                              19.6,
+                                              -111.3
+                                          ],
+                            "mount":  "TURRET",
+                            "size":  "MEDIUM",
+                            "type":  "MISSILE"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  180,
+                            "id":  "WS 005",
+                            "locations":  [
+                                              19.6,
+                                              37.1
+                                          ],
+                            "mount":  "TURRET",
+                            "size":  "MEDIUM",
+                            "type":  "MISSILE"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  180,
+                            "id":  "WS 006",
+                            "locations":  [
+                                              19.6,
+                                              -37.1
+                                          ],
+                            "mount":  "TURRET",
+                            "size":  "MEDIUM",
+                            "type":  "MISSILE"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  5,
+                            "id":  "WS 007",
+                            "locations":  [
+                                              29.7,
+                                              119.3,
+                                              49.7,
+                                              119.3,
+                                              49.7,
+                                              103.3,
+                                              29.7,
+                                              103.3
+                                          ],
+                            "mount":  "HIDDEN",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  5,
+                            "id":  "WS 008",
+                            "locations":  [
+                                              29.7,
+                                              63.65,
+                                              49.7,
+                                              63.65,
+                                              49.7,
+                                              47.65,
+                                              29.7,
+                                              47.65
+                                          ],
+                            "mount":  "HIDDEN",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  5,
+                            "id":  "WS 009",
+                            "locations":  [
+                                              29.7,
+                                              8,
+                                              49.7,
+                                              8,
+                                              49.7,
+                                              -8,
+                                              29.7,
+                                              -8
+                                          ],
+                            "mount":  "HIDDEN",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  5,
+                            "id":  "WS 010",
+                            "locations":  [
+                                              29.7,
+                                              -47.65,
+                                              49.7,
+                                              -47.65,
+                                              49.7,
+                                              -63.65,
+                                              29.7,
+                                              -63.65
+                                          ],
+                            "mount":  "HIDDEN",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY"
+                        },
+                        {
+                            "angle":  0,
+                            "arc":  5,
+                            "id":  "WS 011",
+                            "locations":  [
+                                              29.7,
+                                              -103.3,
+                                              49.7,
+                                              -103.3,
+                                              49.7,
+                                              -119.3,
+                                              29.7,
+                                              -119.3
+                                          ],
+                            "mount":  "HIDDEN",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY"
+                        }
+                    ],
+    "width":  214,
+    "builtInMods":  [
+                        "takeshido_powertrain"
+                    ]
+}

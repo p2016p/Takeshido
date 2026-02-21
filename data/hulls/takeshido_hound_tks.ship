@@ -1,0 +1,123 @@
+{
+    "hullName":  "hound(tks)",
+    "hullId":  "takeshido_hound_tks",
+    "hullSize":  "FRIGATE",
+    "spriteName":  "graphics/ships/NormalShips/takeshido_hound(tks).png",
+    "style":  "LOW_TECH",
+    "height":  64,
+    "width":  63,
+    "center":  [
+                   31,
+                   27
+               ],
+    "collisionRadius":  44,
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  54.5,
+    "viewOffset":  0,
+    "builtInMods":  [
+                        "rugged",
+                        "shielded_holds",
+                        "takeshido_powertrain"
+                    ],
+    "weaponSlots":  [
+                        {
+                            "id":  "WS 001",
+                            "size":  "MEDIUM",
+                            "type":  "BALLISTIC",
+                            "mount":  "HARDPOINT",
+                            "arc":  5,
+                            "angle":  0,
+                            "locations":  [
+                                              32,
+                                              -6
+                                          ]
+                        },
+                        {
+                            "id":  "WS 002",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  290,
+                            "angle":  145,
+                            "locations":  [
+                                              -4,
+                                              4
+                                          ]
+                        },
+                        {
+                            "id":  "WS0001",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  290,
+                            "angle":  -90,
+                            "locations":  [
+                                              1,
+                                              -24
+                                          ]
+                        }
+                    ],
+    "engineSlots":  [
+                        {
+                            "location":  [
+                                             -25,
+                                             22
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -25,
+                                             -22
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -24.5,
+                                             9.5
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -24.5,
+                                             -9.5
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  -180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        }
+                    ],
+    "bounds":  [
+                   27.5,
+                   -12.5,
+                   20,
+                   -27.5,
+                   -23.5,
+                   -29.5,
+                   -23.5,
+                   29.5,
+                   20,
+                   27.5,
+                   27.5,
+                   12.5
+               ]
+}

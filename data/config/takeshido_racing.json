@@ -1,0 +1,178 @@
+{
+  "categories": [
+    {"id": "sportscar", "label": "Sportscar", "designations": ["sportscar"]},
+    {"id": "supercar", "label": "Supercar", "designations": ["supercar"]},
+    {"id": "hypercar", "label": "Hypercar", "designations": ["hypercar"]}
+  ],
+  "planetTracks": {
+    "takeshido_oashisu_market": ["austin", "spa", "catalunya"],
+    "takeshido_nino_market": ["melbourne", "monza", "silverstone"],
+    "takeshido_silverstone_market": ["hockenheim", "sakhir", "yasmarina"]
+  },
+  "tournament": {
+    "racesPerTournament": 3,
+    "racersPerRace": 8,
+    "trackListDefault": ["austin", "monza", "spa"],
+    "points": [25, 18, 15, 12, 10, 8, 6, 4]
+  },
+  "rewards": {
+    "impromptu": [50000, 25000, 10000],
+    "tournament": [250000, 150000, 75000]
+  },
+  "racers": [
+    {
+      "name": "Kei Tanaka",
+      "variantId": "takeshido_ae86_standard",
+      "personality": "steady",
+      "skill": 0.55,
+      "officerLevel": 3,
+      "skills": [{"id": "helmsmanship", "level": 1}]
+    },
+    {
+      "name": "Miles Davenport",
+      "variantId": "takeshido_db5_standard",
+      "personality": "cautious",
+      "skill": 0.6,
+      "officerLevel": 4,
+      "skills": [{"id": "helmsmanship", "level": 1}]
+    },
+    {
+      "name": "Iris Caldwell",
+      "variantId": "takeshido_etype_standard",
+      "personality": "steady",
+      "skill": 0.62,
+      "officerLevel": 4,
+      "skills": [{"id": "helmsmanship", "level": 1}]
+    },
+    {
+      "name": "Cole Bishop",
+      "variantId": "takeshido_stingray_standard",
+      "personality": "aggressive",
+      "skill": 0.65,
+      "officerLevel": 5,
+      "skills": [{"id": "helmsmanship", "level": 1}, {"id": "combat_endurance", "level": 1}]
+    },
+    {
+      "name": "Riley Knox",
+      "variantId": "takeshido_mustang_2005_standard",
+      "personality": "aggressive",
+      "skill": 0.6,
+      "officerLevel": 4,
+      "skills": [{"id": "helmsmanship", "level": 1}]
+    },
+
+    {
+      "name": "Marco Bianchi",
+      "variantId": "takeshido_037_standard",
+      "personality": "steady",
+      "skill": 0.7,
+      "officerLevel": 5,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+    {
+      "name": "Luca Ferri",
+      "variantId": "takeshido_stratos_standard",
+      "personality": "aggressive",
+      "skill": 0.72,
+      "officerLevel": 5,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+    {
+      "name": "Alessia Rizzo",
+      "variantId": "takeshido_miura_standard",
+      "personality": "steady",
+      "skill": 0.74,
+      "officerLevel": 5,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+    {
+      "name": "Graham Ward",
+      "variantId": "takeshido_rs200_standard",
+      "personality": "aggressive",
+      "skill": 0.76,
+      "officerLevel": 6,
+      "skills": [{"id": "helmsmanship", "level": 2}, {"id": "combat_endurance", "level": 1}]
+    },
+    {
+      "name": "Hana Sato",
+      "variantId": "takeshido_r35gtr_standard",
+      "personality": "steady",
+      "skill": 0.78,
+      "officerLevel": 6,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+    {
+      "name": "Dean Fletcher",
+      "variantId": "takeshido_gt40_standard",
+      "personality": "aggressive",
+      "skill": 0.75,
+      "officerLevel": 5,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+
+    {
+      "name": "Sofia Moretti",
+      "variantId": "takeshido_aventador_standard",
+      "personality": "aggressive",
+      "skill": 0.82,
+      "officerLevel": 6,
+      "skills": [{"id": "helmsmanship", "level": 2}, {"id": "combat_endurance", "level": 1}]
+    },
+    {
+      "name": "Lucien Voss",
+      "variantId": "takeshido_veyron_standard",
+      "personality": "steady",
+      "skill": 0.84,
+      "officerLevel": 6,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+    {
+      "name": "Adrian Holt",
+      "variantId": "takeshido_f1_standard",
+      "personality": "aggressive",
+      "skill": 0.83,
+      "officerLevel": 6,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+    {
+      "name": "Brooke Mercer",
+      "variantId": "takeshido_c6r_standard",
+      "personality": "steady",
+      "skill": 0.8,
+      "officerLevel": 5,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+    {
+      "name": "Jun Park",
+      "variantId": "takeshido_supra_mk4_paul_standard",
+      "personality": "aggressive",
+      "skill": 0.81,
+      "officerLevel": 5,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+    {
+      "name": "Isla Quinn",
+      "variantId": "takeshido_one_77_standard",
+      "personality": "steady",
+      "skill": 0.82,
+      "officerLevel": 6,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    },
+    {
+      "name": "Silas Rourke",
+      "variantId": "takeshido_zonda_cinque_standard",
+      "personality": "aggressive",
+      "skill": 0.85,
+      "officerLevel": 6,
+      "skills": [{"id": "helmsmanship", "level": 2}, {"id": "combat_endurance", "level": 1}]
+    },
+    {
+      "name": "Kaito Mori",
+      "variantId": "takeshido_r34_skyline_standard",
+      "personality": "steady",
+      "skill": 0.79,
+      "officerLevel": 5,
+      "skills": [{"id": "helmsmanship", "level": 2}]
+    }
+  ]
+}

@@ -26,3 +26,18 @@ $faction.id == takeshido",,"Your acts against Takeshido are unforgivable, and Hi
 "#END Takeshido racing code",,,,,,
 ,,,,,,
 
+# Takeshido race coordinator
+,,,,,,
+takeshidoRaceCoordinatorDockOptOashisu,PopulateOptions,"$hasMarket
+$menuState == main
+$market.id == takeshido_oashisu_market",,,"15:takeshido_raceCoordinator:Speak with the race coordinator",
+takeshidoRaceCoordinatorDockOptNino,PopulateOptions,"$hasMarket
+$menuState == main
+$market.id == takeshido_nino_market",,,"15:takeshido_raceCoordinator:Speak with the race coordinator",
+takeshidoRaceCoordinatorDockOptSilverstone,PopulateOptions,"$hasMarket
+$menuState == main
+$market.id == takeshido_silverstone_market",,,"15:takeshido_raceCoordinator:Speak with the race coordinator",
+takeshidoRaceCoordinatorDockSel,DialogOptionSelected,$option == takeshido_raceCoordinator,takeshido_NPCDialogCMD RacecoordinatorDialog,,,
+takeshidoRaceCoordinatorStartOashisu,PickGreeting,$id == takeshido_racecoordinator_oashisu score:1000,takeshido_NPCDialogCMD RacecoordinatorDialog,"""Looking to race, or just here to watch?""",,
+takeshidoRaceCoordinatorStartNino,PickGreeting,$id == takeshido_racecoordinator_nino score:1000,takeshido_NPCDialogCMD RacecoordinatorDialog,"""Welcome back. Ready for another run?""",,
+takeshidoRaceCoordinatorStartSilverstone,PickGreeting,$id == takeshido_racecoordinator_silverstone score:1000,takeshido_NPCDialogCMD RacecoordinatorDialog,"""The track is hot. What'll it be?""",,

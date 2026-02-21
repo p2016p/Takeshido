@@ -1,20 +1,22 @@
 package data.scripts.utils.interactionUI;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.*;
+import com.fs.starfarer.api.campaign.InteractionDialogAPI;
+import com.fs.starfarer.api.campaign.InteractionDialogPlugin;
+import com.fs.starfarer.api.campaign.OptionPanelAPI;
+import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.VisualPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
-import com.fs.starfarer.api.combat.EngagementResultAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.fleet.FleetMemberType;
-import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.rulecmd.FireAll;
-import com.fs.starfarer.api.util.MutableValue;
-import com.fs.starfarer.api.util.WeightedRandomPicker;
-import org.lazywizard.lazylib.MathUtils;
+import com.fs.starfarer.api.campaign.FleetMemberPickerListener;
+import data.scripts.racing.TakeshidoRacingConfig;
+import data.scripts.racing.TakeshidoRacingManager;
 
-import java.awt.*;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin {
@@ -22,7 +24,18 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
     public static enum OptionId {
         INIT,
         CONT,
-        askaboutraces, askaboutracers, askabouttrack, racer1, racer2, racer3, racer4, racer5, racer6, makebet, betracer1, betracer2, betracer3, betracer4, betracer5, betracer6, money0, money1, money2, money3, money4, money5, watchracetune;
+        IMPROMPTU,
+        TOURNAMENT,
+        BET,
+        ABOUT_IMPROMPTU,
+        ABOUT_TOURNAMENT,
+        ABOUT_BETTING,
+        CATEGORY_SPORT,
+        CATEGORY_SUPER,
+        CATEGORY_HYPER,
+        START_TOURNAMENT,
+        START_NEXT_RACE,
+        VIEW_STATUS
     }
 
     protected InteractionDialogAPI dialog;
@@ -30,26 +43,27 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
     protected OptionPanelAPI options;
     protected VisualPanelAPI visual;
     protected Map<String, MemoryAPI> memoryMap;
-
-    protected CampaignFleetAPI playerFleet;
+    protected boolean selectingTournament = false;
+    protected boolean greeted = false;
 
     public void init(InteractionDialogAPI dialog) {
         this.dialog = dialog;
         textPanel = dialog.getTextPanel();
         options = dialog.getOptionPanel();
         visual = dialog.getVisualPanel();
+        memoryMap = new HashMap<String, MemoryAPI>();
 
-        playerFleet = Global.getSector().getPlayerFleet();
-
+        showCoordinator();
         optionSelected(null, OptionId.INIT);
     }
 
     public Map<String, MemoryAPI> getMemoryMap() {
-        return null;
+        return memoryMap;
     }
 
-    public void backFromEngagement(EngagementResultAPI result) {
-
+    public void backFromEngagement(com.fs.starfarer.api.combat.EngagementResultAPI result) {
+        showRaceResultMessage();
+        showMainMenu();
     }
 
     public void optionSelected(String text, Object optionData) {
@@ -61,235 +75,311 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
             textPanel.addParagraph(text, Global.getSettings().getColor("buttonText"));
         }
 
-
-        MemoryAPI memory = Global.getSector().getMemoryWithoutUpdate();
-
-        PersonAPI pilot = null;
-        FleetMemberAPI car = null;
-        Object[][] racerarray;
-        float playermoney = playerFleet.getCargo().getCredits().get();
-
         switch (option) {
             case INIT:
-                //visual.showPersonInfo((PersonAPI) memory.get("$racecoordinator"));
-
-                options.clearOptions();
-                if(memory.contains("$recentracedate")&&memory.get("$recentracedate").equals(Global.getSector().getClock().getDay())){
-                    textPanel.addParagraph("We've already had our race for today though, you'll have to come back tomorrow of you wanna bet.");
-                    options.addOption("\"Bye\"", OptionId.CONT, null);
-                }else {
-                    if(!memory.contains("$takeshido_pilotupdatedate")||!memory.get("$takeshido_pilotupdatedate").equals(Global.getSector().getClock().getDay())) {
-                        WeightedRandomPicker<String> cars = new WeightedRandomPicker<>();
-                        cars.add("takeshido_037", 10);
-                        cars.add("takeshido_stratos", 8);
-                        cars.add("takeshido_db5", 6);
-                        cars.add("takeshido_miura", 4);
-                        cars.add("takeshido_aventador", 2);
-                        cars.add("takeshido_rs200", 1);
-                        cars.add("takeshido_wrx_sti", 0.5f);
-                        cars.add("takeshido_r35gtr", 0.5f);
-
-                        Object[][] racerarrayinit = new Object[6][2];
-                        for (int i = 0; i < 6; i++) {
-                            racerarrayinit[i][0] = OfficerManagerEvent.createOfficer(Global.getSector().getFaction("pirates"), MathUtils.getRandomNumberInRange(3, 8));
-                            racerarrayinit[i][1] = Global.getFactory().createFleetMember(FleetMemberType.SHIP, cars.pick() + "_Hull");
-                        }
-
-                        memory.set("$racerarray", racerarrayinit);
-                        memory.set("$takeshido_pilotupdatedate", Global.getSector().getClock().getDay());
-                    }
-                    options.addOption("\"What races?\"", OptionId.askaboutraces, null);
-                    options.addOption("\"Who's racing?\"", OptionId.askaboutracers, null);
-                    //options.addOption("\"Which track are they racing on?\"", OptionId.askabouttrack, null);
-                    options.addOption("\"I would like to place a bet.\"", OptionId.makebet, null);
-                    options.addOption("\"Bye\"", OptionId.CONT, null);
-                }
+                showMainMenu();
                 break;
-
-                //what is this
-            case askaboutraces:
-                textPanel.addParagraph("\"Ah you really are a bit of a skidmark huh. Well that's alright; basically what we've got here is a series of races that you can bet on, and I'm talking real racing, old earth style, not this new wave digital crap. You bet on the winner and you can walk away with a nice chunk of change, but it takes a bit of knowhow about the tracks and teams to really be consistent with it.\"");
-
-                options.clearOptions();
-                options.addOption("\"Alright, I'll think about it\"", OptionId.INIT, null);
+            case IMPROMPTU:
+                showCategoryMenu(false);
                 break;
-
-            case askaboutracers:
-                textPanel.addParagraph("\"We've got\n");
-                racerarray = (Object[][]) memory.get("$racerarray");
-                for (int i = 0; i < 6; i++) {
-                    if(i==6){
-                        textPanel.addParagraph("and" + ((PersonAPI) racerarray[i][0]).getName().getFullName() + " in a " + ((FleetMemberAPI) racerarray[i][1]).getHullSpec().getHullName() + ".\"");
-                    }else {
-                        textPanel.addParagraph(((PersonAPI) racerarray[i][0]).getName().getFullName() + " in a " + ((FleetMemberAPI) racerarray[i][1]).getHullSpec().getHullName() + ",");
-                    }
-                }
-
-                options.clearOptions();
-                options.addOption("\"Tell me more about "+((PersonAPI) racerarray[0][0]).getName().getFullName()+" and their car\"", OptionId.racer1, null);
-                options.addOption("\"Tell me more about "+((PersonAPI) racerarray[1][0]).getName().getFullName()+" and their car\"", OptionId.racer2, null);
-                options.addOption("\"Tell me more about "+((PersonAPI) racerarray[2][0]).getName().getFullName()+" and their car\"", OptionId.racer3, null);
-                options.addOption("\"Tell me more about "+((PersonAPI) racerarray[3][0]).getName().getFullName()+" and their car\"", OptionId.racer4, null);
-                options.addOption("\"Tell me more about "+((PersonAPI) racerarray[4][0]).getName().getFullName()+" and their car\"", OptionId.racer5, null);
-                options.addOption("\"Tell me more about "+((PersonAPI) racerarray[5][0]).getName().getFullName()+" and their car\"", OptionId.racer6, null);
+            case TOURNAMENT:
+                showCategoryMenu(true);
                 break;
-
-            case racer1:
-            case racer2:
-            case racer3:
-            case racer4:
-            case racer5:
-            case racer6:
-                int c = 1;
-                if(option.equals(OptionId.racer1)) c = 1;
-                else if(option.equals(OptionId.racer2)) c = 2;
-                else if(option.equals(OptionId.racer3)) c = 3;
-                else if(option.equals(OptionId.racer4)) c = 4;
-                else if(option.equals(OptionId.racer5)) c = 5;
-                else if(option.equals(OptionId.racer6)) c = 6;
-
-                pilot = (PersonAPI) ((Object[][]) memory.get("$racerarray"))[c-1][0];
-                car = (FleetMemberAPI) ((Object[][]) memory.get("$racerarray"))[c-1][1];
-                visual.showPersonInfo(pilot);
-
-                String skill = "average";
-                if(pilot.getStats().getLevel()<=2) skill = "mediocre";
-                else if (pilot.getStats().getLevel()<=4) skill = "average";
-                else if (pilot.getStats().getLevel()<=6) skill = "skilled";
-                else skill = "phenomenal";
-
-                String upkeep = "well maintained";
-                if(car.getVariant().hasDMods()) upkeep = "poorly maintained";
-
-                String carstyle = "a solid performer with balanced stats";
-                if(car.getHullSpec().getHullId().equals("takeshido_037")) carstyle = "a rally-bred classic with sharp handling and strong midrange pull";
-                else if(car.getHullSpec().getHullId().equals("takeshido_stratos")) carstyle = "a short-wheelbase legend that corners hard but can be twitchy";
-                else if(car.getHullSpec().getHullId().equals("takeshido_db5")) carstyle = "a refined grand tourer with steady, predictable performance";
-                else if(car.getHullSpec().getHullId().equals("takeshido_miura")) carstyle = "a mid-engine icon with blazing top speed and lively handling";
-                else if(car.getHullSpec().getHullId().equals("takeshido_aventador")) carstyle = "a modern monster with brutal acceleration and heavy steering";
-                else if(car.getHullSpec().getHullId().equals("takeshido_rs200")) carstyle = "a compact Group B beast with excellent traction and burst speed";
-                else if(car.getHullSpec().getHullId().equals("takeshido_wrx_sti")) carstyle = "a rally sedan with strong grip and stability";
-                else if(car.getHullSpec().getHullId().equals("takeshido_r35gtr")) carstyle = "a tech-heavy powerhouse with balanced speed and control";
-
-                float victoryodds = pilot.getStats().getLevel()/8f;
-
-                textPanel.addParagraph( pilot.getName().getFullName() + " is a " + skill + " racer and drives a " + upkeep + " " + car.getHullSpec().getHullName() + ". The " + car.getHullSpec().getHullName() + " is " + carstyle + " and " + pilot.getName().getFullName() + " has a " + victoryodds + " percent chance of winning.");
-
-                options.clearOptions();
-                options.addOption("\"Tell me about some of the other racers.\"", OptionId.askaboutracers, null);
-                options.addOption("\"Tell me about something else.\"", OptionId.INIT, null);
-
+            case BET:
+                showBetting();
                 break;
-
-            case makebet:
-                racerarray = (Object[][]) memory.get("$racerarray");
-                textPanel.addParagraph("\"Excellent, who would you like to bet on?\"");
-
-                options.clearOptions();
-                options.addOption("\"I'll bet on "+((PersonAPI) racerarray[0][0]).getName().getFullName()+"\"", OptionId.betracer1, null);
-                options.addOption("\"I'll bet on "+((PersonAPI) racerarray[1][0]).getName().getFullName()+"\"", OptionId.betracer2, null);
-                options.addOption("\"I'll bet on "+((PersonAPI) racerarray[2][0]).getName().getFullName()+"\"", OptionId.betracer3, null);
-                options.addOption("\"I'll bet on "+((PersonAPI) racerarray[3][0]).getName().getFullName()+"\"", OptionId.betracer4, null);
-                options.addOption("\"I'll bet on "+((PersonAPI) racerarray[4][0]).getName().getFullName()+"\"", OptionId.betracer5, null);
-                options.addOption("\"I'll bet on "+((PersonAPI) racerarray[5][0]).getName().getFullName()+"\"", OptionId.betracer6, null);
-
+            case ABOUT_IMPROMPTU:
+                showImpromptuInfo();
                 break;
-
-            case betracer1:
-            case betracer2:
-            case betracer3:
-            case betracer4:
-            case betracer5:
-            case betracer6:
-                int bo = 1;
-                if(option.equals(OptionId.betracer1)) bo = 1;
-                else if(option.equals(OptionId.betracer2)) bo = 2;
-                else if(option.equals(OptionId.betracer3)) bo = 3;
-                else if(option.equals(OptionId.betracer4)) bo = 4;
-                else if(option.equals(OptionId.betracer5)) bo = 5;
-                else if(option.equals(OptionId.betracer6)) bo = 6;
-
-                memory.set("takeshido_racerbeton",bo);
-
-                textPanel.addParagraph("\"got it, and how much do you wanna put down?\"");
-
-                options.clearOptions();
-                options.addOption("\"all in ("+Math.min(playermoney,2500000f)+" credits)\"", OptionId.money0, null);
-                if(playermoney>=1000f) options.addOption("\"1000 credits\"", OptionId.money1, null);
-                if(playermoney>=5000f) options.addOption("\"5000 credits\"", OptionId.money2, null);
-                if(playermoney>=25000f) options.addOption("\"25000 credits\"", OptionId.money3, null);
-                if(playermoney>=100000f) options.addOption("\"100000 credits\"", OptionId.money4, null);
-                if(playermoney>=500000f) options.addOption("\"500000 credits\"", OptionId.money5, null);
-                options.addOption("\"Nevermind, I changed my mind.\"", OptionId.INIT, null);
-
+            case ABOUT_TOURNAMENT:
+                showTournamentInfo();
                 break;
-
-            case money0:
-            case money1:
-            case money2:
-            case money3:
-            case money4:
-            case money5:
-                float ba = 0f;
-                if(option.equals(OptionId.money0)) ba = Math.min(playermoney,2500000f);
-                else if(option.equals(OptionId.money1)) ba = 1000f;
-                else if(option.equals(OptionId.money2)) ba = 5000f;
-                else if(option.equals(OptionId.money3)) ba = 25000f;
-                else if(option.equals(OptionId.money4)) ba = 100000f;
-                else if(option.equals(OptionId.money5)) ba = 500000f;
-                playerFleet.getCargo().getCredits().subtract(ba);
-                memory.set("$takeshido_racerbetamount",ba);
-
-                textPanel.addParagraph("\"Alrighty, your bet is locked in. You can come down to the surface to watch in person or you can tune in from your ship, race starts at noon.\"");
-
-                options.clearOptions();
-                options.addOption("tune in from your ship", OptionId.watchracetune, null);
-
+            case ABOUT_BETTING:
+                showBettingInfo();
                 break;
-
-            case watchracetune:
-                racerarray = (Object[][]) memory.get("$racerarray");
-                PersonAPI winner = (PersonAPI)racerarray[MathUtils.getRandomNumberInRange(0,5)][0];
-                textPanel.addParagraph("You pull up the race on your holo projector. Six racing machines of undoubtedly high caliber line up at the starting line and rocket off a few moments later, spraying asphalt and hot air at the haphazardly arranged crowd behind them. \n The race is fast and dangerous with many sharp turns that your brain can barely keep up with just as a spectator. \n Within minutes the racers rocket over the finish line and a winner is chosen.");
-                textPanel.addParagraph(winner.getName().getFullName()+" walks up to the podium to collect their trophy and winnings, chugging champagne and flipping wads of credits at the provocatively dressed women that stand trackside.");
-                if(winner.equals(memory.get("$takeshido_racerbeton"))){
-                    playerFleet.getCargo().getCredits().add(Math.max((Float) memory.get("$takeshido_racerbetamount")*1.2f,5000f));
-                    textPanel.addParagraph("Your bet winnings totalling "+Math.max((Float) memory.get("$takeshido_racerbetamount")*1.2f,5000f)+" are wired to your account shortly afterwards");
-                }else{
-                    textPanel.addParagraph("Unfortunately this bet didn't quite pan out for you, better luck next time");
-                }
-                memory.set("$recentracedate",Global.getSector().getClock().getDay());
-
-                options.clearOptions();
-                options.addOption("close the race holo", OptionId.CONT, null);
-
+            case CATEGORY_SPORT:
+                handleCategorySelected("sportscar");
                 break;
-
+            case CATEGORY_SUPER:
+                handleCategorySelected("supercar");
+                break;
+            case CATEGORY_HYPER:
+                handleCategorySelected("hypercar");
+                break;
+            case START_NEXT_RACE:
+                startNextTournamentRace();
+                break;
+            case VIEW_STATUS:
+                showTournamentStatus();
+                break;
             case CONT:
-                if(Global.getSector().getPersistentData().get("takeshido_originaldialog")!=null) {
-                    InteractionDialogPlugin original = (InteractionDialogPlugin) Global.getSector().getPersistentData().get("takeshido_originaldialog");
-                    dialog.setPlugin(original);
-                    options.clearOptions();
-                    FireAll.fire(null, dialog, original.getMemoryMap(), "PopulateOptions");
-                    Global.getSector().getPersistentData().remove("takeshido_originaldialog");
-                }else{
-                    dialog.dismiss();
-                }
+                closeDialog();
+                break;
+            default:
+                showMainMenu();
                 break;
         }
     }
 
-    public void optionMousedOver(String optionText, Object optionData) {
+    private void showMainMenu() {
+        options.clearOptions();
+        if (!greeted) {
+            textPanel.addParagraph("The coordinator runs the operation from a cramped control bay above the infield, a mess of telemetry screens and old race posters.");
+            textPanel.addParagraph("They glance up as you enter, tracking you with the practiced focus of someone who never misses a lap.");
+            greeted = true;
+        }
+        textPanel.addParagraph("\"Questions, a quick race, the tournament circuit... or are you just here to bet?\"");
+        selectingTournament = false;
 
+        options.addOption("Enter an impromptu race", OptionId.IMPROMPTU, null);
+        options.addOption("Bet on a race", OptionId.BET, null);
+        options.addOption("Ask about impromptu races", OptionId.ABOUT_IMPROMPTU, null);
+        options.addOption("Ask about tournaments", OptionId.ABOUT_TOURNAMENT, null);
+        options.addOption("Ask about betting", OptionId.ABOUT_BETTING, null);
+
+        TakeshidoRacingManager.TournamentState state = TakeshidoRacingManager.getTournamentState();
+        if (state == null) {
+            options.addOption("Sign up for a tournament", OptionId.TOURNAMENT, null);
+        } else {
+            options.addOption("View tournament status", OptionId.VIEW_STATUS, null);
+            MarketAPI market = dialog.getInteractionTarget() != null ? dialog.getInteractionTarget().getMarket() : null;
+            if (TakeshidoRacingManager.isTournamentRaceAvailable(state, market)) {
+                options.addOption("Start the next tournament race", OptionId.START_NEXT_RACE, null);
+            }
+        }
+
+        options.addOption("Leave", OptionId.CONT, null);
+    }
+
+    private void showRaceResultMessage() {
+        Object data = Global.getSector().getPersistentData().get(TakeshidoRacingManager.LAST_RACE_DIALOG_MESSAGE_KEY);
+        if (data instanceof String) {
+            String msg = (String) data;
+            if (msg != null && !msg.trim().isEmpty()) {
+                textPanel.addParagraph(msg);
+            }
+            Global.getSector().getPersistentData().remove(TakeshidoRacingManager.LAST_RACE_DIALOG_MESSAGE_KEY);
+        }
+    }
+
+    private void showCategoryMenu(boolean isTournament) {
+        options.clearOptions();
+        textPanel.addParagraph(isTournament ? "Pick a tournament class." : "Pick a class for the impromptu race.");
+        selectingTournament = isTournament;
+
+        options.addOption("Sportscar", OptionId.CATEGORY_SPORT, null);
+        options.addOption("Supercar", OptionId.CATEGORY_SUPER, null);
+        options.addOption("Hypercar", OptionId.CATEGORY_HYPER, null);
+        options.addOption("Back", OptionId.INIT, null);
+    }
+
+    private void handleCategorySelected(String categoryId) {
+        if (!selectingTournament) {
+            textPanel.addParagraph("You follow the coordinator down to the staging bays, engines rumbling as crews wave you onto the grid.");
+            pickShipForRace(categoryId, false);
+            return;
+        }
+
+        TakeshidoRacingManager.TournamentState state = TakeshidoRacingManager.getTournamentState();
+        if (state != null) {
+            textPanel.addParagraph("You are already enrolled in a tournament.");
+            options.clearOptions();
+            options.addOption("Back", OptionId.INIT, null);
+            return;
+        }
+
+        TakeshidoRacingManager.startTournament(dialog, categoryId);
+        if (TakeshidoRacingManager.getTournamentState() != null) {
+            textPanel.addParagraph("The coordinator taps your details into a battered terminal, assigns your number, and waves you onto the tournament list.");
+            textPanel.addParagraph("You're registered. Report in for each race as the schedule advances.");
+        }
+
+        options.clearOptions();
+        options.addOption("Back", OptionId.INIT, null);
+    }
+
+    private void showTournamentStatus() {
+        TakeshidoRacingManager.TournamentState state = TakeshidoRacingManager.getTournamentState();
+        if (state == null) {
+            textPanel.addParagraph("No active tournament.");
+            options.clearOptions();
+            options.addOption("Back", OptionId.INIT, null);
+            return;
+        }
+
+        TakeshidoRacingConfig.CategorySpec cat = TakeshidoRacingConfig.get().getCategory(state.categoryId);
+        String label = cat != null ? cat.label : state.categoryId;
+        textPanel.addParagraph("Category: " + label);
+        textPanel.addParagraph("Race " + (state.currentRaceIndex + 1) + " of " + state.racesPerTournament);
+
+        MarketAPI market = dialog.getInteractionTarget() != null ? dialog.getInteractionTarget().getMarket() : null;
+        boolean ready = TakeshidoRacingManager.isTournamentRaceAvailable(state, market);
+        if (ready) {
+            textPanel.addParagraph("The next race is ready to start here.");
+        } else {
+            boolean locationReady = market != null && state.nextMarketId != null && state.nextMarketId.equals(market.getId());
+            if (!locationReady && state.nextMarketId != null) {
+                MarketAPI target = Global.getSector().getEconomy().getMarket(state.nextMarketId);
+                String loc = target != null ? target.getName() : "the scheduled venue";
+                textPanel.addParagraph("The next race is scheduled at " + loc + ".");
+            } else {
+                com.fs.starfarer.api.campaign.CampaignClockAPI clock = Global.getSector().getClock();
+                int currentDay = clock != null ? (clock.getCycle() * 360) + ((clock.getMonth() - 1) * 30) + (clock.getDay() - 1) : 0;
+                int daysLeft = state.nextRaceDay - currentDay;
+                if (daysLeft < 0) daysLeft = 0;
+                textPanel.addParagraph("The next race opens in " + daysLeft + " days.");
+            }
+        }
+
+        options.clearOptions();
+        if (ready) {
+            options.addOption("Start the next tournament race", OptionId.START_NEXT_RACE, null);
+        }
+        options.addOption("Back", OptionId.INIT, null);
+    }
+
+    private void showImpromptuInfo() {
+        options.clearOptions();
+        textPanel.addParagraph("Impromptu races are one-offs. Pick a class, field your own car, and run it immediately against local drivers.");
+        textPanel.addParagraph("Payouts are based on placement, and the grid is whatever's available that day.");
+        options.addOption("Back", OptionId.INIT, null);
+    }
+
+    private void showTournamentInfo() {
+        options.clearOptions();
+        textPanel.addParagraph("Tournaments are multi-race circuits. You run one race per week across the set schedule.");
+        textPanel.addParagraph("Points are awarded by finish position, and prizes are paid after the final race.");
+        options.addOption("Back", OptionId.INIT, null);
+    }
+
+    private void showBettingInfo() {
+        options.clearOptions();
+        textPanel.addParagraph("Betting is based on odds set by the local bookies. Winners and podiums pay out best, but long shots can surprise.");
+        textPanel.addParagraph("If you're not racing, you can still watch the action from the stands and take a cut when your pick delivers.");
+        options.addOption("Back", OptionId.INIT, null);
+    }
+
+    private void showBetting() {
+        options.clearOptions();
+        textPanel.addParagraph("You step into the stands as the next grid assembles, the smell of hot engines and scorched rubber hanging over the track.");
+        textPanel.addParagraph("Betting isn't available yet.");
+        options.addOption("Back", OptionId.INIT, null);
+    }
+
+    private void startNextTournamentRace() {
+        TakeshidoRacingManager.TournamentState state = TakeshidoRacingManager.getTournamentState();
+        if (state == null) {
+            textPanel.addParagraph("No active tournament.");
+            options.clearOptions();
+            options.addOption("Back", OptionId.INIT, null);
+            return;
+        }
+
+        MarketAPI market = dialog.getInteractionTarget() != null ? dialog.getInteractionTarget().getMarket() : null;
+        if (!TakeshidoRacingManager.isTournamentRaceAvailable(state, market)) {
+            boolean locationReady = market != null && state.nextMarketId != null && state.nextMarketId.equals(market.getId());
+            if (!locationReady && state.nextMarketId != null) {
+                MarketAPI target = Global.getSector().getEconomy().getMarket(state.nextMarketId);
+                String loc = target != null ? target.getName() : "the scheduled venue";
+                textPanel.addParagraph("The next race is scheduled at " + loc + ".");
+            } else {
+                com.fs.starfarer.api.campaign.CampaignClockAPI clock = Global.getSector().getClock();
+                int currentDay = clock != null ? (clock.getCycle() * 360) + ((clock.getMonth() - 1) * 30) + (clock.getDay() - 1) : 0;
+                int daysLeft = state.nextRaceDay - currentDay;
+                if (daysLeft < 0) daysLeft = 0;
+                textPanel.addParagraph("The next race opens in " + daysLeft + " days.");
+            }
+            options.clearOptions();
+            options.addOption("Back", OptionId.INIT, null);
+            return;
+        }
+
+        pickShipForRace(state.categoryId, true);
+    }
+
+    private void pickShipForRace(final String categoryId, final boolean tournament) {
+        List<FleetMemberAPI> eligible = TakeshidoRacingManager.getEligiblePlayerShips(categoryId);
+        if (eligible.isEmpty()) {
+            textPanel.addParagraph("You don't have a ship in that class.");
+            options.clearOptions();
+            options.addOption("Back", OptionId.INIT, null);
+            return;
+        }
+
+        dialog.showFleetMemberPickerDialog(
+                "Select your race car",
+                "Confirm",
+                "Cancel",
+                4,
+                8,
+                150f,
+                true,
+                false,
+                eligible,
+                new FleetMemberPickerListener() {
+                    @Override
+                    public void pickedFleetMembers(List<FleetMemberAPI> members) {
+                        if (members == null || members.isEmpty()) {
+                            optionSelected(null, OptionId.INIT);
+                            return;
+                        }
+                        FleetMemberAPI chosen = members.get(0);
+                        if (tournament) {
+                            TakeshidoRacingManager.TournamentState state = TakeshidoRacingManager.getTournamentState();
+                            TakeshidoRacingManager.startTournamentRace(dialog, state, chosen);
+                        } else {
+                            TakeshidoRacingManager.startImpromptuRace(dialog, categoryId, chosen);
+                        }
+                    }
+
+                    @Override
+                    public void cancelledFleetMemberPicking() {
+                        optionSelected(null, OptionId.INIT);
+                    }
+                }
+        );
+    }
+
+    private void closeDialog() {
+        if (Global.getSector().getPersistentData().get("takeshido_originaldialog") != null) {
+            InteractionDialogPlugin original = (InteractionDialogPlugin) Global.getSector().getPersistentData().get("takeshido_originaldialog");
+            dialog.setPlugin(original);
+            options.clearOptions();
+            FireAll.fire(null, dialog, original.getMemoryMap(), "PopulateOptions");
+            Global.getSector().getPersistentData().remove("takeshido_originaldialog");
+        } else {
+            dialog.dismiss();
+        }
+    }
+
+    private void showCoordinator() {
+        if (visual == null) return;
+        PersonAPI person = null;
+        if (dialog != null && dialog.getInteractionTarget() != null) {
+            person = dialog.getInteractionTarget().getActivePerson();
+            if (person == null) {
+                MarketAPI market = dialog.getInteractionTarget().getMarket();
+                if (market != null) {
+                    MemoryAPI mem = market.getMemoryWithoutUpdate();
+                    String id = mem.getString("$takeshido_racecoordinator_id");
+                    if (id != null) {
+                        person = Global.getSector().getImportantPeople().getPerson(id);
+                    }
+                }
+            }
+        }
+        if (person != null) {
+            visual.showPersonInfo(person);
+        }
+    }
+
+    public void optionMousedOver(String optionText, Object optionData) {
     }
 
     public void advance(float amount) {
-
     }
 
     public Object getContext() {
         return null;
     }
-
 }
-

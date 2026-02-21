@@ -18,6 +18,7 @@ import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 
 import data.scripts.ai.TakeshidoRaceShipAI;
+import data.scripts.racing.TakeshidoRacingManager;
 
 public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
@@ -29,6 +30,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private final boolean isDeathRace;
     private final String trackId;
     private final Map<String, Float> skillOverrides;
+    private final String raceId;
 
     // to figure out what checkpoint we start at
     public int startIndex = 0;
@@ -53,6 +55,15 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private static final float WALL_LATERAL_DAMP = 0.7f;
     private static final float CAR_REPEL_BUFFER = 8f;
     private static final float CAR_REPEL_PER_SEC = 120f;
+    private static final float MAX_RACE_SECONDS = 600f;
+    private static final String RACE_MUSIC_FORCE_KEY = "takeshido_race_music_id";
+    private static final List<String> RACE_MUSIC_IDS = Arrays.asList(
+            "takeshido_race_kissyougoodbye",
+            "takeshido_race_driveyoucrazy",
+            "takeshido_race_freedomtowin",
+            "takeshido_race_getcloser",
+            "takeshido_race_greenmonster"
+    );
 
     // How harsh the penalty is
     private float offTrackMaxSpeedMult = 0.20f;  // 20% top speed when off track
@@ -76,6 +87,10 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private boolean raceMusicStarted = false;
     private boolean raceFinishPlayed = false;
     private boolean postCountdownAIEnsured = false;
+    private boolean resultsStored = false;
+    private float raceTimer = 0f;
+    private String currentRaceMusicId = null;
+    private final Random raceMusicRandom = new Random();
 
     public TakeshidoRaceCombatPlugin(String raceHullmodId, int lapsToWin, int expectedRacers, boolean isDeathRace, String trackId) {
         this.raceHullmodId = raceHullmodId;
@@ -84,6 +99,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         this.isDeathRace = isDeathRace;
         this.trackId = trackId;
         this.skillOverrides = null;
+        this.raceId = null;
     }
 
     public TakeshidoRaceCombatPlugin(String raceHullmodId, int lapsToWin, int expectedRacers, boolean isDeathRace, String trackId,
@@ -94,6 +110,18 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         this.isDeathRace = isDeathRace;
         this.trackId = trackId;
         this.skillOverrides = skillOverrides;
+        this.raceId = null;
+    }
+
+    public TakeshidoRaceCombatPlugin(String raceHullmodId, int lapsToWin, int expectedRacers, boolean isDeathRace, String trackId,
+                                     Map<String, Float> skillOverrides, String raceId) {
+        this.raceHullmodId = raceHullmodId;
+        this.lapsToWin = Math.max(1, lapsToWin);
+        this.expectedRacers = Math.max(1, expectedRacers);
+        this.isDeathRace = isDeathRace;
+        this.trackId = trackId;
+        this.skillOverrides = skillOverrides;
+        this.raceId = raceId;
     }
 
     @Override
@@ -111,7 +139,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         // Keep attempting setup until all ships are actually present
         if (!setupComplete) {
             setupComplete = trySetup();
-            if (!setupComplete) return; // don’t run race logic until setup is real
+            if (!setupComplete) return; // don't run race logic until setup is real
         }
 
         if (!isDeathRace) {
@@ -151,6 +179,11 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
         updateRaceProgress();
 
+        raceTimer += amount;
+        if (!race.finished && raceTimer >= MAX_RACE_SECONDS) {
+            endRaceByTimeout();
+        }
+
         applyOffTrackPenalty();
         applySoftWall(amount);
         // applySoftCarRepulsion(amount); // disabled: allow normal ship-ship collisions
@@ -166,8 +199,12 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         if (race.finished) {
+            finalizeFinishOrder();
+            storeResultsIfNeeded();
             playRaceFinish();
             engine.endCombat(1f, race.winnerSide);
+        } else if (raceMusicStarted && !raceFinishPlayed) {
+            ensureRaceMusicLoop();
         }
     }
 
@@ -217,7 +254,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
         race.unitsPerMeter = track.unitsPerMeter;
 
-// If you’re not using CSV widths, keep your existing corridor definition:
+// If you're not using CSV widths, keep your existing corridor definition:
         race.corridorHalfWidth = race.checkpointRadius;
 
 
@@ -269,6 +306,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         startCountdown();
         return true;
     }
+
 
     private List<GateSpec> buildGates() {
         List<GateSpec> gates = new ArrayList<>();
@@ -687,8 +725,10 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
         ShipAPI player = engine.getPlayerShip();
         if (player != null && player.isHulk()) {
-            race.finished = true;
+            race.endedByPlayerDNF = true;
             race.winnerSide = FleetSide.ENEMY;
+            recordDNF(player);
+            race.finished = true;
             return;
         }
 
@@ -697,7 +737,15 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             RacerState rs = e.getValue();
 
             if (rs.finished) continue;
-            if (ship == null || ship.isHulk()) continue;
+            if (ship == null) continue;
+            if (ship.isHulk()) {
+                rs.finished = true;
+                recordDNF(ship);
+                if (race.finishOrderMemberIds.size() >= race.racers.size()) {
+                    race.finished = true;
+                }
+                continue;
+            }
 
             boolean crossed = false;
             GateSpec gate = (race.gates != null && race.gates.size() == race.checkpoints.size())
@@ -733,15 +781,24 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
                     rs.lap++;
                     if (rs.lap >= race.lapsToWin) {
                         rs.finished = true;
-                        race.finished = true;
-                        race.winnerSide = (ship == engine.getPlayerShip()) ? FleetSide.PLAYER : FleetSide.ENEMY;
+                        recordFinish(ship);
 
-                        engine.addFloatingText(
-                                new Vector2f(ship.getLocation()),
-                                (ship == engine.getPlayerShip() ? "You win!" : "You lost!"),
-                                30f, Color.WHITE, ship, 1f, 1f
-                        );
-                        return;
+                        if (race.finishOrderMemberIds.size() == 1) {
+                            race.winnerSide = (ship == engine.getPlayerShip()) ? FleetSide.PLAYER : FleetSide.ENEMY;
+                            engine.addFloatingText(
+                                    new Vector2f(ship.getLocation()),
+                                    (ship == engine.getPlayerShip() ? "You win!" : "You lost!"),
+                                    30f, Color.WHITE, ship, 1f, 1f
+                            );
+                        }
+
+                        if (ship == engine.getPlayerShip()) {
+                            race.finished = true;
+                        }
+
+                        if (race.finishOrderMemberIds.size() >= race.racers.size()) {
+                            race.finished = true;
+                        }
                     }
                 }
             }
@@ -752,6 +809,99 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
                 rs.lastPos.set(ship.getLocation());
             }
         }
+    }
+
+    private void recordFinish(ShipAPI ship) {
+        if (ship == null) return;
+        if (ship.getFleetMember() == null) return;
+        String id = ship.getFleetMember().getId();
+        if (id == null) return;
+        if (!race.finishOrderMemberIds.contains(id)) {
+            race.finishOrderMemberIds.add(id);
+        }
+    }
+
+    private void recordDNF(ShipAPI ship) {
+        if (ship == null) return;
+        if (ship.getFleetMember() == null) return;
+        String id = ship.getFleetMember().getId();
+        if (id == null) return;
+        if (!race.finishOrderMemberIds.contains(id)) {
+            race.finishOrderMemberIds.add(id);
+        }
+        if (!race.dnfMemberIds.contains(id)) {
+            race.dnfMemberIds.add(id);
+        }
+    }
+
+    private void endRaceByTimeout() {
+        if (race.finished) return;
+        race.endedByTimeout = true;
+        race.finished = true;
+        if (!race.finishOrderMemberIds.isEmpty()) {
+            String first = race.finishOrderMemberIds.get(0);
+            ShipAPI player = engine.getPlayerShip();
+            if (player != null && player.getFleetMember() != null) {
+                race.winnerSide = first.equals(player.getFleetMember().getId()) ? FleetSide.PLAYER : FleetSide.ENEMY;
+            }
+        }
+    }
+
+    private void finalizeFinishOrder() {
+        if (race.racers == null || race.racers.isEmpty()) return;
+
+        List<ShipAPI> remaining = new ArrayList<>();
+        for (Map.Entry<ShipAPI, RacerState> e : race.racers.entrySet()) {
+            ShipAPI ship = e.getKey();
+            if (ship == null || ship.getFleetMember() == null) continue;
+            String id = ship.getFleetMember().getId();
+            if (id == null) continue;
+            if (!race.finishOrderMemberIds.contains(id)) {
+                remaining.add(ship);
+            }
+        }
+
+        if (!remaining.isEmpty()) {
+            Collections.sort(remaining, new Comparator<ShipAPI>() {
+                @Override
+                public int compare(ShipAPI a, ShipAPI b) {
+                    RacerState ra = race.racers.get(a);
+                    RacerState rb = race.racers.get(b);
+                    float pa = getProgressScore(a, ra);
+                    float pb = getProgressScore(b, rb);
+                    return Float.compare(pb, pa);
+                }
+            });
+
+            for (ShipAPI ship : remaining) {
+                recordFinish(ship);
+            }
+        }
+
+        if (!race.finishOrderMemberIds.isEmpty()) {
+            ShipAPI player = engine.getPlayerShip();
+            if (player != null && player.getFleetMember() != null) {
+                String first = race.finishOrderMemberIds.get(0);
+                race.winnerSide = first.equals(player.getFleetMember().getId()) ? FleetSide.PLAYER : FleetSide.ENEMY;
+            }
+        }
+    }
+
+    private float getProgressScore(ShipAPI ship, RacerState rs) {
+        if (ship == null || rs == null || race.checkpoints == null) return 0f;
+        int cpCount = race.checkpoints.size();
+        int lastCheckpoint = rs.nextCheckpoint - 1;
+        if (lastCheckpoint < 0) lastCheckpoint = cpCount - 1;
+        float progress = rs.lap * cpCount + lastCheckpoint;
+        return progress;
+    }
+
+    private void storeResultsIfNeeded() {
+        if (resultsStored) return;
+        if (raceId == null || raceId.trim().isEmpty()) return;
+        resultsStored = true;
+        TakeshidoRacingManager.storeRaceResult(raceId, race.finishOrderMemberIds, race.dnfMemberIds, race.endedByTimeout, race.endedByPlayerDNF);
+        TakeshidoRacingManager.processRaceResult(raceId);
     }
 
     private void applyNonDeathRaceLockout(List<ShipAPI> cars) {
@@ -791,6 +941,8 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         countdownSoundPlayed = false;
         enginesSuppressed = false;
         raceMusicStarted = false;
+        raceTimer = 0f;
+        resultsStored = false;
         applyStartLockout();
     }
 
@@ -865,7 +1017,8 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         if (raceMusicStarted) return;
         raceMusicStarted = true;
         Global.getSoundPlayer().setSuspendDefaultMusicPlayback(true);
-        Global.getSoundPlayer().playCustomMusic(0, 0, "takeshido_race", true);
+        currentRaceMusicId = pickRaceMusicId(null);
+        Global.getSoundPlayer().playCustomMusic(0, 0, currentRaceMusicId, false);
     }
 
     private void playRaceFinish() {
@@ -873,6 +1026,52 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         raceFinishPlayed = true;
         Global.getSoundPlayer().pauseCustomMusic();
         Global.getSoundPlayer().playCustomMusic(0, 0, "takeshido_race_finish", false);
+    }
+
+    private void ensureRaceMusicLoop() {
+        if (engine == null || Global.getSoundPlayer() == null) return;
+        String playing = getCurrentMusicIdSafe();
+        if (playing != null) return;
+
+        String next = pickRaceMusicId(currentRaceMusicId);
+        currentRaceMusicId = next;
+        Global.getSoundPlayer().playCustomMusic(0, 0, currentRaceMusicId, false);
+    }
+
+    private String pickRaceMusicId(String exclude) {
+        String forced = getForcedRaceMusicId();
+        if (forced != null) return forced;
+        if (RACE_MUSIC_IDS.isEmpty()) return "takeshido_race";
+
+        if (exclude == null || RACE_MUSIC_IDS.size() == 1) {
+            return RACE_MUSIC_IDS.get(raceMusicRandom.nextInt(RACE_MUSIC_IDS.size()));
+        }
+
+        String pick = exclude;
+        int guard = 0;
+        while (pick.equals(exclude) && guard < 10) {
+            pick = RACE_MUSIC_IDS.get(raceMusicRandom.nextInt(RACE_MUSIC_IDS.size()));
+            guard++;
+        }
+        return pick;
+    }
+
+    private String getForcedRaceMusicId() {
+        if (engine == null || engine.getCustomData() == null) return null;
+        Object val = engine.getCustomData().get(RACE_MUSIC_FORCE_KEY);
+        if (!(val instanceof String)) return null;
+        String id = ((String) val).trim();
+        return id.isEmpty() ? null : id;
+    }
+
+    private String getCurrentMusicIdSafe() {
+        if (Global.getSoundPlayer() == null) return null;
+        String id = Global.getSoundPlayer().getCurrentMusicId();
+        if (id == null) return null;
+        String trimmed = id.trim();
+        if (trimmed.isEmpty()) return null;
+        if ("nothing".equalsIgnoreCase(trimmed)) return null;
+        return id;
     }
 
     private void applySoftWall(float amount) {
@@ -1166,6 +1365,10 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         public float corridorHalfWidth = 350f; // fallback
         public List<GateSpec> gates = new ArrayList<>();
         public List<WallAsteroidSpec> wallAsteroids = new ArrayList<>();
+        public List<String> finishOrderMemberIds = new ArrayList<>();
+        public List<String> dnfMemberIds = new ArrayList<>();
+        public boolean endedByTimeout = false;
+        public boolean endedByPlayerDNF = false;
 
 
         public RaceState(int lapsToWin) {
@@ -1216,3 +1419,5 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         return Math.max(min, Math.min(max, value));
     }
 }
+
+

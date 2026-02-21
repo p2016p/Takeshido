@@ -5,7 +5,7 @@
                        "name":  "Austin (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Austin_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Austin_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -32,7 +32,7 @@
                        "name":  "Brands Hatch (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/BrandsHatch_centerline.csv",
                        "racelineCsv":  "data/config/tracks/BrandsHatch_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -59,7 +59,7 @@
                        "name":  "Budapest (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Budapest_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Budapest_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -86,7 +86,7 @@
                        "name":  "Catalunya (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Catalunya_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Catalunya_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -113,7 +113,7 @@
                        "name":  "Hockenheim (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Hockenheim_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Hockenheim_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -140,7 +140,7 @@
                        "name":  "IMS (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/IMS_centerline.csv",
                        "racelineCsv":  "data/config/tracks/IMS_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -167,7 +167,7 @@
                        "name":  "Melbourne (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Melbourne_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Melbourne_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -194,7 +194,7 @@
                        "name":  "Mexico City (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/MexicoCity_centerline.csv",
                        "racelineCsv":  "data/config/tracks/MexicoCity_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -221,7 +221,7 @@
                        "name":  "Monza (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Monza_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Monza_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -248,7 +248,7 @@
                        "name":  "Moscow Raceway (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/MoscowRaceway_centerline.csv",
                        "racelineCsv":  "data/config/tracks/MoscowRaceway_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -275,7 +275,7 @@
                        "name":  "Nuerburgring (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Nuerburgring_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Nuerburgring_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -302,7 +302,7 @@
                        "name":  "Oschersleben (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Oschersleben_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Oschersleben_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -329,7 +329,7 @@
                        "name":  "Sakhir (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Sakhir_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Sakhir_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -356,7 +356,7 @@
                        "name":  "Sao Paulo (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/SaoPaulo_centerline.csv",
                        "racelineCsv":  "data/config/tracks/SaoPaulo_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -383,7 +383,7 @@
                        "name":  "Sepang (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Sepang_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Sepang_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -410,7 +410,7 @@
                        "name":  "Silverstone (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Silverstone_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Silverstone_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -437,7 +437,7 @@
                        "name":  "Sochi (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Sochi_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Sochi_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -464,7 +464,7 @@
                        "name":  "Spa (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Spa_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Spa_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -491,7 +491,7 @@
                        "name":  "Spielberg (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Spielberg_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Spielberg_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -518,7 +518,7 @@
                        "name":  "Yas Marina (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/YasMarina_centerline.csv",
                        "racelineCsv":  "data/config/tracks/YasMarina_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -545,7 +545,7 @@
                        "name":  "Zandvoort (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Zandvoort_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Zandvoort_raceline.csv",
-                       "unitsPerMeter":  250,
+                       "unitsPerMeter":  200,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [

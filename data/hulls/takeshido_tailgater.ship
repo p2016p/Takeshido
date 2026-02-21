@@ -1,0 +1,149 @@
+{
+    "hullName":  "tailgater",
+    "hullId":  "takeshido_tailgater",
+    "hullSize":  "FRIGATE",
+    "spriteName":  "graphics/ships/NormalShips/takeshido_tailgater.png",
+    "style":  "MIDLINE",
+    "height":  101,
+    "width":  78,
+    "center":  [
+                   39,
+                   50.5
+               ],
+    "collisionRadius":  54.279999,
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  57.5,
+    "viewOffset":  0,
+    "weaponSlots":  [
+                        {
+                            "id":  "WS 004",
+                            "size":  "MEDIUM",
+                            "type":  "BALLISTIC",
+                            "mount":  "HARDPOINT",
+                            "arc":  5,
+                            "angle":  0,
+                            "locations":  [
+                                              34.150002,
+                                              0
+                                          ]
+                        },
+                        {
+                            "id":  "WS0001",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  0,
+                            "locations":  [
+                                              1.5,
+                                              -18
+                                          ]
+                        },
+                        {
+                            "id":  "WS0002",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  0,
+                            "locations":  [
+                                              1.5,
+                                              18
+                                          ]
+                        },
+                        {
+                            "id":  "WS0003",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  360,
+                            "angle":  0,
+                            "locations":  [
+                                              -17,
+                                              0
+                                          ]
+                        }
+                    ],
+    "engineSlots":  [
+                        {
+                            "location":  [
+                                             -47,
+                                             18.5
+                                         ],
+                            "length":  25,
+                            "width":  10,
+                            "angle":  180,
+                            "contrailSize":  10,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -47,
+                                             -18.5
+                                         ],
+                            "length":  25,
+                            "width":  10,
+                            "angle":  -180,
+                            "contrailSize":  10,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -44.5,
+                                             6.5
+                                         ],
+                            "length":  46,
+                            "width":  18,
+                            "angle":  180,
+                            "contrailSize":  18,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -44.5,
+                                             -6.5
+                                         ],
+                            "length":  46,
+                            "width":  18,
+                            "angle":  -180,
+                            "contrailSize":  18,
+                            "style":  "MIDLINE"
+                        }
+                    ],
+    "bounds":  [
+                   35,
+                   -8,
+                   27,
+                   -21,
+                   46,
+                   -26,
+                   5.5,
+                   -38.5,
+                   -9,
+                   -25.5,
+                   -33,
+                   -35.5,
+                   -42.5,
+                   -23,
+                   -42.5,
+                   23,
+                   -33,
+                   35.5,
+                   -9,
+                   25.5,
+                   5.5,
+                   38.5,
+                   46,
+                   26,
+                   27,
+                   21,
+                   35,
+                   8
+               ],
+    "builtInMods":  [
+                        "takeshido_powertrain"
+                    ]
+}

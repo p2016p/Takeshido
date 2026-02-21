@@ -1,0 +1,175 @@
+{
+    "hullName":  "phaeton(tks)",
+    "hullId":  "takeshido_phaeton_tks",
+    "hullSize":  "DESTROYER",
+    "spriteName":  "graphics/ships/NormalShips/takeshido_phaeton(tks).png",
+    "style":  "LOW_TECH",
+    "coversColor":  "255,180,170,255",
+    "height":  233,
+    "width":  133,
+    "center":  [
+                   67,
+                   107
+               ],
+    "collisionRadius":  130.5,
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  137.5,
+    "viewOffset":  0,
+    "builtInMods":  [
+                        "civgrade",
+                        "takeshido_powertrain"
+                    ],
+    "weaponSlots":  [
+                        {
+                            "id":  "WS 001",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  150,
+                            "angle":  180,
+                            "locations":  [
+                                              -89,
+                                              0
+                                          ]
+                        },
+                        {
+                            "id":  "WS 004",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  210,
+                            "angle":  0,
+                            "locations":  [
+                                              112,
+                                              13
+                                          ]
+                        }
+                    ],
+    "engineSlots":  [
+                        {
+                            "location":  [
+                                             -104.5,
+                                             36
+                                         ],
+                            "length":  32,
+                            "width":  12,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -104.5,
+                                             24
+                                         ],
+                            "length":  48,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -104.5,
+                                             9
+                                         ],
+                            "length":  64,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -104.5,
+                                             -9
+                                         ],
+                            "length":  64,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -104.5,
+                                             -24
+                                         ],
+                            "length":  48,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -104.5,
+                                             -36
+                                         ],
+                            "length":  32,
+                            "width":  12,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -14,
+                                             -49
+                                         ],
+                            "length":  43,
+                            "width":  17,
+                            "angle":  180,
+                            "contrailSize":  17,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -14,
+                                             49
+                                         ],
+                            "length":  43,
+                            "width":  17,
+                            "angle":  -180,
+                            "contrailSize":  17,
+                            "style":  "LOW_TECH"
+                        }
+                    ],
+    "bounds":  [
+                   118,
+                   -21,
+                   107.5,
+                   -34.5,
+                   63,
+                   -40.5,
+                   60.5,
+                   -51,
+                   23,
+                   -63,
+                   -14.5,
+                   -56.5,
+                   -14.5,
+                   -38.5,
+                   -104.5,
+                   -39,
+                   -104.5,
+                   39,
+                   -14.5,
+                   38.5,
+                   -14.5,
+                   56.5,
+                   23,
+                   63,
+                   60.5,
+                   51,
+                   63,
+                   40.5,
+                   107.5,
+                   34.5,
+                   118,
+                   21
+               ]
+}

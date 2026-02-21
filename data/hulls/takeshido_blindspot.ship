@@ -1,0 +1,198 @@
+{
+    "hullName":  "blindspot",
+    "hullId":  "takeshido_blindspot",
+    "hullSize":  "FRIGATE",
+    "spriteName":  "graphics/ships/NormalShips/takeshido_blindspot.png",
+    "style":  "MIDLINE",
+    "height":  130,
+    "width":  86,
+    "center":  [
+                   45,
+                   65
+               ],
+    "collisionRadius":  69.839996,
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  75,
+    "viewOffset":  0,
+    "weaponSlots":  [
+                        {
+                            "id":  "WS0001",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "HARDPOINT",
+                            "arc":  15,
+                            "angle":  0,
+                            "locations":  [
+                                              22,
+                                              30
+                                          ]
+                        },
+                        {
+                            "id":  "WS0002",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "HARDPOINT",
+                            "arc":  15,
+                            "angle":  0,
+                            "locations":  [
+                                              56,
+                                              -29
+                                          ]
+                        },
+                        {
+                            "id":  "WS0003",
+                            "size":  "LARGE",
+                            "type":  "BALLISTIC",
+                            "mount":  "HARDPOINT",
+                            "arc":  15,
+                            "angle":  0,
+                            "locations":  [
+                                              43,
+                                              0
+                                          ]
+                        }
+                    ],
+    "engineSlots":  [
+                        {
+                            "location":  [
+                                             -58,
+                                             30
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -58,
+                                             -30
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  -180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -59,
+                                             -27
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  -180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -59,
+                                             27
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -60,
+                                             -24
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  -180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -60,
+                                             24
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -61,
+                                             -21
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  -180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -61,
+                                             21
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -59,
+                                             -11
+                                         ],
+                            "length":  35,
+                            "width":  16,
+                            "angle":  -180,
+                            "contrailSize":  16,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -59,
+                                             11
+                                         ],
+                            "length":  35,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  16,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -62,
+                                             -18
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  -180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -62,
+                                             18
+                                         ],
+                            "length":  6.5,
+                            "width":  4,
+                            "angle":  180,
+                            "contrailSize":  4,
+                            "style":  "MIDLINE"
+                        }
+                    ],
+    "bounds":  [
+
+               ],
+    "builtInMods":  [
+                        "takeshido_powertrain"
+                    ]
+}

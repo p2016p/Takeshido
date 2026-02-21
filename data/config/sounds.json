@@ -62,7 +62,21 @@
     ],
     "takeshido_race": [
       {
-        "source": "sounds/music",
+        "source": "sounds/music/racemusic",
+        "volume": 1,
+        "files": [
+          "KissYouGoodbye.ogg",
+          "DriveYouCrazy.ogg",
+          "FreedomToWin.ogg",
+          "GetCloser.ogg",
+          "GreenMonster.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_race_kissyougoodbye": [
+      {
+        "source": "sounds/music/racemusic",
         "volume": 1,
         "files": [
           "KissYouGoodbye.ogg"
@@ -70,9 +84,49 @@
         "randomStart": false
       }
     ],
+    "takeshido_race_driveyoucrazy": [
+      {
+        "source": "sounds/music/racemusic",
+        "volume": 1,
+        "files": [
+          "DriveYouCrazy.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_race_freedomtowin": [
+      {
+        "source": "sounds/music/racemusic",
+        "volume": 1,
+        "files": [
+          "FreedomToWin.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_race_getcloser": [
+      {
+        "source": "sounds/music/racemusic",
+        "volume": 1,
+        "files": [
+          "GetCloser.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_race_greenmonster": [
+      {
+        "source": "sounds/music/racemusic",
+        "volume": 1,
+        "files": [
+          "GreenMonster.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
     "takeshido_countdown": [
       {
-        "source": "sounds/music",
+        "source": "sounds/music/racemusic",
         "volume": 1,
         "files": [
           "countdown.ogg"
@@ -82,10 +136,40 @@
     ],
     "takeshido_race_finish": [
       {
-        "source": "sounds/music",
+        "source": "sounds/music/racemusic",
         "volume": 1,
         "files": [
           "racefinish1.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_meiyo_courseselect1": [
+      {
+        "source": "sounds/music/idlemusic",
+        "volume": 1,
+        "files": [
+          "CourseSelect1.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_meiyo_events": [
+      {
+        "source": "sounds/music/idlemusic",
+        "volume": 1,
+        "files": [
+          "Events.ogg"
+        ],
+        "randomStart": false
+      }
+    ],
+    "takeshido_meiyo_gtmode5": [
+      {
+        "source": "sounds/music/idlemusic",
+        "volume": 1,
+        "files": [
+          "GTMode5.ogg"
         ],
         "randomStart": false
       }

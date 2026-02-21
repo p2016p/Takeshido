@@ -1,0 +1,208 @@
+{
+    "hullName":  "drover(tks)",
+    "hullId":  "takeshido_drover_tks",
+    "hullSize":  "DESTROYER",
+    "spriteName":  "graphics/ships/NormalShips/takeshido_drover(tks).png",
+    "style":  "MIDLINE",
+    "height":  103,
+    "width":  138,
+    "center":  [
+                   69,
+                   49
+               ],
+    "collisionRadius":  80,
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  90,
+    "viewOffset":  0,
+    "builtInMods":  [
+                        "bdeck",
+                        "takeshido_powertrain"
+                    ],
+    "weaponSlots":  [
+                        {
+                            "id":  "WS 000",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  140,
+                            "angle":  10,
+                            "locations":  [
+                                              19,
+                                              58
+                                          ]
+                        },
+                        {
+                            "id":  "WS 001",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  140,
+                            "angle":  -10,
+                            "locations":  [
+                                              19,
+                                              -58
+                                          ]
+                        },
+                        {
+                            "id":  "WS 002",
+                            "size":  "SMALL",
+                            "type":  "MISSILE",
+                            "mount":  "HARDPOINT",
+                            "arc":  4,
+                            "angle":  0,
+                            "locations":  [
+                                              43,
+                                              59
+                                          ]
+                        },
+                        {
+                            "id":  "WS 005",
+                            "size":  "SMALL",
+                            "type":  "MISSILE",
+                            "mount":  "HARDPOINT",
+                            "arc":  4,
+                            "angle":  0,
+                            "locations":  [
+                                              42,
+                                              -60
+                                          ]
+                        },
+                        {
+                            "id":  "WS 010",
+                            "size":  "MEDIUM",
+                            "type":  "LAUNCH_BAY",
+                            "mount":  "HIDDEN",
+                            "arc":  30,
+                            "angle":  0,
+                            "locations":  [
+                                              28,
+                                              41,
+                                              33,
+                                              25,
+                                              21,
+                                              29,
+                                              18,
+                                              7
+                                          ]
+                        },
+                        {
+                            "id":  "WS 012",
+                            "size":  "MEDIUM",
+                            "type":  "LAUNCH_BAY",
+                            "mount":  "HIDDEN",
+                            "arc":  30,
+                            "angle":  0,
+                            "locations":  [
+                                              30,
+                                              -25.5,
+                                              30,
+                                              -39,
+                                              18,
+                                              -9,
+                                              20,
+                                              -33.5
+                                          ]
+                        },
+                        {
+                            "id":  "WS0001",
+                            "size":  "MEDIUM",
+                            "type":  "MISSILE",
+                            "mount":  "HARDPOINT",
+                            "arc":  4,
+                            "angle":  0,
+                            "locations":  [
+                                              48,
+                                              0
+                                          ]
+                        }
+                    ],
+    "engineSlots":  [
+                        {
+                            "location":  [
+                                             -40,
+                                             -52
+                                         ],
+                            "length":  40,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  50,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -40,
+                                             52
+                                         ],
+                            "length":  40,
+                            "width":  16,
+                            "angle":  -180,
+                            "contrailSize":  50,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -47,
+                                             -12
+                                         ],
+                            "length":  50,
+                            "width":  18,
+                            "angle":  180,
+                            "contrailSize":  54,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -47,
+                                             12
+                                         ],
+                            "length":  50,
+                            "width":  18,
+                            "angle":  -180,
+                            "contrailSize":  54,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -46,
+                                             -30
+                                         ],
+                            "length":  50,
+                            "width":  18,
+                            "angle":  180,
+                            "contrailSize":  54,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -46,
+                                             30
+                                         ],
+                            "length":  50,
+                            "width":  18,
+                            "angle":  -180,
+                            "contrailSize":  54,
+                            "style":  "MIDLINE"
+                        }
+                    ],
+    "bounds":  [
+                   46,
+                   -32.5,
+                   41,
+                   -65,
+                   -35,
+                   -61.5,
+                   -47,
+                   -37,
+                   -47,
+                   37,
+                   -35,
+                   61.5,
+                   41,
+                   65,
+                   46,
+                   32.5
+               ]
+}

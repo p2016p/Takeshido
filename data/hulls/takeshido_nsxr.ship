@@ -1,68 +1,63 @@
 {
-  "hullName": "Honda NSX-R",
-  "hullId": "takeshido_nsxr",
-  "hullSize": "FRIGATE",
-  "spriteName": "graphics/ships/NSX-R.png",
-  "style": "TAKESHIDO",
-  "height": 45,
-  "width": 23.35,
-  "center": [11.68, 22.5],
-  "collisionRadius": 30.5,
-  "shieldCenter": [0, 0],
-  "shieldRadius": 25.88,
-  "viewOffset": 0,
-  "builtInMods": [
-      "takeshido_racemod",
-      "strikeCraft",
-      "armaa_strikeCraftFrig",
-    ],
-  "weaponSlots": [
+    "hullName":  "Honda NSX-R",
+    "hullId":  "takeshido_nsxr",
+    "hullSize":  "FRIGATE",
+    "spriteName":  "graphics/ships/Cars/NSX-R.png",
+    "style":  "TAKESHIDO",
+    "height":  45,
+    "width":  23.35,
+    "center":  [
+                   11.68,
+                   22.5
+               ],
+    "collisionRadius":  30.5,
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  25.88,
+    "viewOffset":  0,
+    "builtInMods":  [
+                        "takeshido_racemod",
+                        "strikeCraft",
+                        "armaa_strikeCraftFrig",
+                        "takeshido_powertrain"
+                    ],
+    "weaponSlots":  [
 
-  ],
-                  "engineSlots": [
-    {
-      "location": [-21.3, -1.87],
-      "length": 8,
-      "width": 3,
-      "angle": 180,
-      "contrailSize": 3,
-      "style": "LOW_TECH"
-    },
-    {
-      "location": [-21.3, 1.87],
-      "length": 8,
-      "width": 3,
-      "angle": 180,
-      "contrailSize": 3,
-      "style": "LOW_TECH"
-    }
-  ],
-
-
-
-
-
-
-
-
-  "bounds": [
-    20.25, 10.51,
-    20.25, -10.51,
-    -20.25, -10.51,
-    -20.25, 10.51
-  ]
+                    ],
+    "engineSlots":  [
+                        {
+                            "location":  [
+                                             -21.3,
+                                             -1.87
+                                         ],
+                            "length":  8,
+                            "width":  3,
+                            "angle":  180,
+                            "contrailSize":  3,
+                            "style":  "LOW_TECH"
+                        },
+                        {
+                            "location":  [
+                                             -21.3,
+                                             1.87
+                                         ],
+                            "length":  8,
+                            "width":  3,
+                            "angle":  180,
+                            "contrailSize":  3,
+                            "style":  "LOW_TECH"
+                        }
+                    ],
+    "bounds":  [
+                   20.25,
+                   10.51,
+                   20.25,
+                   -10.51,
+                   -20.25,
+                   -10.51,
+                   -20.25,
+                   10.51
+               ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

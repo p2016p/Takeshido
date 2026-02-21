@@ -46,8 +46,44 @@
 	"knownShips":{
 		"tags":["takeshido"],
 		"hulls":[
-
-
+			"takeshido_037",
+			"takeshido_stratos",
+			"takeshido_db5",
+			"takeshido_miura",
+			"takeshido_aventador",
+			"takeshido_rs200",
+			"takeshido_wrx_sti",
+			"takeshido_r35gtr",
+			"takeshido_ae86",
+			"takeshido_nsxr",
+			"takeshido_etype",
+			"takeshido_xj13",
+			"takeshido_veyron",
+			"takeshido_gt40",
+			"takeshido_crown_vic_taxi",
+			"takeshido_crown_vic_police",
+			"takeshido_firebird",
+			"takeshido_f1",
+			"takeshido_c6r",
+			"takeshido_supra_mk4_paul",
+			"takeshido_escudo",
+			"takeshido_917_30",
+			"takeshido_919",
+			"takeshido_lfa",
+			"takeshido_one_77",
+			"takeshido_zonda_cinque",
+			"takeshido_continental",
+			"takeshido_s2000",
+			"takeshido_959",
+			"takeshido_stingray",
+			"takeshido_delorean",
+			"takeshido_mustang_2005",
+			"takeshido_rx7",
+			"takeshido_r34_skyline",
+			"takeshido_jp_special",
+			"takeshido_ares_special",
+			"takeshido_delorean_bttf",
+			"takeshido_sweetjps_transam20000wr",
 		],
 	},
 	# listing ships here will make the faction mostly use them even if other hulls become available
@@ -281,3 +317,5 @@
 		"foodReliefFleet":"Fukyuu Fleet",
 	}
 },
+
+

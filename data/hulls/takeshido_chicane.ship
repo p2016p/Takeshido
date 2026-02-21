@@ -1,0 +1,303 @@
+{
+    "hullName":  "chicane",
+    "hullId":  "takeshido_chicane",
+    "hullSize":  "CRUISER",
+    "spriteName":  "graphics/ships/NormalShips/takeshido_chicane.png",
+    "style":  "MIDLINE",
+    "height":  200,
+    "width":  204,
+    "center":  [
+                   102,
+                   100
+               ],
+    "collisionRadius":  118.410004,
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  123.5,
+    "viewOffset":  0,
+    "weaponSlots":  [
+                        {
+                            "id":  "WS 003",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  90,
+                            "locations":  [
+                                              7,
+                                              47
+                                          ]
+                        },
+                        {
+                            "id":  "WS 004",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  -90,
+                            "locations":  [
+                                              7,
+                                              -47
+                                          ]
+                        },
+                        {
+                            "id":  "WS0001",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  45,
+                            "locations":  [
+                                              25.5,
+                                              46.5
+                                          ]
+                        },
+                        {
+                            "id":  "WS0002",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  -45,
+                            "locations":  [
+                                              25.5,
+                                              -46.5
+                                          ]
+                        },
+                        {
+                            "id":  "WS0003",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  0,
+                            "locations":  [
+                                              53.5,
+                                              -41
+                                          ]
+                        },
+                        {
+                            "id":  "WS0004",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  0,
+                            "locations":  [
+                                              53.5,
+                                              41
+                                          ]
+                        },
+                        {
+                            "id":  "WS0005",
+                            "size":  "MEDIUM",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  90,
+                            "locations":  [
+                                              -27,
+                                              67
+                                          ]
+                        },
+                        {
+                            "id":  "WS0006",
+                            "size":  "MEDIUM",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  -90,
+                            "locations":  [
+                                              -27,
+                                              -67
+                                          ]
+                        },
+                        {
+                            "id":  "WS0007",
+                            "size":  "MEDIUM",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  -90,
+                            "locations":  [
+                                              -50,
+                                              -58
+                                          ]
+                        },
+                        {
+                            "id":  "WS0008",
+                            "size":  "MEDIUM",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  180,
+                            "angle":  90,
+                            "locations":  [
+                                              -50,
+                                              58
+                                          ]
+                        },
+                        {
+                            "id":  "LB 1",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY",
+                            "mount":  "HIDDEN",
+                            "arc":  360,
+                            "angle":  0,
+                            "locations":  [
+                                              37.5,
+                                              7.5,
+                                              37,
+                                              0,
+                                              37,
+                                              -7
+                                          ]
+                        },
+                        {
+                            "id":  "LB 2",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY",
+                            "mount":  "HIDDEN",
+                            "arc":  360,
+                            "angle":  0,
+                            "locations":  [
+                                              42.5,
+                                              8
+                                          ]
+                        },
+                        {
+                            "id":  "LB 3",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY",
+                            "mount":  "HIDDEN",
+                            "arc":  360,
+                            "angle":  0,
+                            "locations":  [
+                                              43,
+                                              0
+                                          ]
+                        },
+                        {
+                            "id":  "LB 4",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY",
+                            "mount":  "HIDDEN",
+                            "arc":  360,
+                            "angle":  0,
+                            "locations":  [
+                                              43,
+                                              -7
+                                          ]
+                        }
+                    ],
+    "engineSlots":  [
+                        {
+                            "location":  [
+                                             -93.5,
+                                             59
+                                         ],
+                            "length":  40,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  40,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -93.5,
+                                             -59
+                                         ],
+                            "length":  40,
+                            "width":  16,
+                            "angle":  -180,
+                            "contrailSize":  40,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -93.5,
+                                             67
+                                         ],
+                            "length":  40,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  40,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -93.5,
+                                             -67
+                                         ],
+                            "length":  40,
+                            "width":  16,
+                            "angle":  -180,
+                            "contrailSize":  40,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -96.5,
+                                             -45
+                                         ],
+                            "length":  59,
+                            "width":  27,
+                            "angle":  -180,
+                            "contrailSize":  27,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -96.5,
+                                             45
+                                         ],
+                            "length":  59,
+                            "width":  27,
+                            "angle":  180,
+                            "contrailSize":  27,
+                            "style":  "MIDLINE"
+                        }
+                    ],
+    "bounds":  [
+                   94.5,
+                   -5.5,
+                   82.5,
+                   -28,
+                   97,
+                   -42.5,
+                   77,
+                   -76,
+                   -8,
+                   -100.5,
+                   -11.5,
+                   -91,
+                   -94,
+                   -71,
+                   -99,
+                   -40,
+                   -79,
+                   -24.5,
+                   -79,
+                   24.5,
+                   -99,
+                   40,
+                   -94,
+                   71,
+                   -11.5,
+                   91,
+                   -8,
+                   100.5,
+                   77,
+                   76,
+                   97,
+                   42.5,
+                   82.5,
+                   28,
+                   94.5,
+                   5.5
+               ],
+    "builtInMods":  [
+                        "takeshido_powertrain"
+                    ]
+}

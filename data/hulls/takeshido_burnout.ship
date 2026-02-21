@@ -1,0 +1,229 @@
+{
+    "hullName":  "burnout",
+    "hullId":  "takeshido_burnout",
+    "hullSize":  "DESTROYER",
+    "spriteName":  "graphics/ships/NormalShips/takeshido_burnout.png",
+    "style":  "MIDLINE",
+    "height":  150,
+    "width":  142,
+    "center":  [
+                   71,
+                   75
+               ],
+    "collisionRadius":  93.5,
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  97,
+    "viewOffset":  0,
+    "weaponSlots":  [
+                        {
+                            "id":  "WS 001",
+                            "size":  "MEDIUM",
+                            "type":  "BALLISTIC",
+                            "mount":  "HARDPOINT",
+                            "arc":  10,
+                            "angle":  0,
+                            "locations":  [
+                                              35,
+                                              46
+                                          ]
+                        },
+                        {
+                            "id":  "WS 002",
+                            "size":  "MEDIUM",
+                            "type":  "BALLISTIC",
+                            "mount":  "HARDPOINT",
+                            "arc":  10,
+                            "angle":  0,
+                            "locations":  [
+                                              35,
+                                              -46
+                                          ]
+                        },
+                        {
+                            "id":  "WS0001",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  160,
+                            "angle":  -54,
+                            "locations":  [
+                                              12.5,
+                                              -41
+                                          ]
+                        },
+                        {
+                            "id":  "WS0002",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  160,
+                            "angle":  54,
+                            "locations":  [
+                                              12.5,
+                                              41
+                                          ]
+                        },
+                        {
+                            "id":  "WS0003",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  160,
+                            "angle":  -90,
+                            "locations":  [
+                                              -30,
+                                              -50
+                                          ]
+                        },
+                        {
+                            "id":  "WS0004",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  160,
+                            "angle":  90,
+                            "locations":  [
+                                              -30,
+                                              50
+                                          ]
+                        },
+                        {
+                            "id":  "WS0005",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  160,
+                            "angle":  180,
+                            "locations":  [
+                                              -38,
+                                              -23
+                                          ]
+                        },
+                        {
+                            "id":  "WS0006",
+                            "size":  "SMALL",
+                            "type":  "BALLISTIC",
+                            "mount":  "TURRET",
+                            "arc":  160,
+                            "angle":  -180,
+                            "locations":  [
+                                              -38,
+                                              23
+                                          ]
+                        }
+                    ],
+    "engineSlots":  [
+                        {
+                            "location":  [
+                                             -54.5,
+                                             -3
+                                         ],
+                            "length":  120,
+                            "width":  43,
+                            "angle":  180,
+                            "contrailSize":  43,
+                            "style":  "CUSTOM",
+                            "styleId":  "TAKESHIDO"
+                        },
+                        {
+                            "location":  [
+                                             -54.5,
+                                             3
+                                         ],
+                            "length":  120,
+                            "width":  43,
+                            "angle":  -180,
+                            "contrailSize":  43,
+                            "style":  "CUSTOM",
+                            "styleId":  "TAKESHIDO"
+                        },
+                        {
+                            "location":  [
+                                             -73,
+                                             -30
+                                         ],
+                            "length":  54,
+                            "width":  18,
+                            "angle":  180,
+                            "contrailSize":  18,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -73,
+                                             30
+                                         ],
+                            "length":  54,
+                            "width":  18,
+                            "angle":  -180,
+                            "contrailSize":  18,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -72,
+                                             -50
+                                         ],
+                            "length":  28,
+                            "width":  13,
+                            "angle":  180,
+                            "contrailSize":  13,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -72,
+                                             50
+                                         ],
+                            "length":  28,
+                            "width":  13,
+                            "angle":  -180,
+                            "contrailSize":  13,
+                            "style":  "MIDLINE"
+                        }
+                    ],
+    "bounds":  [
+                   72,
+                   -16,
+                   37.5,
+                   -34.5,
+                   31.5,
+                   -58.5,
+                   1.5,
+                   -65.5,
+                   -11,
+                   -61,
+                   -50,
+                   -68.5,
+                   -71.5,
+                   -55,
+                   -71.5,
+                   -23.5,
+                   -50,
+                   -18,
+                   -50,
+                   18,
+                   -71.5,
+                   23.5,
+                   -71.5,
+                   55,
+                   -50,
+                   68.5,
+                   -11,
+                   61,
+                   1.5,
+                   65.5,
+                   31.5,
+                   58.5,
+                   37.5,
+                   34.5,
+                   72,
+                   16
+               ],
+    "builtInMods":  [
+                        "takeshido_powertrain"
+                    ]
+}

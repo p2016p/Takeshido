@@ -1,0 +1,270 @@
+{
+    "hullName":  "heron(tks)",
+    "hullId":  "takeshido_heron_tks",
+    "hullSize":  "CRUISER",
+    "spriteName":  "graphics/ships/NormalShips/takeshido_heron(tks).png",
+    "style":  "MIDLINE",
+    "coversColor":  "255,255,255,255",
+    "height":  250,
+    "width":  140,
+    "center":  [
+                   70,
+                   124
+               ],
+    "collisionRadius":  140,
+    "shieldCenter":  [
+                         0,
+                         0
+                     ],
+    "shieldRadius":  160,
+    "viewOffset":  0,
+    "weaponSlots":  [
+                        {
+                            "id":  "WS 001",
+                            "size":  "SMALL",
+                            "type":  "ENERGY",
+                            "mount":  "TURRET",
+                            "arc":  210,
+                            "angle":  90,
+                            "locations":  [
+                                              -47,
+                                              48
+                                          ]
+                        },
+                        {
+                            "id":  "WS 002",
+                            "size":  "SMALL",
+                            "type":  "ENERGY",
+                            "mount":  "TURRET",
+                            "arc":  210,
+                            "angle":  -90,
+                            "locations":  [
+                                              -47,
+                                              -48
+                                          ]
+                        },
+                        {
+                            "id":  "WS 003",
+                            "size":  "SMALL",
+                            "type":  "ENERGY",
+                            "mount":  "TURRET",
+                            "arc":  210,
+                            "angle":  70,
+                            "locations":  [
+                                              22,
+                                              47
+                                          ]
+                        },
+                        {
+                            "id":  "WS 004",
+                            "size":  "SMALL",
+                            "type":  "ENERGY",
+                            "mount":  "TURRET",
+                            "arc":  270,
+                            "angle":  0,
+                            "locations":  [
+                                              90,
+                                              -3
+                                          ]
+                        },
+                        {
+                            "id":  "WS 005",
+                            "size":  "MEDIUM",
+                            "type":  "UNIVERSAL",
+                            "mount":  "TURRET",
+                            "arc":  245,
+                            "angle":  -30,
+                            "locations":  [
+                                              53,
+                                              -14
+                                          ]
+                        },
+                        {
+                            "id":  "WS 007",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY",
+                            "mount":  "HIDDEN",
+                            "arc":  5,
+                            "angle":  0,
+                            "locations":  [
+                                              57,
+                                              39,
+                                              40,
+                                              33,
+                                              33,
+                                              20,
+                                              56,
+                                              21
+                                          ]
+                        },
+                        {
+                            "id":  "WS 008",
+                            "size":  "LARGE",
+                            "type":  "LAUNCH_BAY",
+                            "mount":  "HIDDEN",
+                            "arc":  5,
+                            "angle":  0,
+                            "locations":  [
+                                              44,
+                                              -37,
+                                              27,
+                                              -41,
+                                              9,
+                                              -41,
+                                              -10,
+                                              -36
+                                          ]
+                        },
+                        {
+                            "id":  "WS 009",
+                            "size":  "SMALL",
+                            "type":  "ENERGY",
+                            "mount":  "TURRET",
+                            "arc":  190,
+                            "angle":  155,
+                            "locations":  [
+                                              -98,
+                                              29
+                                          ]
+                        },
+                        {
+                            "id":  "WS 010",
+                            "size":  "SMALL",
+                            "type":  "ENERGY",
+                            "mount":  "TURRET",
+                            "arc":  190,
+                            "angle":  205,
+                            "locations":  [
+                                              -98,
+                                              -29
+                                          ]
+                        }
+                    ],
+    "engineSlots":  [
+                        {
+                            "location":  [
+                                             -124,
+                                             44
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -123,
+                                             36
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -122,
+                                             24
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -121,
+                                             14
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -121,
+                                             -13
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -122,
+                                             -24
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -123,
+                                             -35
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "MIDLINE"
+                        },
+                        {
+                            "location":  [
+                                             -124,
+                                             -44
+                                         ],
+                            "length":  80,
+                            "width":  16,
+                            "angle":  180,
+                            "contrailSize":  64,
+                            "style":  "MIDLINE"
+                        }
+                    ],
+    "bounds":  [
+                   117.5,
+                   -14,
+                   124.5,
+                   8.5,
+                   97,
+                   24.5,
+                   55,
+                   28,
+                   85,
+                   34.5,
+                   83,
+                   47,
+                   -67,
+                   66,
+                   -86,
+                   53.5,
+                   -119,
+                   53,
+                   -118,
+                   14.5,
+                   -84.5,
+                   13.5,
+                   -84.5,
+                   -13.5,
+                   -118,
+                   -14.5,
+                   -119,
+                   -53,
+                   -86,
+                   -53.5,
+                   -66,
+                   -68
+               ],
+    "builtInMods":  [
+                        "takeshido_powertrain"
+                    ]
+}

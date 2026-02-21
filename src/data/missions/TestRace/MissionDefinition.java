@@ -58,7 +58,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         api.getContext().fightToTheLast = true;
 
         // Race controller plugin
-        api.addPlugin(new TakeshidoRaceCombatPlugin("takeshido_racemod", 1, 8, false, "sochi", skillOverrides));
+        api.addPlugin(new TakeshidoRaceCombatPlugin("takeshido_racemod", 1, 8, false, "austin", skillOverrides));
 
     }
 }
