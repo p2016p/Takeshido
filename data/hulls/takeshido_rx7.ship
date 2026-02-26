@@ -1,63 +1,103 @@
 {
-    "hullName":  "Mazda RX-7",
-    "hullId":  "takeshido_rx7",
-    "hullSize":  "FRIGATE",
-    "spriteName":  "graphics/ships/Cars/RX7.png",
-    "style":  "TAKESHIDO",
-    "height":  45,
-    "width":  21.88,
-    "center":  [
-                   10.94,
-                   22.5
-               ],
-    "collisionRadius":  30.5,
-    "shieldCenter":  [
-                         0,
-                         0
-                     ],
-    "shieldRadius":  25.88,
-    "viewOffset":  0,
-    "builtInMods":  [
-                        "takeshido_racemod",
-                        "strikeCraft",
-                        "armaa_strikeCraftFrig",
-                        "takeshido_powertrain"
-                    ],
-    "weaponSlots":  [
-
-                    ],
-    "engineSlots":  [
-                        {
-                            "location":  [
-                                             -21.3,
-                                             -3.28
-                                         ],
-                            "length":  8,
-                            "width":  3,
-                            "angle":  180,
-                            "contrailSize":  3,
-                            "style":  "LOW_TECH"
-                        },
-                        {
-                            "location":  [
-                                             -21.3,
-                                             -4.81
-                                         ],
-                            "length":  8,
-                            "width":  3,
-                            "angle":  180,
-                            "contrailSize":  3,
-                            "style":  "LOW_TECH"
-                        }
-                    ],
-    "bounds":  [
-                   20.25,
-                   9.85,
-                   20.25,
-                   -9.85,
-                   -20.25,
-                   -9.85,
-                   -20.25,
-                   9.85
-               ]
+    "hullName": "Mazda RX-7",
+    "hullId": "takeshido_rx7",
+    "hullSize": "FRIGATE",
+    "spriteName": "graphics/ships/Cars/RX7.png",
+    "style": "TAKESHIDO",
+    "height": 34,
+    "width": 16,
+    "center": [
+        8.0,
+        17.0
+    ],
+    "collisionRadius": 20,
+    "shieldCenter": [
+        0,
+        0
+    ],
+    "shieldRadius": 21,
+    "viewOffset": 0,
+    "builtInMods": [
+        "takeshido_racemod",
+        "strikeCraft",
+        "armaa_strikeCraftFrig",
+        "takeshido_powertrain"
+    ],
+    "weaponSlots": [
+        {
+            "id": "WS_HEADLIGHT_L",
+            "size": "SMALL",
+            "type": "BALLISTIC",
+            "mount": "HIDDEN",
+            "arc": 10,
+            "angle": 0,
+            "locations": [
+                13.5,
+                5.5
+            ]
+        },
+        {
+            "id": "WS_HEADLIGHT_R",
+            "size": "SMALL",
+            "type": "BALLISTIC",
+            "mount": "HIDDEN",
+            "arc": 10,
+            "angle": 0,
+            "locations": [
+                13.5,
+                -5.5
+            ]
+        },
+        {
+            "id": "WS_BOMB",
+            "size": "SMALL",
+            "type": "BALLISTIC",
+            "mount": "HIDDEN",
+            "arc": 0,
+            "angle": 0,
+            "locations": [
+                0,
+                0
+            ]
+        }
+    ],
+    "engineSlots": [
+        {
+            "location": [
+                -17.0,
+                -2.5
+            ],
+            "length": 8,
+            "width": 3,
+            "angle": 180,
+            "contrailSize": 3,
+            "style": "LOW_TECH"
+        },
+        {
+            "location": [
+                -17.0,
+                -3.5
+            ],
+            "length": 8,
+            "width": 3,
+            "angle": 180,
+            "contrailSize": 3,
+            "style": "LOW_TECH"
+        }
+    ],
+    "bounds": [
+        13.5,
+        6.5,
+        13.5,
+        -6.5,
+        -13.5,
+        -6.5,
+        -13.5,
+        6.5
+    ],
+    "builtInWeapons": {
+        "WS_HEADLIGHT_L": "lightmg",
+        "WS_HEADLIGHT_R": "lightmg",
+        "WS_BOMB": "takeshido_bomb_bay"
+    }
 }

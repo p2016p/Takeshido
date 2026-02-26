@@ -1,0 +1,28 @@
+{
+    "variantId":  "takeshido_phaeton_tks_standard",
+    "hullId":  "takeshido_phaeton_tks",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  18,
+    "fluxVents":  19,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+                         {
+                             "weapons":  {
+                                             "WS 001":  "lightac",
+                                             "WS 004":  "lightac"
+                                         },
+                             "autofire":  true,
+                             "mode":  "LINKED"
+                         }
+                     ]
+}

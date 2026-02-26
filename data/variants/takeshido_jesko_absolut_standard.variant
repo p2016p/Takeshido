@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_jesko_absolut_standard",
+    "hullId":  "takeshido_jesko_absolut",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+
+                     ],
+    "wings":  [
+
+              ]
+}

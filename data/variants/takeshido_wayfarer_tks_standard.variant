@@ -1,0 +1,31 @@
+{
+    "variantId":  "takeshido_wayfarer_tks_standard",
+    "hullId":  "takeshido_wayfarer_tks",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  13,
+    "fluxVents":  14,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+                         {
+                             "weapons":  {
+                                             "WS 001":  "lightac",
+                                             "WS0001":  "heavyac",
+                                             "WS 002":  "lightac",
+                                             "WS 004":  "irpulse",
+                                             "WS 003":  "irpulse"
+                                         },
+                             "autofire":  true,
+                             "mode":  "LINKED"
+                         }
+                     ]
+}

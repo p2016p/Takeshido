@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_288gto_standard",
+    "hullId":  "takeshido_288gto",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+
+                     ],
+    "wings":  [
+
+              ]
+}

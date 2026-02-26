@@ -1,0 +1,103 @@
+{
+    "hullName": "General Lee 1969 Charger",
+    "hullId": "takeshido_general_lee_69",
+    "hullSize": "FRIGATE",
+    "spriteName": "graphics/ships/Cars/GeneralLee69Charger.png",
+    "style": "TAKESHIDO",
+    "height": 42,
+    "width": 20,
+    "center": [
+        10.0,
+        21.0
+    ],
+    "collisionRadius": 24,
+    "shieldCenter": [
+        0,
+        0
+    ],
+    "shieldRadius": 26,
+    "viewOffset": 0,
+    "builtInMods": [
+        "takeshido_racemod",
+        "strikeCraft",
+        "armaa_strikeCraftFrig",
+        "takeshido_powertrain"
+    ],
+    "weaponSlots": [
+        {
+            "id": "WS_HEADLIGHT_L",
+            "size": "SMALL",
+            "type": "BALLISTIC",
+            "mount": "HIDDEN",
+            "arc": 10,
+            "angle": 0,
+            "locations": [
+                17.0,
+                7.0
+            ]
+        },
+        {
+            "id": "WS_HEADLIGHT_R",
+            "size": "SMALL",
+            "type": "BALLISTIC",
+            "mount": "HIDDEN",
+            "arc": 10,
+            "angle": 0,
+            "locations": [
+                17.0,
+                -7.0
+            ]
+        },
+        {
+            "id": "WS_BOMB",
+            "size": "SMALL",
+            "type": "BALLISTIC",
+            "mount": "HIDDEN",
+            "arc": 0,
+            "angle": 0,
+            "locations": [
+                0,
+                0
+            ]
+        }
+    ],
+    "engineSlots": [
+        {
+            "location": [
+                -21.0,
+                -4.5
+            ],
+            "length": 8,
+            "width": 3,
+            "angle": 180,
+            "contrailSize": 3,
+            "style": "LOW_TECH"
+        },
+        {
+            "location": [
+                -21.0,
+                4.5
+            ],
+            "length": 8,
+            "width": 3,
+            "angle": 180,
+            "contrailSize": 3,
+            "style": "LOW_TECH"
+        }
+    ],
+    "bounds": [
+        17.0,
+        8.0,
+        17.0,
+        -8.0,
+        -17.0,
+        -8.0,
+        -17.0,
+        8.0
+    ],
+    "builtInWeapons": {
+        "WS_HEADLIGHT_L": "lightmg",
+        "WS_HEADLIGHT_R": "lightmg",
+        "WS_BOMB": "takeshido_bomb_bay"
+    }
+}

@@ -49,8 +49,10 @@ public class TakeshidoRaceBattleCreationPlugin extends BattleCreationPluginImpl 
         api.addFleetMember(FleetSide.PLAYER, playerMember);
 
         race.playerMemberId = playerMember.getId();
-        race.memberIdToRacerId.put(playerMember.getId(), race.playerRacerId);
-        skillOverrides.put(playerMember.getId(), 1.0f);
+        if (!race.spectatorOnly) {
+            race.memberIdToRacerId.put(playerMember.getId(), race.playerRacerId);
+            skillOverrides.put(playerMember.getId(), 1.0f);
+        }
 
         int index = 0;
         int aiAdded = 0;
@@ -79,7 +81,7 @@ public class TakeshidoRaceBattleCreationPlugin extends BattleCreationPluginImpl 
             aiAdded++;
         }
 
-        int expectedRacers = Math.max(1, 1 + aiAdded);
+        int expectedRacers = Math.max(1, race.spectatorOnly ? aiAdded : (1 + aiAdded));
         race.expectedRacers = expectedRacers;
 
         api.initMap(-40000f, 40000f, -40000f, 40000f);

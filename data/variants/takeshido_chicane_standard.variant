@@ -1,0 +1,41 @@
+{
+    "variantId":  "takeshido_chicane_standard",
+    "hullId":  "takeshido_chicane",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  9,
+    "fluxVents":  9,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+                         {
+                             "weapons":  {
+                                             "WS0005":  "heavyac",
+                                             "WS0007":  "heavyac",
+                                             "WS 003":  "lightac",
+                                             "WS 004":  "lightac",
+                                             "WS0006":  "heavyac",
+                                             "WS0003":  "lightac",
+                                             "WS0004":  "lightac",
+                                             "WS0001":  "lightac",
+                                             "WS0002":  "lightac",
+                                             "WS0008":  "heavyac"
+                                         },
+                             "autofire":  true,
+                             "mode":  "LINKED"
+                         }
+                     ],
+    "wings":  [
+                  "thunder_wing",
+                  "thunder_wing",
+                  "thunder_wing"
+              ]
+}

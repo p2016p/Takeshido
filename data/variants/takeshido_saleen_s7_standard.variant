@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_saleen_s7_standard",
+    "hullId":  "takeshido_saleen_s7",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+
+                     ],
+    "wings":  [
+
+              ]
+}

@@ -1,0 +1,45 @@
+{
+    "variantId":  "takeshido_megagarage_standard",
+    "hullId":  "takeshido_megagarage",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  93,
+    "fluxVents":  94,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+                         {
+                             "weapons":  {
+                                             "WS 001":  "hellbore",
+                                             "WS 002":  "hellbore"
+                                         },
+                             "autofire":  true,
+                             "mode":  "LINKED"
+                         },
+                         {
+                             "weapons":  {
+                                             "WS 004":  "harpoon",
+                                             "WS 006":  "harpoon",
+                                             "WS 005":  "harpoon",
+                                             "WS 003":  "harpoon"
+                                         },
+                             "autofire":  false,
+                             "mode":  "LINKED"
+                         }
+                     ],
+    "wings":  [
+                  "thunder_wing",
+                  "thunder_wing",
+                  "thunder_wing",
+                  "thunder_wing",
+                  "thunder_wing"
+              ]
+}

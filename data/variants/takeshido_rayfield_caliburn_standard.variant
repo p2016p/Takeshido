@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_rayfield_caliburn_standard",
+    "hullId":  "takeshido_rayfield_caliburn",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+
+                     ],
+    "wings":  [
+
+              ]
+}

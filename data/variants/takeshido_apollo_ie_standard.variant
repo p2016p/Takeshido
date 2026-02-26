@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_apollo_ie_standard",
+    "hullId":  "takeshido_apollo_ie",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+
+                     ],
+    "wings":  [
+
+              ]
+}

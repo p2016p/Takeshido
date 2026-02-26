@@ -1,0 +1,29 @@
+{
+    "variantId":  "takeshido_hound_tks_standard",
+    "hullId":  "takeshido_hound_tks",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  10,
+    "fluxVents":  10,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+                         {
+                             "weapons":  {
+                                             "WS 001":  "heavyac",
+                                             "WS0001":  "lightac",
+                                             "WS 002":  "lightac"
+                                         },
+                             "autofire":  true,
+                             "mode":  "LINKED"
+                         }
+                     ]
+}

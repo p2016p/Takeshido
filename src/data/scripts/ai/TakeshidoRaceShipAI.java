@@ -40,6 +40,9 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
     public void advance(float amount) {
         if (ship == null || ship.isHulk()) return;
         if (race == null || race.raceline == null || race.raceline.isEmpty()) return;
+        if (!race.isDeathRace && ship.getShield() != null && ship.getShield().isOn()) {
+            ship.getShield().toggleOff();
+        }
 
         Vector2f loc = ship.getLocation();
         int closestRace = findClosestIndex(race.raceline, loc);

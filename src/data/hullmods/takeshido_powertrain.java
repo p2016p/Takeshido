@@ -7,12 +7,17 @@ import org.lwjgl.util.vector.Vector2f;
 
 public class takeshido_powertrain extends BaseHullMod {
 
-    private static final float MAX_SPEED_BONUS = 0.75f;     // +75% top speed
+    private static final float MAX_SPEED_BONUS = 1.50f;     // +150% top speed
     private static final float MIN_ACCEL_MULT = 0.15f;      // 15% accel near max speed
+    private static final float MAX_BURN_BONUS = 3f;
 
     private static final String DYN_ID = "takeshido_powertrain_dyn";
     private static final String SPEED_ID = "takeshido_powertrain_speed";
     private static final String DECEL_DYN_ID = "takeshido_powertrain_decel_dyn";
+    private static final String WEAPON_RATE_ID = "takeshido_powertrain_weapon_rate";
+    private static final String WEAPON_PROJ_ID = "takeshido_powertrain_weapon_proj";
+    private static final String WEAPON_FLUX_ID = "takeshido_powertrain_weapon_flux";
+    private static final float WEAPON_FLUX_MULT = 0.70f;
     private static final String STRIKECRAFT_MOD = "strikeCraft";
     private static final String STRIKECRAFT_FRIG_MOD = "armaa_strikeCraftFrig";
     private static final String STRIKECRAFT_FRIG_MOD_ALT = "amraa_strikeCraftFrig";
@@ -28,10 +33,12 @@ public class takeshido_powertrain extends BaseHullMod {
                     || stats.getVariant().hasHullMod(STRIKECRAFT_FRIG_MOD_ALT));
             if (!isStrikecraft) {
                 stats.getMaxSpeed().modifyMult(SPEED_ID, 1f + MAX_SPEED_BONUS);
+                stats.getMaxBurnLevel().modifyFlat(SPEED_ID, MAX_BURN_BONUS);
             }
         } else {
             // Fallback: apply speed bonus if we can't determine tags.
             stats.getMaxSpeed().modifyMult(SPEED_ID, 1f + MAX_SPEED_BONUS);
+            stats.getMaxBurnLevel().modifyFlat(SPEED_ID, MAX_BURN_BONUS);
         }
     }
 
@@ -45,6 +52,7 @@ public class takeshido_powertrain extends BaseHullMod {
 
         Vector2f vel = ship.getVelocity();
         float speed = vel.length();
+        applyWeaponScaling(stats, speed);
         float startSpeed = Math.min(60f, max * 0.30f);
         float midSpeed = Math.min(120f, max * 0.60f);
         float endSpeed = Math.min(180f, max * 0.90f);
@@ -85,6 +93,35 @@ public class takeshido_powertrain extends BaseHullMod {
         }
         stats.getAcceleration().modifyMult(DYN_ID, finalScaled);
         stats.getDeceleration().modifyMult(DECEL_DYN_ID, finalScaled);
+    }
+
+    private void applyWeaponScaling(MutableShipStatsAPI stats, float speed) {
+        float clamped = Math.max(0f, speed);
+        float bonusPct = 0f;
+
+        float seg1 = Math.min(clamped, 60f);
+        bonusPct += 0.50f * seg1;
+
+        float seg2 = Math.min(Math.max(clamped - 60f, 0f), 60f);
+        bonusPct += 0.30f * seg2;
+
+        float seg3 = Math.max(clamped - 120f, 0f);
+        bonusPct += 0.10f * seg3;
+
+        float bonusMult = 1f + (bonusPct / 100f);
+        float projMult = 1f + (2f * bonusPct / 100f);
+        float fluxMult = WEAPON_FLUX_MULT;
+
+        stats.getBallisticRoFMult().modifyMult(WEAPON_RATE_ID, bonusMult);
+        stats.getEnergyRoFMult().modifyMult(WEAPON_RATE_ID, bonusMult);
+        stats.getMissileRoFMult().modifyMult(WEAPON_RATE_ID, bonusMult);
+
+        stats.getBallisticProjectileSpeedMult().modifyMult(WEAPON_PROJ_ID, projMult);
+        stats.getEnergyProjectileSpeedMult().modifyMult(WEAPON_PROJ_ID, projMult);
+
+        stats.getBallisticWeaponFluxCostMod().modifyMult(WEAPON_FLUX_ID, fluxMult);
+        stats.getEnergyWeaponFluxCostMod().modifyMult(WEAPON_FLUX_ID, fluxMult);
+        stats.getMissileWeaponFluxCostMod().modifyMult(WEAPON_FLUX_ID, fluxMult);
     }
 
     private float getDesiredAccelWorldAngle(ShipAPI ship) {
@@ -130,6 +167,10 @@ public class takeshido_powertrain extends BaseHullMod {
                 return Math.round(MAX_SPEED_BONUS * 100f) + "%";
             case 1:
                 return Math.round(MIN_ACCEL_MULT * 100f) + "%";
+            case 2:
+                return Math.round(MAX_BURN_BONUS) + "";
+            case 3:
+                return Math.round(WEAPON_FLUX_MULT * 100f) + "%";
             default:
                 return null;
         }

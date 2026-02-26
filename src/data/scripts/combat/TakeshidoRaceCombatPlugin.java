@@ -31,6 +31,15 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private final String trackId;
     private final Map<String, Float> skillOverrides;
     private final String raceId;
+    private boolean spectatorOnly = false;
+    private boolean contextLoaded = false;
+    private String betRacerId = null;
+    private String spectatorMemberId = null;
+    private ShipAPI betShip = null;
+    private ShipAPI spectatorShip = null;
+    private boolean spectatingApplied = false;
+    private TakeshidoRaceShipAI spectatorAI;
+    private boolean spectatorInitialized = false;
 
     // to figure out what checkpoint we start at
     public int startIndex = 0;
@@ -50,6 +59,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
     private static final String OFFTRACK_MOD_ID = "takeshido_offtrack";
     private static final String START_LOCK_ID = "takeshido_start_lock";
+    private static final String SPECTATOR_LOCK_ID = "takeshido_spectator_lock";
     private static final float WALL_PUSH_PER_SEC = 260f;
     private static final float WALL_PUSH_MULT = 1.0f;
     private static final float WALL_LATERAL_DAMP = 0.7f;
@@ -91,6 +101,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private float raceTimer = 0f;
     private String currentRaceMusicId = null;
     private final Random raceMusicRandom = new Random();
+    private float setupWaitTimer = 0f;
 
     public TakeshidoRaceCombatPlugin(String raceHullmodId, int lapsToWin, int expectedRacers, boolean isDeathRace, String trackId) {
         this.raceHullmodId = raceHullmodId;
@@ -129,18 +140,25 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         this.engine = engine;
         engine.setDoNotEndCombat(true);
         this.race = new RaceState(lapsToWin);
+        this.race.isDeathRace = isDeathRace;
         engine.getCustomData().put("takeshido_race_state", race);
+        syncRaceContext();
     }
 
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
         if (engine == null || engine.isPaused()) return;
 
+        applySpectatorLock();
+
         // Keep attempting setup until all ships are actually present
         if (!setupComplete) {
+            setupWaitTimer += amount;
             setupComplete = trySetup();
             if (!setupComplete) return; // don't run race logic until setup is real
         }
+
+        ensurePlayerAutopilotRaceAI();
 
         if (!isDeathRace) {
             // USE_SYSTEM is a ShipCommand; blocking it stops both AI and player from activating the ship system.
@@ -166,6 +184,12 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             return;
         }
 
+        ensureSpectatingTarget();
+        if (spectatorOnly && spectatorAI != null) {
+            if (engine.getCombatUI() == null || !engine.getCombatUI().isAutopilotOn()) {
+                spectatorAI.advance(amount);
+            }
+        }
 
         // Track markers disabled
 //        markerTimer += amount;
@@ -211,14 +235,19 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private boolean trySetup() {
         ShipAPI player = engine.getPlayerShip();
         if (player == null) return false;
+        syncRaceContext();
 
         List<ShipAPI> cars = new ArrayList<>();
         for (ShipAPI s : engine.getShips()) {
             if (isRacer(s)) cars.add(s);
         }
 
+        int needed = expectedRacers;
+        if (setupWaitTimer > 2f) {
+            needed = Math.min(expectedRacers, Math.max(2, cars.size()));
+        }
         // Wait until all racers exist before doing one-time placement/AI swap
-        if (cars.size() < expectedRacers) return false;
+        if (cars.size() < needed) return false;
 
         TrackSpec track = data.scripts.combat.TrackLoader.get(trackId);
 
@@ -279,6 +308,9 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         // Place everyone on the same starting grid near the track edge
         placeStartingGrid(cars);
 
+        if (!isRacer(player)) {
+            placeSpectatorShip(player);
+        }
 
 
         // Stop them from shooting if its not a deathrace
@@ -298,6 +330,8 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             rs.lastPos = new Vector2f(s.getLocation());
 
             if (s != player) {
+                s.setShipAI(new TakeshidoRaceShipAI(s, race, rs));
+            } else if (!spectatorOnly && s.getShipAI() != null) {
                 s.setShipAI(new TakeshidoRaceShipAI(s, race, rs));
             }
         }
@@ -713,6 +747,10 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
     private boolean isRacer(ShipAPI s) {
         if (s == null || s.isHulk()) return false;
+        if (spectatorOnly && spectatorMemberId != null && s.getFleetMember() != null
+                && spectatorMemberId.equals(s.getFleetMember().getId())) {
+            return false;
+        }
         try {
             return s.getVariant() != null && s.getVariant().hasHullMod(raceHullmodId);
         } catch (Throwable t) {
@@ -724,7 +762,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         if (race.checkpoints == null || race.checkpoints.isEmpty()) return;
 
         ShipAPI player = engine.getPlayerShip();
-        if (player != null && player.isHulk()) {
+        if (!spectatorOnly && player != null && isRacer(player) && player.isHulk()) {
             race.endedByPlayerDNF = true;
             race.winnerSide = FleetSide.ENEMY;
             recordDNF(player);
@@ -1009,14 +1047,30 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
             if (s != player) {
                 s.setShipAI(new TakeshidoRaceShipAI(s, race, rs));
+            } else if (!spectatorOnly && s.getShipAI() != null) {
+                s.setShipAI(new TakeshidoRaceShipAI(s, race, rs));
             }
         }
+    }
+
+    private void ensurePlayerAutopilotRaceAI() {
+        if (spectatorOnly || engine == null || race == null) return;
+        if (engine.getCombatUI() == null || !engine.getCombatUI().isAutopilotOn()) return;
+
+        ShipAPI player = engine.getPlayerShip();
+        if (player == null || player.getShipAI() == null) return;
+        if (player.getShipAI() instanceof TakeshidoRaceShipAI) return;
+
+        RacerState rs = race.racers != null ? race.racers.get(player) : null;
+        if (rs == null) return;
+
+        player.setShipAI(new TakeshidoRaceShipAI(player, race, rs));
     }
 
     private void startRaceMusic() {
         if (raceMusicStarted) return;
         raceMusicStarted = true;
-        Global.getSoundPlayer().setSuspendDefaultMusicPlayback(true);
+        //Global.getSoundPlayer().setSuspendDefaultMusicPlayback(true);
         currentRaceMusicId = pickRaceMusicId(null);
         Global.getSoundPlayer().playCustomMusic(0, 0, currentRaceMusicId, false);
     }
@@ -1024,7 +1078,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private void playRaceFinish() {
         if (raceFinishPlayed || Global.getSoundPlayer() == null) return;
         raceFinishPlayed = true;
-        Global.getSoundPlayer().pauseCustomMusic();
+        //Global.getSoundPlayer().pauseCustomMusic();
         Global.getSoundPlayer().playCustomMusic(0, 0, "takeshido_race_finish", false);
     }
 
@@ -1196,6 +1250,133 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
     }
 
+    private void applySpectatorLock() {
+        if (engine == null) return;
+        syncRaceContext();
+        ShipAPI player = engine.getPlayerShip();
+        if (player == null) return;
+
+        if (spectatorOnly) {
+            player.blockCommandForOneFrame(ShipCommand.USE_SYSTEM);
+            player.blockCommandForOneFrame(ShipCommand.FIRE);
+            player.blockCommandForOneFrame(ShipCommand.ACCELERATE);
+            player.blockCommandForOneFrame(ShipCommand.DECELERATE);
+            player.blockCommandForOneFrame(ShipCommand.TURN_LEFT);
+            player.blockCommandForOneFrame(ShipCommand.TURN_RIGHT);
+            player.blockCommandForOneFrame(ShipCommand.STRAFE_LEFT);
+            player.blockCommandForOneFrame(ShipCommand.STRAFE_RIGHT);
+            lockSpectatorShip();
+            return;
+        }
+
+        if (isRacer(player)) {
+            player.getMutableStats().getMaxSpeed().unmodify(SPECTATOR_LOCK_ID);
+            player.getMutableStats().getAcceleration().unmodify(SPECTATOR_LOCK_ID);
+            player.getMutableStats().getDeceleration().unmodify(SPECTATOR_LOCK_ID);
+            player.getMutableStats().getMaxTurnRate().unmodify(SPECTATOR_LOCK_ID);
+            player.getMutableStats().getTurnAcceleration().unmodify(SPECTATOR_LOCK_ID);
+            return;
+        }
+
+        player.getVelocity().set(0f, 0f);
+        player.setAngularVelocity(0f);
+        player.getMutableStats().getMaxSpeed().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        player.getMutableStats().getAcceleration().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        player.getMutableStats().getDeceleration().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        player.getMutableStats().getMaxTurnRate().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        player.getMutableStats().getTurnAcceleration().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        player.blockCommandForOneFrame(ShipCommand.USE_SYSTEM);
+        player.blockCommandForOneFrame(ShipCommand.FIRE);
+        player.blockCommandForOneFrame(ShipCommand.ACCELERATE);
+        player.blockCommandForOneFrame(ShipCommand.DECELERATE);
+        player.blockCommandForOneFrame(ShipCommand.TURN_LEFT);
+        player.blockCommandForOneFrame(ShipCommand.TURN_RIGHT);
+        player.blockCommandForOneFrame(ShipCommand.STRAFE_LEFT);
+        player.blockCommandForOneFrame(ShipCommand.STRAFE_RIGHT);
+        player.setCollisionClass(CollisionClass.NONE);
+    }
+
+    private void syncRaceContext() {
+        if (contextLoaded || raceId == null) return;
+        TakeshidoRacingManager.RaceContext ctx = TakeshidoRacingManager.getActiveRace(raceId);
+        if (ctx == null) return;
+        spectatorOnly = ctx.spectatorOnly;
+        betRacerId = ctx.betRacerId;
+        spectatorMemberId = ctx.playerMemberId;
+        contextLoaded = true;
+    }
+
+    private void ensureSpectatingTarget() {
+        if (!spectatorOnly || spectatingApplied || engine == null) return;
+        if (betRacerId == null || betRacerId.trim().isEmpty()) return;
+
+        TakeshidoRacingManager.RaceContext ctx = TakeshidoRacingManager.getActiveRace(raceId);
+        if (ctx == null) return;
+
+        for (ShipAPI s : race.racers.keySet()) {
+            if (s == null || s.getFleetMember() == null) continue;
+            String racerId = ctx.memberIdToRacerId.get(s.getFleetMember().getId());
+            if (betRacerId.equals(racerId)) {
+                betShip = s;
+                break;
+            }
+        }
+
+        if (betShip == null) return;
+
+        engine.setPlayerShipExternal(betShip);
+        RacerState rs = race.racers.get(betShip);
+        if (rs != null) {
+            spectatorAI = new TakeshidoRaceShipAI(betShip, race, rs);
+            betShip.setShipAI(spectatorAI);
+        }
+        spectatingApplied = true;
+    }
+
+    private void lockSpectatorShip() {
+        if (engine == null || spectatorMemberId == null) return;
+        if (spectatorShip == null) {
+            for (ShipAPI s : engine.getShips()) {
+                if (s == null || s.getFleetMember() == null) continue;
+                if (spectatorMemberId.equals(s.getFleetMember().getId())) {
+                    spectatorShip = s;
+                    break;
+                }
+            }
+        }
+        if (spectatorShip == null || spectatorShip.isHulk()) return;
+
+        if (!spectatorInitialized) {
+            placeSpectatorShip(spectatorShip);
+            spectatorShip.setDoNotRenderWeapons(true);
+            spectatorShip.setDoNotRenderShield(true);
+            spectatorShip.setDoNotRenderVentingAnimation(true);
+            spectatorShip.setRenderEngines(false);
+            spectatorInitialized = true;
+        }
+
+        spectatorShip.getVelocity().set(0f, 0f);
+        spectatorShip.setAngularVelocity(0f);
+        spectatorShip.getMutableStats().getMaxSpeed().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        spectatorShip.getMutableStats().getAcceleration().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        spectatorShip.getMutableStats().getDeceleration().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        spectatorShip.getMutableStats().getMaxTurnRate().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        spectatorShip.getMutableStats().getTurnAcceleration().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        spectatorShip.getMutableStats().getHullDamageTakenMult().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        spectatorShip.getMutableStats().getArmorDamageTakenMult().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        spectatorShip.getMutableStats().getEmpDamageTakenMult().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        spectatorShip.getMutableStats().getShieldDamageTakenMult().modifyMult(SPECTATOR_LOCK_ID, 0f);
+        spectatorShip.blockCommandForOneFrame(ShipCommand.USE_SYSTEM);
+        spectatorShip.blockCommandForOneFrame(ShipCommand.FIRE);
+        spectatorShip.blockCommandForOneFrame(ShipCommand.ACCELERATE);
+        spectatorShip.blockCommandForOneFrame(ShipCommand.DECELERATE);
+        spectatorShip.blockCommandForOneFrame(ShipCommand.TURN_LEFT);
+        spectatorShip.blockCommandForOneFrame(ShipCommand.TURN_RIGHT);
+        spectatorShip.blockCommandForOneFrame(ShipCommand.STRAFE_LEFT);
+        spectatorShip.blockCommandForOneFrame(ShipCommand.STRAFE_RIGHT);
+        spectatorShip.setCollisionClass(CollisionClass.NONE);
+    }
+
 
     private void setEngineFlameLevel(float level) {
         for (ShipAPI s : race.racers.keySet()) {
@@ -1286,6 +1467,47 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
     }
 
+    private void placeSpectatorShip(ShipAPI player) {
+        if (player == null || race.checkpoints == null || race.checkpoints.size() < 2) return;
+
+        int n = race.checkpoints.size();
+        int start = ((race.startIndex % n) + n) % n;
+        int next = (start + 1) % n;
+
+        Vector2f cpStart = race.checkpoints.get(start);
+        Vector2f cpNext = race.checkpoints.get(next);
+
+        float dx = cpNext.x - cpStart.x;
+        float dy = cpNext.y - cpStart.y;
+        float len = (float) Math.sqrt(dx * dx + dy * dy);
+        if (len < 1f) { dx = 1f; dy = 0f; len = 1f; }
+        float dirX = dx / len;
+        float dirY = dy / len;
+        float perpX = -dirY;
+        float perpY = dirX;
+
+        float leftWidth = getWallLeftWidth(start, 0f);
+        float rightWidth = getWallRightWidth(start, 0f);
+        float sideSign = (leftWidth >= rightWidth) ? 1f : -1f;
+        float offset = Math.max(leftWidth, rightWidth) + gridEdgeMargin + 400f;
+
+        Vector2f anchor = new Vector2f(
+                cpStart.x - dirX * aheadOffset,
+                cpStart.y - dirY * aheadOffset
+        );
+
+        Vector2f pos = new Vector2f(
+                anchor.x + perpX * offset * sideSign,
+                anchor.y + perpY * offset * sideSign
+        );
+
+        player.getLocation().set(pos);
+        player.getVelocity().set(0f, 0f);
+        player.setFacing((float) Math.toDegrees(Math.atan2(dirY, dirX)));
+        player.setAngularVelocity(0f);
+        player.setCollisionClass(CollisionClass.NONE);
+    }
+
 
 
 
@@ -1351,6 +1573,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         public boolean finished = false;
         public FleetSide winnerSide = FleetSide.PLAYER;
         public int startIndex;
+        public boolean isDeathRace = false;
 
         public List<Vector2f> centerline = new ArrayList<>();
         public List<Vector2f> raceline = new ArrayList<>();

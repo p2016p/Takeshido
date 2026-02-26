@@ -59,7 +59,6 @@ public class takeshido_meiyoGen {
                 3600f,
                 360f
         );
-        oashisu.setCustomDescriptionId("takeshido_oashisuxxx");
 
         MarketAPI oashisuMarket = takeshido_util_sysgen.addMarketplace(
                 "takeshido",

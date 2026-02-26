@@ -5,7 +5,7 @@
                        "name":  "Austin (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Austin_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Austin_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -13,7 +13,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -32,7 +32,7 @@
                        "name":  "Brands Hatch (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/BrandsHatch_centerline.csv",
                        "racelineCsv":  "data/config/tracks/BrandsHatch_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -40,7 +40,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -59,7 +59,7 @@
                        "name":  "Budapest (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Budapest_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Budapest_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -67,7 +67,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -86,7 +86,7 @@
                        "name":  "Catalunya (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Catalunya_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Catalunya_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -94,7 +94,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -113,7 +113,7 @@
                        "name":  "Hockenheim (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Hockenheim_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Hockenheim_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -121,7 +121,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -140,7 +140,7 @@
                        "name":  "IMS (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/IMS_centerline.csv",
                        "racelineCsv":  "data/config/tracks/IMS_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -148,7 +148,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -167,7 +167,7 @@
                        "name":  "Melbourne (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Melbourne_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Melbourne_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -175,7 +175,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -194,7 +194,7 @@
                        "name":  "Mexico City (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/MexicoCity_centerline.csv",
                        "racelineCsv":  "data/config/tracks/MexicoCity_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -202,7 +202,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -221,7 +221,7 @@
                        "name":  "Monza (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Monza_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Monza_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -229,7 +229,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -248,7 +248,7 @@
                        "name":  "Moscow Raceway (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/MoscowRaceway_centerline.csv",
                        "racelineCsv":  "data/config/tracks/MoscowRaceway_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -256,7 +256,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -275,7 +275,7 @@
                        "name":  "Nuerburgring (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Nuerburgring_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Nuerburgring_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -283,7 +283,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -302,7 +302,7 @@
                        "name":  "Oschersleben (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Oschersleben_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Oschersleben_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -310,7 +310,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -329,7 +329,7 @@
                        "name":  "Sakhir (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Sakhir_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Sakhir_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -337,7 +337,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -356,7 +356,7 @@
                        "name":  "Sao Paulo (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/SaoPaulo_centerline.csv",
                        "racelineCsv":  "data/config/tracks/SaoPaulo_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -364,7 +364,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -383,7 +383,7 @@
                        "name":  "Sepang (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Sepang_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Sepang_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -391,7 +391,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -410,7 +410,7 @@
                        "name":  "Silverstone (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Silverstone_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Silverstone_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -418,7 +418,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -437,7 +437,7 @@
                        "name":  "Sochi (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Sochi_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Sochi_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -445,7 +445,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -464,7 +464,7 @@
                        "name":  "Spa (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Spa_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Spa_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -472,7 +472,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -491,7 +491,7 @@
                        "name":  "Spielberg (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Spielberg_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Spielberg_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -499,7 +499,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -518,7 +518,7 @@
                        "name":  "Yas Marina (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/YasMarina_centerline.csv",
                        "racelineCsv":  "data/config/tracks/YasMarina_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -526,7 +526,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,
@@ -545,7 +545,7 @@
                        "name":  "Zandvoort (F1TENTH)",
                        "centerlineCsv":  "data/config/tracks/Zandvoort_centerline.csv",
                        "racelineCsv":  "data/config/tracks/Zandvoort_raceline.csv",
-                       "unitsPerMeter":  200,
+                       "unitsPerMeter":  150,
                        "rotationDeg":  0,
                        "autoCenter":  true,
                        "offset":  [
@@ -553,7 +553,7 @@
                                       0
                                   ],
                        "useCsvWidths":  true,
-                       "widthScale":  1.1,
+                       "widthScale":  1.2,
                        "checkpointRadius":  350,
                        "checkpointSpacing":  900,
                        "edgeMarkerSpacing":  180,

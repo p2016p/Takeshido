@@ -24,10 +24,10 @@ import java.util.Random;
 public class takeshido_raceways extends BaseIndustry {
 
     private static final float ACCESSIBILITY_BONUS = 0.30f;
-    private static final float GROUND_DEF_BONUS = 100f;
+    private static final float GROUND_DEF_BONUS = 500f;
     private static final int INPUT_ORE = 1;
     private static final int INPUT_FUEL = 1;
-    private static final int SHIP_OUTPUT = 1;
+    private static final int SHIP_OUTPUT = 2;
 
     // Target ~2 spawns per day
     private static final float FLEET_INTERVAL_MIN = 7.0f;
@@ -38,6 +38,7 @@ public class takeshido_raceways extends BaseIndustry {
     private static final float TARGET_BURN = 20f;
     private static final float LOOKAHEAD_DEG = 25f;
     private static final float ARRIVAL_DEG_THRESHOLD = 5f;
+    private static final int MAX_RACER_FLEETS_IN_SYSTEM = 5;
 
     private static List<String> strikecraftHulls = null;
     private final Random random = new Random();
@@ -105,6 +106,8 @@ public class takeshido_raceways extends BaseIndustry {
         List<MarketAPI> candidates = getMeiyoMarkets(system);
         if (candidates.size() < 2) return;
 
+        if (countActiveRacerFleets(system) >= MAX_RACER_FLEETS_IN_SYSTEM) return;
+
         MarketAPI destination = pickDestination(candidates, market, random);
         if (destination == null) return;
 
@@ -117,6 +120,7 @@ public class takeshido_raceways extends BaseIndustry {
         fleet.setName("Takeshido Racers");
         fleet.setNoFactionInName(true);
         fleet.setTransponderOn(true);
+        fleet.getMemoryWithoutUpdate().set("$takeshido_race_fleet", true);
 
         FleetDataAPI data = fleet.getFleetData();
         int count = 3 + random.nextInt(4); // 3-6 ships
@@ -175,6 +179,17 @@ public class takeshido_raceways extends BaseIndustry {
             }
         }
         return strikecraftHulls;
+    }
+
+    private static int countActiveRacerFleets(StarSystemAPI system) {
+        int count = 0;
+        for (CampaignFleetAPI fleet : system.getFleets()) {
+            if (fleet == null) continue;
+            if (fleet.getMemoryWithoutUpdate().getBoolean("$takeshido_race_fleet")) {
+                count++;
+            }
+        }
+        return count;
     }
 
     private float getNextSpawnInterval() {

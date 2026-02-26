@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_mustang_1960_standard",
+    "hullId":  "takeshido_mustang_1960",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "quality":  1,
+    "permaMods":  [
+
+                  ],
+    "hullMods":  [
+
+                 ],
+    "weaponGroups":  [
+
+                     ],
+    "modules":  [
+
+                ],
+    "wings":  [
+
+              ]
+}

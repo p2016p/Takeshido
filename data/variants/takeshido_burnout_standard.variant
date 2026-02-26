@@ -1,0 +1,34 @@
+{
+    "variantId":  "takeshido_burnout_standard",
+    "hullId":  "takeshido_burnout",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  28,
+    "fluxVents":  28,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+                         {
+                             "weapons":  {
+                                             "WS0005":  "lightac",
+                                             "WS0006":  "lightac",
+                                             "WS0003":  "lightac",
+                                             "WS0004":  "lightac",
+                                             "WS0001":  "lightac",
+                                             "WS0002":  "lightac",
+                                             "WS 001":  "heavyac",
+                                             "WS 002":  "heavyac"
+                                         },
+                             "autofire":  true,
+                             "mode":  "LINKED"
+                         }
+                     ]
+}

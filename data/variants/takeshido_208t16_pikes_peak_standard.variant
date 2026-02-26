@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_208t16_pikes_peak_standard",
+    "hullId":  "takeshido_208t16_pikes_peak",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+
+                     ],
+    "wings":  [
+
+              ]
+}

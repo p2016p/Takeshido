@@ -1,0 +1,41 @@
+{
+    "variantId":  "takeshido_drover_tks_standard",
+    "hullId":  "takeshido_drover_tks",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  22,
+    "fluxVents":  22,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+                         {
+                             "weapons":  {
+                                             "WS 001":  "lightac",
+                                             "WS 000":  "lightac"
+                                         },
+                             "autofire":  true,
+                             "mode":  "LINKED"
+                         },
+                         {
+                             "weapons":  {
+                                             "WS 005":  "harpoon_single",
+                                             "WS0001":  "harpoon",
+                                             "WS 002":  "harpoon_single"
+                                         },
+                             "autofire":  false,
+                             "mode":  "LINKED"
+                         }
+                     ],
+    "wings":  [
+                  "thunder_wing",
+                  "thunder_wing"
+              ]
+}

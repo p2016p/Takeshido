@@ -21,6 +21,11 @@
     "blueprint_packages": {
       "takeshido_package": "graphics/icons/cargo/takeshido_package.png"
     },
+    "portraits": {
+      "Lizzie": "graphics/portraits/LizzieChen.png",
+      "Biff": "graphics/portraits/BiffTanen.png",
+      "burt": "graphics/portraits/burt.png"
+    }
 
   }
 }

@@ -1,0 +1,30 @@
+{
+    "variantId":  "takeshido_tailgater_standard",
+    "hullId":  "takeshido_tailgater",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  14,
+    "fluxVents":  14,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+                         {
+                             "weapons":  {
+                                             "WS 004":  "heavyac",
+                                             "WS0003":  "lightac",
+                                             "WS0001":  "lightac",
+                                             "WS0002":  "lightac"
+                                         },
+                             "autofire":  true,
+                             "mode":  "LINKED"
+                         }
+                     ]
+}

@@ -1,0 +1,122 @@
+﻿# Takeshido car stat derivation (CSV pipeline)
+
+This file documents the exact process used to derive car stats in `data/hulls/ship_data.csv`.
+
+## 1) Base specs (per car)
+For each car, select:
+- Model year (most notable production; if multiple generations, the most famous/representative).
+- Top speed (mph) for that model/spec.
+- 0–60 mph time (seconds).
+- Handling baseline (a base max-turn rate value, 30–100, judged by drivetrain/weight/downforce/suspension).
+- Category for durability/tech: road / sport / super / hyper / proto / race_gt / rally / sedan / special_*
+
+### Variant adjustments (pre-age)
+These are multiplicative adjustments to base top speed, 0–60 time, and handling:
+- Tuner cars (RX-7, Supra MK4 Paul, R34):
+  - speed × 1.15
+  - 0–60 × 0.85
+  - handling × 1.05
+- Rally cars (037, Stratos, RS200, WRX STI, Lancer Evo):
+  - speed × 1.05
+  - 0–60 × 0.85
+  - handling × 1.10
+- Suzuki Escudo (GT version):
+  - speed × 1.15
+  - 0–60 × 0.75
+  - handling × 1.12
+- General Lee:
+  - speed × 1.05
+  - 0–60 × 0.90
+  - handling × 1.05
+
+## 2) Age compensation (piecewise)
+We use the car year to scale top speed, accel, and handling separately, with caps.
+Let delta = 2025 - year.
+
+Top speed multiplier (cap 1.20):
+- 1965–1980: +0.15%/yr
+- 1980–2000: +0.30%/yr
+- 2000–2015: +0.20%/yr
+- 2015–2025: +0.10%/yr
+
+Acceleration multiplier (cap 1.60):
+- 1965–1980: +0.70%/yr
+- 1980–2000: +1.00%/yr
+- 2000–2015: +0.50%/yr
+- 2015–2025: +0.25%/yr
+
+Handling multiplier (cap 1.40):
+- 1965–1980: +0.60%/yr
+- 1980–2000: +0.80%/yr
+- 2000–2015: +0.40%/yr
+- 2015–2025: +0.20%/yr
+
+Apply:
+- speed_adj = speed * speed_mult
+- t0_60_adj = t0_60 / accel_mult
+- handling_adj = handling * turn_mult
+
+## 3) Track stats (stored directly in CSV)
+- max speed = speed_adj (mph, rounded to int)
+- acceleration = 60 / t0_60_adj (clamped 10–60, rounded to int)
+- deceleration = acceleration * 3
+- max turn rate = handling_adj (clamped 30–100, rounded to int)
+- turn acceleration = 1000 (fixed)
+
+## 4) Absolute track score and designation
+Track performance uses absolute scores (not normalized):
+
+speed_score = (max_speed - 110) / 15
+accel_score = (6 - (60 / acceleration)) * 2
+turn_score  = (max_turn_rate - 50) / 6
+AvgTrackScore = (speed_score + accel_score + turn_score) / 3
+
+Designation from AvgTrackScore:
+- > 8   → Prototype
+- > 6   → Hypercar
+- > 4   → Supercar
+- > 2   → Sportscar
+- else → Roadcar
+
+Tags field includes `AvgTrackScore=##.##` appended (keeps existing tags).
+
+## 5) Non-track stats
+Category defaults:
+- road:         HP 380, Flux 220, Peak 1700, Supplies/mo 2
+- sport:        HP 480, Flux 320, Peak 2000, Supplies/mo 4
+- super:        HP 550, Flux 450, Peak 2200, Supplies/mo 6
+- hyper:        HP 600, Flux 600, Peak 2400, Supplies/mo 7
+- proto:        HP 700, Flux 750, Peak 3200, Supplies/mo 9
+- race_gt:      HP 640, Flux 600, Peak 2800, Supplies/mo 8
+- rally:        HP 520, Flux 420, Peak 2300, Supplies/mo 7
+- sedan:        HP 650, Flux 300, Peak 2100, Supplies/mo 4
+- special_hyper:HP 520, Flux 450, Peak 2200, Supplies/mo 7
+- special_proto:HP 700, Flux 700, Peak 3000, Supplies/mo 9
+
+Overrides are applied for specific cars (sturdiness or tech differences).
+Derived:
+- armor rating = 100
+- flux dissipation = round(max_flux / 5)
+- peak CR sec from category (bounded 1500–4000)
+- supplies/mo from category (bounded 1–10)
+
+## 6) Fleet points / supplies/rec (absolute)
+Scores (absolute):
+- hp_score   = (hp - 300) / 50
+- flux_score = (max_flux - 200) / 60
+- diss_score = (flux_diss - 40) / 12
+- peak_score = (peak_cr - 1500) / 250
+
+fleet_pts = average(
+  speed_score,
+  accel_score,
+  turn_score,
+  hp_score,
+  flux_score,
+  diss_score,
+  peak_score
+)
+
+Then:
+- fleet pts = fleet_pts (2 decimals)
+- supplies/rec = fleet_pts (same number)

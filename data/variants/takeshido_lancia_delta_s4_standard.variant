@@ -1,0 +1,24 @@
+{
+    "variantId":  "takeshido_lancia_delta_s4_standard",
+    "hullId":  "takeshido_lancia_delta_s4",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "fluxCapacitors":  8,
+    "fluxVents":  8,
+    "quality":  1,
+    "permaMods":  [
+
+                  ],
+    "hullMods":  [
+
+                 ],
+    "weaponGroups":  [
+
+                     ],
+    "modules":  [
+
+                ],
+    "wings":  [
+
+              ]
+}

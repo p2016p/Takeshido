@@ -43,6 +43,7 @@ public class TakeshidoRacingManager {
     public static final String LAST_RACE_DIALOG_MESSAGE_KEY = "takeshido_last_race_dialog_message";
     public static final String ROSTER_FLEET_KEY = "takeshido_race_roster_fleet";
     public static final String ROSTER_FLEET_SIGNATURE_KEY = "takeshido_race_roster_signature";
+    public static final String RACE_COORDINATOR_MEMORY_KEY = "$takeshido_racecoordinator_id";
     public static final float ROSTER_TARGET_CR = 0.7f;
 
     private static final Random RANDOM = new Random();
@@ -59,30 +60,74 @@ public class TakeshidoRacingManager {
         SectorAPI sector = Global.getSector();
         if (sector == null) return;
 
-        ensureRaceCoordinatorForMarket("takeshido_oashisu_market", "takeshido_racecoordinator_oashisu");
-        ensureRaceCoordinatorForMarket("takeshido_nino_market", "takeshido_racecoordinator_nino");
-        ensureRaceCoordinatorForMarket("takeshido_silverstone_market", "takeshido_racecoordinator_silverstone");
+        ensureRaceCoordinatorForMarket("takeshido_oashisu_market", "takeshido_racecoordinator_oashisu", "Lizzie Chen", "graphics/portraits/LizzieChen.png");
+        ensureRaceCoordinatorForMarket("takeshido_nino_market", "takeshido_racecoordinator_nino", "Burt", "graphics/portraits/burt.png");
+        ensureRaceCoordinatorForMarket("takeshido_silverstone_market", "takeshido_racecoordinator_silverstone", "Biff", "graphics/portraits/BiffTanen.png");
     }
 
-    private static void ensureRaceCoordinatorForMarket(String marketId, String personId) {
+    public static PersonAPI getRaceCoordinatorForMarket(MarketAPI market) {
+        if (market == null || Global.getSector() == null) return null;
+
+        ensureRaceCoordinators();
+
+        MemoryAPI mem = market.getMemoryWithoutUpdate();
+        String id = mem != null ? mem.getString(RACE_COORDINATOR_MEMORY_KEY) : null;
+        if (id == null || id.isEmpty()) {
+            id = getCoordinatorIdForMarket(market.getId());
+            if (id != null && mem != null) {
+                mem.set(RACE_COORDINATOR_MEMORY_KEY, id);
+            }
+        }
+
+        PersonAPI person = id != null ? Global.getSector().getImportantPeople().getPerson(id) : null;
+        if (person != null) {
+            String portrait = getRaceCoordinatorPortrait(id);
+            if (portrait != null && !portrait.trim().isEmpty()) {
+                person.setPortraitSprite(portrait);
+            }
+        }
+        return person;
+    }
+
+    private static void ensureRaceCoordinatorForMarket(String marketId, String personId, String name, String portrait) {
         MarketAPI market = Global.getSector().getEconomy().getMarket(marketId);
         if (market == null) return;
 
         MemoryAPI mem = market.getMemoryWithoutUpdate();
-        String key = "$takeshido_racecoordinator_id";
+        String key = RACE_COORDINATOR_MEMORY_KEY;
         if (mem.contains(key)) {
             String id = mem.getString(key);
-            if (id != null && Global.getSector().getImportantPeople().getPerson(id) != null) return;
+            if (id != null) {
+                PersonAPI existing = Global.getSector().getImportantPeople().getPerson(id);
+                if (existing != null) {
+                    if (name != null && !name.isEmpty()) {
+                        existing.setName(makeName(name));
+                    }
+                    if (portrait != null && !portrait.isEmpty()) {
+                        existing.setPortraitSprite(portrait);
+                    }
+                    existing.setRankId("race_coordinator");
+                    existing.setPostId("race_coordinator");
+                    return;
+                }
+            }
         }
 
         FactionAPI faction = market.getFaction();
         PersonAPI person = faction.createRandomPerson();
         person.setId(personId);
         person.setFaction(faction.getId());
-        person.setRankId(Ranks.CITIZEN);
-        person.setPostId(Ranks.POST_PORTMASTER);
+        person.setRankId("race_coordinator");
+        person.setPostId("race_coordinator");
         person.setImportance(PersonImportance.MEDIUM);
-        person.setName(new FullName(market.getName(), "Race Coordinator", FullName.Gender.ANY));
+        if (name != null && !name.isEmpty()) {
+            person.setName(makeName(name));
+        } else {
+            person.setName(new FullName(market.getName(), "Race Coordinator", FullName.Gender.ANY));
+        }
+        if (portrait != null && !portrait.isEmpty()) {
+            person.setPortraitSprite(portrait);
+        }
 
         market.addPerson(person);
         market.getCommDirectory().addPerson(person);
@@ -91,6 +136,22 @@ public class TakeshidoRacingManager {
         Global.getSector().getImportantPeople().checkOutPerson(person, "permanent_staff");
 
         mem.set(key, person.getId());
+    }
+
+    private static String getCoordinatorIdForMarket(String marketId) {
+        if (marketId == null) return null;
+        if ("takeshido_oashisu_market".equals(marketId)) return "takeshido_racecoordinator_oashisu";
+        if ("takeshido_nino_market".equals(marketId)) return "takeshido_racecoordinator_nino";
+        if ("takeshido_silverstone_market".equals(marketId)) return "takeshido_racecoordinator_silverstone";
+        return null;
+    }
+
+    private static String getRaceCoordinatorPortrait(String personId) {
+        if (personId == null) return null;
+        if ("takeshido_racecoordinator_oashisu".equals(personId)) return "graphics/portraits/LizzieChen.png";
+        if ("takeshido_racecoordinator_nino".equals(personId)) return "graphics/portraits/burt.png";
+        if ("takeshido_racecoordinator_silverstone".equals(personId)) return "graphics/portraits/BiffTanen.png";
+        return null;
     }
 
     public static List<FleetMemberAPI> getEligiblePlayerShips(String categoryId) {
@@ -270,6 +331,61 @@ public class TakeshidoRacingManager {
         beginRace(dialog, ctx);
     }
 
+    public static List<RacerDefinition> buildBetRacers(String categoryId) {
+        TakeshidoRacingConfig config = TakeshidoRacingConfig.get();
+        int count = Math.max(2, config.tournament.racersPerRace);
+        return generateAIRacers(categoryId, count);
+    }
+
+    public static void startBetRace(InteractionDialogAPI dialog,
+                                    String categoryId,
+                                    List<RacerDefinition> racers,
+                                    String betRacerId,
+                                    String betRacerName,
+                                    int betAmount,
+                                    float betOdds) {
+        if (dialog == null || racers == null || racers.isEmpty()) return;
+
+        TakeshidoRacingConfig config = TakeshidoRacingConfig.get();
+        RaceContext ctx = new RaceContext();
+        ctx.raceId = Global.getSector().genUID();
+        ctx.type = RaceType.BET;
+        ctx.categoryId = categoryId;
+        ctx.lapsToWin = 1;
+        ctx.expectedRacers = Math.max(2, racers.size());
+        ctx.spectatorOnly = true;
+        ctx.playerRacerId = "spectator";
+        ctx.betRacerId = betRacerId;
+        ctx.betRacerName = betRacerName;
+        ctx.betAmount = Math.max(0, betAmount);
+        ctx.betOdds = betOdds > 0f ? betOdds : 1f;
+
+        MarketAPI market = dialog.getInteractionTarget() != null ? dialog.getInteractionTarget().getMarket() : null;
+        String marketId = market != null ? market.getId() : null;
+        ctx.marketId = marketId;
+
+        List<String> tracks = config.getTracksForMarket(marketId);
+        ctx.trackId = pickRandom(tracks, "austin");
+
+        ctx.playerFleetMember = createSpectatorMember();
+        if (ctx.playerFleetMember == null) {
+            dialog.getTextPanel().addParagraph("The coordinator frowns. \"Can't get a spectator shuttle online right now.\"");
+            return;
+        }
+        ctx.playerFleetMember.setId(ctx.raceId + "_spectator");
+        ctx.playerShipName = ctx.playerFleetMember.getShipName();
+        ctx.playerMemberId = ctx.playerFleetMember.getId();
+
+        ctx.aiRacers.addAll(racers);
+        for (RacerDefinition def : ctx.aiRacers) {
+            if (def.member != null) {
+                ctx.aiFleetMembers.add(def.member);
+            }
+        }
+
+        beginRace(dialog, ctx);
+    }
+
     public static boolean isTournamentRaceAvailable(TournamentState state, MarketAPI market) {
         if (state == null) return false;
         CampaignClockAPI clock = Global.getSector().getClock();
@@ -365,6 +481,8 @@ public class TakeshidoRacingManager {
             handleImpromptuResult(ctx, result);
         } else if (ctx.type == RaceType.TOURNAMENT) {
             handleTournamentResult(ctx, result);
+        } else if (ctx.type == RaceType.BET) {
+            handleBetResult(ctx, result);
         }
 
         clearRaceResult(raceId);
@@ -419,6 +537,56 @@ public class TakeshidoRacingManager {
         scheduleNextTournamentRace(state);
         sendTournamentUpdate(state, "Race completed");
         Global.getSector().getPersistentData().put(ACTIVE_TOURNAMENT_KEY, state);
+    }
+
+    private static void handleBetResult(RaceContext ctx, RaceResult result) {
+        List<String> classified = getClassifiedFinishOrder(result);
+        if (classified.isEmpty()) {
+            refundBet(ctx, "Betting result: no classified finish. Bet refunded.");
+            return;
+        }
+
+        String winningMemberId = classified.get(0);
+        String winningRacerId = ctx.memberIdToRacerId.get(winningMemberId);
+        if (winningRacerId == null) {
+            refundBet(ctx, "Betting result: no winner recorded. Bet refunded.");
+            return;
+        }
+
+        String winnerName = winningRacerId;
+        for (RacerDefinition def : ctx.aiRacers) {
+            if (def != null && winningRacerId.equals(def.racerId)) {
+                if (def.name != null && !def.name.isEmpty()) {
+                    winnerName = def.name;
+                }
+                break;
+            }
+        }
+
+        String pickedName = ctx.betRacerName != null && !ctx.betRacerName.isEmpty() ? ctx.betRacerName : ctx.betRacerId;
+        if (ctx.betRacerId != null && ctx.betRacerId.equals(winningRacerId)) {
+            int payout = Math.round(Math.max(0, ctx.betAmount) * Math.max(1f, ctx.betOdds));
+            if (payout > 0) {
+                Global.getSector().getPlayerFleet().getCargo().getCredits().add(payout);
+            }
+            String msg = "Betting result: " + pickedName + " wins. Payout: " + payout + " credits.";
+            Global.getSector().getCampaignUI().addMessage(msg);
+            setLastDialogMessage(msg);
+        } else {
+            String msg = "Betting result: " + winnerName + " wins. Your pick (" + pickedName + ") lost.";
+            Global.getSector().getCampaignUI().addMessage(msg);
+            setLastDialogMessage(msg);
+        }
+    }
+
+    private static void refundBet(RaceContext ctx, String message) {
+        if (ctx == null) return;
+        int refund = Math.max(0, ctx.betAmount);
+        if (refund > 0) {
+            Global.getSector().getPlayerFleet().getCargo().getCredits().add(refund);
+        }
+        Global.getSector().getCampaignUI().addMessage(message);
+        setLastDialogMessage(message);
     }
 
     private static void restorePlayerState(RaceContext ctx) {
@@ -644,6 +812,47 @@ public class TakeshidoRacingManager {
         return member;
     }
 
+    public static FleetMemberAPI createSpectatorMember() {
+        ShipVariantAPI variant = null;
+        String name = "Spectator";
+
+        String[] candidates = new String[]{
+                "nebula_Standard",
+                "takeshido_lada_standard",
+                "takeshido_ae86_standard",
+                "takeshido_db5_standard"
+        };
+        for (String id : candidates) {
+            if (id != null && Global.getSettings().doesVariantExist(id)) {
+                variant = Global.getSettings().getVariant(id).clone();
+                name = "Spectator";
+                break;
+            }
+        }
+
+        if (variant == null) {
+            for (TakeshidoRacingConfig.RacerProfile rp : TakeshidoRacingConfig.get().racers) {
+                if (rp == null || rp.variantId == null || rp.variantId.trim().isEmpty()) continue;
+                if (!Global.getSettings().doesVariantExist(rp.variantId)) continue;
+                variant = Global.getSettings().getVariant(rp.variantId).clone();
+                name = rp.name != null ? rp.name : "Spectator";
+                break;
+            }
+        }
+
+        if (variant == null) return null;
+
+        variant.clear();
+        if (variant.hasHullMod(RACE_HULLMOD_ID)) {
+            variant.removeMod(RACE_HULLMOD_ID);
+        }
+        variant.setHullVariantId(variant.getHullVariantId() + "_spectator");
+
+        FleetMemberAPI member = Global.getFactory().createFleetMember(FleetMemberType.SHIP, variant);
+        member.setShipName(name + " (Spectator)");
+        return member;
+    }
+
     private static List<RacerDefinition> generateAIRacers(String categoryId, int count) {
         TakeshidoRacingConfig.CategorySpec category = TakeshidoRacingConfig.get().getCategory(categoryId);
         if (category == null) return Collections.emptyList();
@@ -702,15 +911,17 @@ public class TakeshidoRacingManager {
             def.variantId = rp.variantId;
             def.skill = rp.skill > 0f ? rp.skill : 0.7f;
             FleetMemberAPI member = getRosterMember(roster, def.racerId, def.variantId);
-            if (member != null) {
-                def.member = member;
-                def.captain = member.getCaptain();
-                if (def.captain == null) {
-                    def.captain = createRaceCaptain(rp);
-                }
-            } else {
-                def.captain = createRaceCaptain(rp);
-            }
+              if (member != null) {
+                  def.member = member;
+                  def.captain = member.getCaptain();
+                  if (def.captain == null) {
+                      def.captain = createRaceCaptain(rp);
+                  } else {
+                      applyRacerProfile(def.captain, rp);
+                  }
+              } else {
+                  def.captain = createRaceCaptain(rp);
+              }
             racers.add(def);
         }
         return racers;
@@ -826,31 +1037,52 @@ public class TakeshidoRacingManager {
         return createRaceCaptain(profile);
     }
 
-    private static PersonAPI createRaceCaptain(TakeshidoRacingConfig.RacerProfile profile) {
-        FactionAPI faction = Global.getSector() != null ? Global.getSector().getFaction("takeshido") : null;
-        FactionAPI fallback = Global.getSector() != null ? Global.getSector().getPlayerFaction() : null;
-        PersonAPI person = faction != null ? faction.createRandomPerson() : (fallback != null ? fallback.createRandomPerson() : null);
-        if (person == null) return null;
+      private static PersonAPI createRaceCaptain(TakeshidoRacingConfig.RacerProfile profile) {
+          FactionAPI faction = Global.getSector() != null ? Global.getSector().getFaction("takeshido") : null;
+          FactionAPI fallback = Global.getSector() != null ? Global.getSector().getPlayerFaction() : null;
+          PersonAPI person = faction != null ? faction.createRandomPerson() : (fallback != null ? fallback.createRandomPerson() : null);
+          if (person == null) return null;
         if (profile.personality != null && !profile.personality.trim().isEmpty()) {
             person.setPersonality(profile.personality.trim());
         } else {
             person.setPersonality(Personalities.STEADY);
         }
         person.setRankId(Ranks.SPACE_CAPTAIN);
-        if (profile.name != null && !profile.name.trim().isEmpty()) {
-            person.setName(makeName(profile.name.trim()));
-        }
-        if (profile.officerLevel > 0) {
-            person.getStats().setLevel(profile.officerLevel);
-        }
-        if (profile.skills != null) {
-            for (TakeshidoRacingConfig.RacerSkill skill : profile.skills) {
-                if (skill == null || skill.id == null || skill.id.trim().isEmpty()) continue;
-                person.getStats().setSkillLevel(skill.id.trim(), skill.level);
-            }
-        }
-        return person;
-    }
+          if (profile.name != null && !profile.name.trim().isEmpty()) {
+              person.setName(makeName(profile.name.trim()));
+          }
+          applyRacerProfile(person, profile);
+          return person;
+      }
+
+      private static void applyRacerProfile(PersonAPI person, TakeshidoRacingConfig.RacerProfile profile) {
+          if (person == null || profile == null) return;
+
+          Map<String, Float> skills = new LinkedHashMap<>();
+          if (profile.skills != null) {
+              for (TakeshidoRacingConfig.RacerSkill skill : profile.skills) {
+                  if (skill == null || skill.id == null || skill.id.trim().isEmpty()) continue;
+                  skills.put(skill.id.trim(), skill.level);
+              }
+          }
+
+          // Ensure helmsmanship level 2 for all racer officers.
+          String helmId = "helmsmanship";
+          Float helmLevel = skills.get(helmId);
+          if (helmLevel == null || helmLevel < 2f) {
+              skills.put(helmId, 2f);
+          }
+
+          for (Map.Entry<String, Float> e : skills.entrySet()) {
+              person.getStats().setSkillLevel(e.getKey(), e.getValue());
+          }
+
+          int totalSkills = skills.size();
+          int desiredLevel = profile.officerLevel > 0 ? Math.min(profile.officerLevel, totalSkills) : totalSkills;
+          if (desiredLevel > 0) {
+              person.getStats().setLevel(desiredLevel);
+          }
+      }
 
     private static FullName makeName(String name) {
         String first = name;
@@ -878,6 +1110,11 @@ public class TakeshidoRacingManager {
         public FleetMemberAPI playerFleetMember;
         public PersonAPI playerOriginalCaptain;
         public boolean playerWasFlagship;
+        public boolean spectatorOnly;
+        public String betRacerId;
+        public String betRacerName;
+        public int betAmount;
+        public float betOdds;
         public final List<RacerDefinition> aiRacers = new ArrayList<>();
         public final List<FleetMemberAPI> aiFleetMembers = new ArrayList<>();
         public final Map<String, String> memberIdToRacerId = new LinkedHashMap<>();
@@ -885,7 +1122,8 @@ public class TakeshidoRacingManager {
 
     public enum RaceType {
         IMPROMPTU,
-        TOURNAMENT
+        TOURNAMENT,
+        BET
     }
 
     public static class RacerDefinition {

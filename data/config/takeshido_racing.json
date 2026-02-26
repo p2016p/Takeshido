@@ -1,178 +1,1086 @@
 {
-  "categories": [
-    {"id": "sportscar", "label": "Sportscar", "designations": ["sportscar"]},
-    {"id": "supercar", "label": "Supercar", "designations": ["supercar"]},
-    {"id": "hypercar", "label": "Hypercar", "designations": ["hypercar"]}
-  ],
-  "planetTracks": {
-    "takeshido_oashisu_market": ["austin", "spa", "catalunya"],
-    "takeshido_nino_market": ["melbourne", "monza", "silverstone"],
-    "takeshido_silverstone_market": ["hockenheim", "sakhir", "yasmarina"]
-  },
-  "tournament": {
-    "racesPerTournament": 3,
-    "racersPerRace": 8,
-    "trackListDefault": ["austin", "monza", "spa"],
-    "points": [25, 18, 15, 12, 10, 8, 6, 4]
-  },
-  "rewards": {
-    "impromptu": [50000, 25000, 10000],
-    "tournament": [250000, 150000, 75000]
-  },
-  "racers": [
-    {
-      "name": "Kei Tanaka",
-      "variantId": "takeshido_ae86_standard",
-      "personality": "steady",
-      "skill": 0.55,
-      "officerLevel": 3,
-      "skills": [{"id": "helmsmanship", "level": 1}]
-    },
-    {
-      "name": "Miles Davenport",
-      "variantId": "takeshido_db5_standard",
-      "personality": "cautious",
-      "skill": 0.6,
-      "officerLevel": 4,
-      "skills": [{"id": "helmsmanship", "level": 1}]
-    },
-    {
-      "name": "Iris Caldwell",
-      "variantId": "takeshido_etype_standard",
-      "personality": "steady",
-      "skill": 0.62,
-      "officerLevel": 4,
-      "skills": [{"id": "helmsmanship", "level": 1}]
-    },
-    {
-      "name": "Cole Bishop",
-      "variantId": "takeshido_stingray_standard",
-      "personality": "aggressive",
-      "skill": 0.65,
-      "officerLevel": 5,
-      "skills": [{"id": "helmsmanship", "level": 1}, {"id": "combat_endurance", "level": 1}]
-    },
-    {
-      "name": "Riley Knox",
-      "variantId": "takeshido_mustang_2005_standard",
-      "personality": "aggressive",
-      "skill": 0.6,
-      "officerLevel": 4,
-      "skills": [{"id": "helmsmanship", "level": 1}]
-    },
-
-    {
-      "name": "Marco Bianchi",
-      "variantId": "takeshido_037_standard",
-      "personality": "steady",
-      "skill": 0.7,
-      "officerLevel": 5,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-    {
-      "name": "Luca Ferri",
-      "variantId": "takeshido_stratos_standard",
-      "personality": "aggressive",
-      "skill": 0.72,
-      "officerLevel": 5,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-    {
-      "name": "Alessia Rizzo",
-      "variantId": "takeshido_miura_standard",
-      "personality": "steady",
-      "skill": 0.74,
-      "officerLevel": 5,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-    {
-      "name": "Graham Ward",
-      "variantId": "takeshido_rs200_standard",
-      "personality": "aggressive",
-      "skill": 0.76,
-      "officerLevel": 6,
-      "skills": [{"id": "helmsmanship", "level": 2}, {"id": "combat_endurance", "level": 1}]
-    },
-    {
-      "name": "Hana Sato",
-      "variantId": "takeshido_r35gtr_standard",
-      "personality": "steady",
-      "skill": 0.78,
-      "officerLevel": 6,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-    {
-      "name": "Dean Fletcher",
-      "variantId": "takeshido_gt40_standard",
-      "personality": "aggressive",
-      "skill": 0.75,
-      "officerLevel": 5,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-
-    {
-      "name": "Sofia Moretti",
-      "variantId": "takeshido_aventador_standard",
-      "personality": "aggressive",
-      "skill": 0.82,
-      "officerLevel": 6,
-      "skills": [{"id": "helmsmanship", "level": 2}, {"id": "combat_endurance", "level": 1}]
-    },
-    {
-      "name": "Lucien Voss",
-      "variantId": "takeshido_veyron_standard",
-      "personality": "steady",
-      "skill": 0.84,
-      "officerLevel": 6,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-    {
-      "name": "Adrian Holt",
-      "variantId": "takeshido_f1_standard",
-      "personality": "aggressive",
-      "skill": 0.83,
-      "officerLevel": 6,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-    {
-      "name": "Brooke Mercer",
-      "variantId": "takeshido_c6r_standard",
-      "personality": "steady",
-      "skill": 0.8,
-      "officerLevel": 5,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-    {
-      "name": "Jun Park",
-      "variantId": "takeshido_supra_mk4_paul_standard",
-      "personality": "aggressive",
-      "skill": 0.81,
-      "officerLevel": 5,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-    {
-      "name": "Isla Quinn",
-      "variantId": "takeshido_one_77_standard",
-      "personality": "steady",
-      "skill": 0.82,
-      "officerLevel": 6,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    },
-    {
-      "name": "Silas Rourke",
-      "variantId": "takeshido_zonda_cinque_standard",
-      "personality": "aggressive",
-      "skill": 0.85,
-      "officerLevel": 6,
-      "skills": [{"id": "helmsmanship", "level": 2}, {"id": "combat_endurance", "level": 1}]
-    },
-    {
-      "name": "Kaito Mori",
-      "variantId": "takeshido_r34_skyline_standard",
-      "personality": "steady",
-      "skill": 0.79,
-      "officerLevel": 5,
-      "skills": [{"id": "helmsmanship", "level": 2}]
-    }
-  ]
+    "categories":  [
+                       {
+                           "id":  "sportscar",
+                           "label":  "Sportscar",
+                           "designations":  [
+                                                "sportscar"
+                                            ]
+                       },
+                       {
+                           "id":  "supercar",
+                           "label":  "Supercar",
+                           "designations":  [
+                                                "supercar"
+                                            ]
+                       },
+                       {
+                           "id":  "hypercar",
+                           "label":  "Hypercar",
+                           "designations":  [
+                                                "hypercar"
+                                            ]
+                       }
+                   ],
+    "planetTracks":  {
+                         "takeshido_oashisu_market":  [
+                                                          "austin",
+                                                          "spa",
+                                                          "catalunya"
+                                                      ],
+                         "takeshido_nino_market":  [
+                                                       "melbourne",
+                                                       "monza",
+                                                       "silverstone"
+                                                   ],
+                         "takeshido_silverstone_market":  [
+                                                              "hockenheim",
+                                                              "sakhir",
+                                                              "yasmarina"
+                                                          ]
+                     },
+    "tournament":  {
+                       "racesPerTournament":  3,
+                       "racersPerRace":  8,
+                       "trackListDefault":  [
+                                                "austin",
+                                                "monza",
+                                                "spa"
+                                            ],
+                       "points":  [
+                                      25,
+                                      18,
+                                      15,
+                                      12,
+                                      10,
+                                      8,
+                                      6,
+                                      4
+                                  ]
+                   },
+    "rewards":  {
+                    "impromptu":  [
+                                      50000,
+                                      25000,
+                                      10000
+                                  ],
+                    "tournament":  [
+                                       250000,
+                                       150000,
+                                       75000
+                                   ]
+                },
+    "racers":  [
+                   {
+                       "name":  "Kei Yamada",
+                       "variantId":  "takeshido_ae86_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  3,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Drew Hughes",
+                       "variantId":  "takeshido_db5_standard",
+                       "personality":  "cautious",
+                       "skill":  0.6,
+                       "officerLevel":  4,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Oscar Reed",
+                       "variantId":  "takeshido_etype_standard",
+                       "personality":  "steady",
+                       "skill":  0.62,
+                       "officerLevel":  4,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Naoki Ishikawa",
+                       "variantId":  "takeshido_stingray_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.65,
+                       "officerLevel":  5,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Blake Fletcher",
+                       "variantId":  "takeshido_mustang_2005_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.6,
+                       "officerLevel":  4,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Giorgio De Luca",
+                       "variantId":  "takeshido_037_standard",
+                       "personality":  "steady",
+                       "skill":  0.7,
+                       "officerLevel":  5,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Giulia Fontana",
+                       "variantId":  "takeshido_stratos_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.72,
+                       "officerLevel":  5,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Valentina Moretti",
+                       "variantId":  "takeshido_miura_standard",
+                       "personality":  "steady",
+                       "skill":  0.74,
+                       "officerLevel":  5,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Arthur Young",
+                       "variantId":  "takeshido_rs200_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.76,
+                       "officerLevel":  6,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Takumi Nakajima",
+                       "variantId":  "takeshido_r35gtr_standard",
+                       "personality":  "steady",
+                       "skill":  0.78,
+                       "officerLevel":  6,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Taylor Walker",
+                       "variantId":  "takeshido_gt40_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.75,
+                       "officerLevel":  5,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Enzo Conti",
+                       "variantId":  "takeshido_aventador_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.82,
+                       "officerLevel":  6,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Manon Garcia",
+                       "variantId":  "takeshido_veyron_standard",
+                       "personality":  "steady",
+                       "skill":  0.84,
+                       "officerLevel":  6,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Charlotte Scott",
+                       "variantId":  "takeshido_f1_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.83,
+                       "officerLevel":  6,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Grant Zeller",
+                       "variantId":  "takeshido_c6r_standard",
+                       "personality":  "steady",
+                       "skill":  0.8,
+                       "officerLevel":  5,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Yuto Hasegawa",
+                       "variantId":  "takeshido_supra_mk4_paul_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.81,
+                       "officerLevel":  5,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Arthur Hill",
+                       "variantId":  "takeshido_one_77_standard",
+                       "personality":  "steady",
+                       "skill":  0.82,
+                       "officerLevel":  6,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Matteo Vitali",
+                       "variantId":  "takeshido_zonda_cinque_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.85,
+                       "officerLevel":  6,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Kaito Ishikawa",
+                       "variantId":  "takeshido_r34_skyline_standard",
+                       "personality":  "steady",
+                       "skill":  0.79,
+                       "officerLevel":  5,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Emie Kyinanek",
+                       "variantId":  "takeshido_mustang_2005_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Dalivan",
+                       "variantId":  "takeshido_stingray_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Manic Turbo",
+                       "variantId":  "takeshido_lancia_delta_s4_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Sierra Nottacorr",
+                       "variantId":  "takeshido_apollo_ie_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Dave Parker",
+                       "variantId":  "takeshido_crown_vic_taxi_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Pinky",
+                       "variantId":  "takeshido_jesko_absolut_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Mirage",
+                       "variantId":  "takeshido_370z_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Red Callahan",
+                       "variantId":  "takeshido_mustang_2005_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Kreiger Meister",
+                       "variantId":  "takeshido_civic_type_r_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Ork Mcjavelin",
+                       "variantId":  "takeshido_miura_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "André de Lorde",
+                       "variantId":  "takeshido_rs200_standard",
+                       "personality":  "steady",
+                       "skill":  0.8,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Tidal",
+                       "variantId":  "takeshido_mustang_1960_standard",
+                       "personality":  "steady",
+                       "skill":  0.8,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Elliot Hughes",
+                       "variantId":  "takeshido_208t16_pikes_peak_standard",
+                       "personality":  "steady",
+                       "skill":  0.56,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Morgan Zeller",
+                       "variantId":  "takeshido_288gto_standard",
+                       "personality":  "steady",
+                       "skill":  0.69,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Emil Mueller",
+                       "variantId":  "takeshido_300sl_standard",
+                       "personality":  "steady",
+                       "skill":  0.7,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Kenji Sato",
+                       "variantId":  "takeshido_787b_standard",
+                       "personality":  "steady",
+                       "skill":  0.49,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Henry Turner",
+                       "variantId":  "takeshido_917_30_standard",
+                       "personality":  "steady",
+                       "skill":  0.47,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Sophie Evans",
+                       "variantId":  "takeshido_919_standard",
+                       "personality":  "steady",
+                       "skill":  0.5,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Jamie Vaughn",
+                       "variantId":  "takeshido_959_standard",
+                       "personality":  "steady",
+                       "skill":  0.66,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Hannah Koch",
+                       "variantId":  "takeshido_amg_one_standard",
+                       "personality":  "steady",
+                       "skill":  0.58,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Jonas Hartmann",
+                       "variantId":  "takeshido_apollo_arrow_standard",
+                       "personality":  "steady",
+                       "skill":  0.41,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Parker Hughes",
+                       "variantId":  "takeshido_challenger_hellcat_standard",
+                       "personality":  "steady",
+                       "skill":  0.48,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Grant Adams",
+                       "variantId":  "takeshido_continental_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Davide Ferretti",
+                       "variantId":  "takeshido_countach_standard",
+                       "personality":  "steady",
+                       "skill":  0.48,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Zane Bennett",
+                       "variantId":  "takeshido_delorean_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Gianni Lombardi",
+                       "variantId":  "takeshido_enzo_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Blake Reed",
+                       "variantId":  "takeshido_escudo_standard",
+                       "personality":  "steady",
+                       "skill":  0.7,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Quinn Zeller",
+                       "variantId":  "takeshido_f40_standard",
+                       "personality":  "steady",
+                       "skill":  0.51,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Finley Young",
+                       "variantId":  "takeshido_firebird_standard",
+                       "personality":  "steady",
+                       "skill":  0.62,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Irina Belov",
+                       "variantId":  "takeshido_lada_standard",
+                       "personality":  "steady",
+                       "skill":  0.5,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Luca Conti",
+                       "variantId":  "takeshido_laferrari_standard",
+                       "personality":  "steady",
+                       "skill":  0.4,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Ryota Takahashi",
+                       "variantId":  "takeshido_lancer_evolution_standard",
+                       "personality":  "steady",
+                       "skill":  0.5,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Blake Bennett",
+                       "variantId":  "takeshido_lfa_standard",
+                       "personality":  "steady",
+                       "skill":  0.64,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Yuki Suzuki",
+                       "variantId":  "takeshido_minolta_88cv_standard",
+                       "personality":  "steady",
+                       "skill":  0.68,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Sora Hasegawa",
+                       "variantId":  "takeshido_nsxr_standard",
+                       "personality":  "steady",
+                       "skill":  0.62,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Lewis Taylor",
+                       "variantId":  "takeshido_p1_standard",
+                       "personality":  "steady",
+                       "skill":  0.69,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Ren Ono",
+                       "variantId":  "takeshido_rx7_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Takumi Takahashi",
+                       "variantId":  "takeshido_s2000_standard",
+                       "personality":  "steady",
+                       "skill":  0.47,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Casey Reed",
+                       "variantId":  "takeshido_saleen_s7_standard",
+                       "personality":  "steady",
+                       "skill":  0.42,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Stefano Moretti",
+                       "variantId":  "takeshido_testarossa_standard",
+                       "personality":  "steady",
+                       "skill":  0.57,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Riley Sawyer",
+                       "variantId":  "takeshido_viper_standard",
+                       "personality":  "steady",
+                       "skill":  0.61,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Nico Wagner",
+                       "variantId":  "takeshido_vw_idr_standard",
+                       "personality":  "steady",
+                       "skill":  0.53,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Ren Ishikawa",
+                       "variantId":  "takeshido_wrx_sti_standard",
+                       "personality":  "steady",
+                       "skill":  0.6,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Grace Hill",
+                       "variantId":  "takeshido_xj13_standard",
+                       "personality":  "steady",
+                       "skill":  0.53,
+                       "officerLevel":  2,
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      },
+                                      {
+                                          "id":  "combat_endurance",
+                                          "level":  1
+                                      }
+                                  ]
+                   }
+               ]
 }

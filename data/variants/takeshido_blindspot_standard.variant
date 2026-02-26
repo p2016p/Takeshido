@@ -1,0 +1,29 @@
+{
+    "variantId":  "takeshido_blindspot_standard",
+    "hullId":  "takeshido_blindspot",
+    "displayName":  "standard",
+    "goalVariant":  true,
+    "quality":  1,
+    "fluxCapacitors":  11,
+    "fluxVents":  12,
+    "hullMods":  [
+
+                 ],
+    "permaMods":  [
+
+                  ],
+    "sMods":  [
+
+              ],
+    "weaponGroups":  [
+                         {
+                             "weapons":  {
+                                             "WS0002":  "lightac",
+                                             "WS0001":  "lightac",
+                                             "WS0003":  "hellbore"
+                                         },
+                             "autofire":  true,
+                             "mode":  "LINKED"
+                         }
+                     ]
+}

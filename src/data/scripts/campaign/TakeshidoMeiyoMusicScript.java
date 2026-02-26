@@ -198,7 +198,7 @@ public class TakeshidoMeiyoMusicScript implements EveryFrameScript {
         String locId = location instanceof StarSystemAPI ? ((StarSystemAPI) location).getId() : "n/a";
         String musicId = getCurrentMusicIdSafe();
         if (musicId == null) musicId = "null";
-        Global.getLogger(TakeshidoMeiyoMusicScript.class).info("Meiyo music tick. location=" + locName + " (" + locClass + "), id=" + locId + ", inMeiyo=" + isInMeiyoSystem(location) + ", currentTrack=" + currentTrackId + ", playing=" + musicId + ", duration=" + currentTrackDuration + ", t=" + sinceStart);
+        //Global.getLogger(TakeshidoMeiyoMusicScript.class).info("Meiyo music tick. location=" + locName + " (" + locClass + "), id=" + locId + ", inMeiyo=" + isInMeiyoSystem(location) + ", currentTrack=" + currentTrackId + ", playing=" + musicId + ", duration=" + currentTrackDuration + ", t=" + sinceStart);
     }
 
     private String getCurrentMusicIdSafe() {
