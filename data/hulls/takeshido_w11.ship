@@ -1,0 +1,114 @@
+{
+    "hullName": "Mercedes W11",
+    "hullId": "takeshido_w11",
+    "hullSize": "FRIGATE",
+    "spriteName": "graphics/ships/Cars/W11.png",
+    "style": "TAKESHIDO",
+    "height": 44,
+    "width": 22,
+    "center": [
+        11,
+        22
+    ],
+    "collisionRadius": 25,
+    "shieldCenter": [
+        0,
+        0
+    ],
+    "shieldRadius": 28,
+    "viewOffset": 0,
+    "builtInMods": [
+        "takeshido_racemod",
+        "strikeCraft",
+        "armaa_strikeCraftFrig",
+        "takeshido_powertrain"
+    ],
+    "weaponSlots": [
+        {
+            "id": "WS_HEADLIGHT_L",
+            "size": "SMALL",
+            "type": "BALLISTIC",
+            "mount": "HIDDEN",
+            "arc": 10,
+            "angle": 0,
+            "locations": [
+                17.5,
+                7.5
+            ]
+        },
+        {
+            "id": "WS_HEADLIGHT_R",
+            "size": "SMALL",
+            "type": "BALLISTIC",
+            "mount": "HIDDEN",
+            "arc": 10,
+            "angle": 0,
+            "locations": [
+                17.5,
+                -7.5
+            ]
+        },
+        {
+            "id": "WS_BOMB",
+            "size": "SMALL",
+            "type": "BALLISTIC",
+            "mount": "HIDDEN",
+            "arc": 0,
+            "angle": 0,
+            "locations": [
+                0,
+                0
+            ]
+        }
+    ],
+    "engineSlots": [
+        {
+            "location": [
+                -22.0,
+                -1.5
+            ],
+            "length": 8,
+            "width": 3,
+            "angle": 180,
+            "contrailSize": 3,
+            "style": "LOW_TECH"
+        },
+        {
+            "location": [
+                -22.0,
+                0
+            ],
+            "length": 8,
+            "width": 3,
+            "angle": 180,
+            "contrailSize": 3,
+            "style": "LOW_TECH"
+        },
+        {
+            "location": [
+                -22.0,
+                1.5
+            ],
+            "length": 8,
+            "width": 3,
+            "angle": 180,
+            "contrailSize": 3,
+            "style": "LOW_TECH"
+        }
+    ],
+    "bounds": [
+        17.5,
+        9,
+        17.5,
+        -9,
+        -17.5,
+        -9,
+        -17.5,
+        9
+    ],
+    "builtInWeapons": {
+        "WS_HEADLIGHT_L": "lightmg",
+        "WS_HEADLIGHT_R": "lightmg",
+        "WS_BOMB": "takeshido_bomb_bay"
+    }
+}

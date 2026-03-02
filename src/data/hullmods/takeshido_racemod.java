@@ -8,14 +8,18 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipEngineControllerAPI.ShipEngineAPI;
 import com.fs.starfarer.api.combat.ShipCommand;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.combat.ShipwideAIFlags;
 import com.fs.starfarer.api.input.InputEventAPI;
+import com.fs.starfarer.api.loading.HullModSpecAPI;
 import data.scripts.ai.TakeshidoRaceShipAI;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class takeshido_racemod extends BaseHullMod {
 
@@ -33,6 +37,33 @@ public class takeshido_racemod extends BaseHullMod {
     private static final float DRIFT_SMOKE_RATE_PER_ENGINE = 6f;
     private static final float DRIFT_TURN_RATE_MULT = 1.40f;
     private static final float DRIFT_TURN_RATE_FLAT = 20f;
+    private static final String POWERTRAIN_ID = "takeshido_powertrain";
+    private static final String TUNER_HULLMOD_ID = "takeshido_tuner";
+
+    @Override
+    public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
+        ShipVariantAPI variant = stats.getVariant();
+        if (variant == null) return;
+
+        if (!variant.hasHullMod(TUNER_HULLMOD_ID)) {
+            try {
+                variant.addPermaMod(TUNER_HULLMOD_ID);
+            } catch (Throwable t) {
+                variant.addMod(TUNER_HULLMOD_ID);
+            }
+        }
+
+        Collection<String> mods = new ArrayList<>(variant.getNonBuiltInHullmods());
+        for (String modId : mods) {
+            if (modId == null) continue;
+            if (HULLMOD_ID.equals(modId) || POWERTRAIN_ID.equals(modId) || TUNER_HULLMOD_ID.equals(modId)) continue;
+            HullModSpecAPI spec = Global.getSettings().getHullModSpec(modId);
+            if (spec != null && isEngineHullmod(spec)) {
+                variant.removeMod(modId);
+                variant.addSuppressedMod(modId);
+            }
+        }
+    }
 
     @Override
     public void advanceInCombat(ShipAPI ship, float amount) {
@@ -253,6 +284,7 @@ public class takeshido_racemod extends BaseHullMod {
             if (player.getVariant() == null || !player.getVariant().hasHullMod(HULLMOD_ID)) return;
 
             for (InputEventAPI event : events) {
+                if (event == null || event.isConsumed()) continue;
                 if (event.isKeyDownEvent() &&
                         (event.getEventValue() == Keyboard.KEY_A || event.getEventValue() == Keyboard.KEY_D)) {
                     player.setCustomData(DRIFT_DATA_KEY, Boolean.TRUE);
@@ -283,5 +315,22 @@ public class takeshido_racemod extends BaseHullMod {
 
     private float clamp(float value, float min, float max) {
         return Math.max(min, Math.min(max, value));
+    }
+
+    private boolean isEngineHullmod(HullModSpecAPI spec) {
+        if (spec == null) return false;
+        for (String tag : spec.getTags()) {
+            if (tag != null) {
+                String t = tag.toLowerCase();
+                if (t.contains("engine") || t.contains("speed")) return true;
+            }
+        }
+        for (String tag : spec.getUITags()) {
+            if (tag != null) {
+                String t = tag.toLowerCase();
+                if (t.contains("engine") || t.contains("speed")) return true;
+            }
+        }
+        return false;
     }
 }

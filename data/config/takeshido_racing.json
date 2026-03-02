@@ -1,25 +1,43 @@
 {
     "categories":  [
                        {
-                           "id":  "sportscar",
-                           "label":  "Sportscar",
-                           "designations":  [
-                                                "sportscar"
-                                            ]
+                           "id":  "sunday_cup",
+                           "label":  "Sunday Cup",
+                           "maxScore":  3.0
                        },
                        {
-                           "id":  "supercar",
-                           "label":  "Supercar",
-                           "designations":  [
-                                                "supercar"
-                                            ]
+                           "id":  "open_c_spec",
+                           "label":  "Open C Spec",
+                           "minScore":  3.0,
+                           "maxScore":  4.5
                        },
                        {
-                           "id":  "hypercar",
-                           "label":  "Hypercar",
-                           "designations":  [
-                                                "hypercar"
-                                            ]
+                           "id":  "open_b_spec",
+                           "label":  "Open B Spec",
+                           "minScore":  4.5,
+                           "maxScore":  6.0
+                       },
+                       {
+                           "id":  "open_a_spec",
+                           "label":  "Open A Spec",
+                           "minScore":  6.0,
+                           "maxScore":  7.5
+                       },
+                       {
+                           "id":  "open_s_spec",
+                           "label":  "Open S Spec",
+                           "minScore":  7.5,
+                           "maxScore":  9.0
+                       },
+                       {
+                           "id":  "dream_car",
+                           "label":  "Dream Car",
+                           "minScore":  9.0
+                       },
+                       {
+                           "id":  "open_spec",
+                           "label":  "Open Spec",
+                           "openSpec":  true
                        }
                    ],
     "planetTracks":  {
@@ -82,7 +100,10 @@
                                           "id":  "helmsmanship",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_tune_stage3"
+                                    ]
                    },
                    {
                        "name":  "Drew Hughes",
@@ -95,7 +116,12 @@
                                           "id":  "helmsmanship",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "thrusters_stage2",
+                                        "engine_displacement",
+                                        "engine_tune_stage2"
+                                    ]
                    },
                    {
                        "name":  "Oscar Reed",
@@ -108,7 +134,12 @@
                                           "id":  "helmsmanship",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "aether_stage1",
+                                        "drivetrain_stage1",
+                                        "engine_racing_exhaust"
+                                    ]
                    },
                    {
                        "name":  "Naoki Ishikawa",
@@ -125,7 +156,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_tune_stage3"
+                                    ]
                    },
                    {
                        "name":  "Blake Fletcher",
@@ -138,7 +172,10 @@
                                           "id":  "helmsmanship",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_tune_stage2"
+                                    ]
                    },
                    {
                        "name":  "Giorgio De Luca",
@@ -151,7 +188,10 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust"
+                                    ]
                    },
                    {
                        "name":  "Giulia Fontana",
@@ -164,7 +204,10 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_balance"
+                                    ]
                    },
                    {
                        "name":  "Valentina Moretti",
@@ -177,7 +220,10 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "gimbals_stage2"
+                                    ]
                    },
                    {
                        "name":  "Arthur Young",
@@ -194,7 +240,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "engine_displacement",
+                                        "engine_balance"
+                                    ]
                    },
                    {
                        "name":  "Takumi Nakajima",
@@ -207,7 +258,11 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_displacement",
+                                        "gimbals_stage1"
+                                    ]
                    },
                    {
                        "name":  "Taylor Walker",
@@ -220,7 +275,11 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_balance",
+                                        "engine_tune_stage1"
+                                    ]
                    },
                    {
                        "name":  "Enzo Conti",
@@ -237,7 +296,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Manon Garcia",
@@ -250,7 +312,12 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish",
+                                        "engine_tune_stage3",
+                                        "engine_racing_exhaust"
+                                    ]
                    },
                    {
                        "name":  "Charlotte Scott",
@@ -263,7 +330,12 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "drivetrain_stage2",
+                                        "engine_balance"
+                                    ]
                    },
                    {
                        "name":  "Grant Zeller",
@@ -276,7 +348,11 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish",
+                                        "engine_displacement"
+                                    ]
                    },
                    {
                        "name":  "Yuto Hasegawa",
@@ -289,7 +365,10 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "aether_stage2"
+                                    ]
                    },
                    {
                        "name":  "Arthur Hill",
@@ -302,7 +381,10 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust"
+                                    ]
                    },
                    {
                        "name":  "Matteo Vitali",
@@ -319,7 +401,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "drivetrain_stage1"
+                                    ]
                    },
                    {
                        "name":  "Kaito Ishikawa",
@@ -332,7 +417,12 @@
                                           "id":  "helmsmanship",
                                           "level":  2
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "thrusters_stage2",
+                                        "engine_displacement",
+                                        "engine_balance"
+                                    ]
                    },
                    {
                        "name":  "Emie Kyinanek",
@@ -349,7 +439,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Dalivan",
@@ -366,7 +459,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_balance",
+                                        "aether_stage2",
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Manic Turbo",
@@ -383,7 +481,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish",
+                                        "engine_racing_exhaust",
+                                        "engine_displacement"
+                                    ]
                    },
                    {
                        "name":  "Sierra Nottacorr",
@@ -400,7 +503,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "gimbals_stage1"
+                                    ]
                    },
                    {
                        "name":  "Dave Parker",
@@ -417,7 +523,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "aether_stage2",
+                                        "engine_racing_exhaust",
+                                        "gimbals_stage1"
+                                    ]
                    },
                    {
                        "name":  "Pinky",
@@ -434,7 +545,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "drivetrain_stage1",
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Mirage",
@@ -451,7 +566,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish",
+                                        "engine_displacement",
+                                        "drivetrain_stage1"
+                                    ]
                    },
                    {
                        "name":  "Red Callahan",
@@ -468,7 +588,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_tune_stage2",
+                                        "gimbals_stage3"
+                                    ]
                    },
                    {
                        "name":  "Kreiger Meister",
@@ -485,7 +609,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_tune_stage2",
+                                        "aether_stage3",
+                                        "engine_balance"
+                                    ]
                    },
                    {
                        "name":  "Ork Mcjavelin",
@@ -502,7 +631,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "thrusters_stage3"
+                                    ]
                    },
                    {
                        "name":  "André de Lorde",
@@ -519,7 +652,15 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_port_polish",
+                                        "engine_balance",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "aether_stage3"
+                                    ]
                    },
                    {
                        "name":  "Tidal",
@@ -536,7 +677,18 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_port_polish",
+                                        "engine_balance",
+                                        "engine_racing_exhaust",
+                                        "drivetrain_stage2",
+                                        "transmission_stage3",
+                                        "thrusters_stage3",
+                                        "gimbals_stage3",
+                                        "aether_stage3"
+                                    ]
                    },
                    {
                        "name":  "Elliot Hughes",
@@ -553,7 +705,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Morgan Zeller",
@@ -570,7 +725,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "aether_stage1"
+                                    ]
                    },
                    {
                        "name":  "Emil Mueller",
@@ -587,7 +746,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_balance",
+                                        "gimbals_stage3"
+                                    ]
                    },
                    {
                        "name":  "Kenji Sato",
@@ -604,7 +767,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement"
+                                    ]
                    },
                    {
                        "name":  "Henry Turner",
@@ -621,7 +788,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish",
+                                        "engine_displacement"
+                                    ]
                    },
                    {
                        "name":  "Sophie Evans",
@@ -638,7 +809,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_balance",
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Jamie Vaughn",
@@ -655,7 +830,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Hannah Koch",
@@ -672,7 +851,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Jonas Hartmann",
@@ -689,7 +872,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "gimbals_stage1",
+                                        "engine_displacement",
+                                        "engine_tune_stage2"
+                                    ]
                    },
                    {
                        "name":  "Parker Hughes",
@@ -706,7 +894,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "drivetrain_stage1",
+                                        "aether_stage3"
+                                    ]
                    },
                    {
                        "name":  "Grant Adams",
@@ -723,7 +916,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "thrusters_stage2",
+                                        "engine_racing_exhaust",
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Davide Ferretti",
@@ -740,7 +938,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "gimbals_stage3"
+                                    ]
                    },
                    {
                        "name":  "Zane Bennett",
@@ -757,7 +958,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_balance",
+                                        "transmission_stage2",
+                                        "engine_racing_exhaust"
+                                    ]
                    },
                    {
                        "name":  "Gianni Lombardi",
@@ -774,7 +980,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish",
+                                        "drivetrain_stage2"
+                                    ]
                    },
                    {
                        "name":  "Blake Reed",
@@ -791,7 +1001,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "engine_displacement"
+                                    ]
                    },
                    {
                        "name":  "Quinn Zeller",
@@ -808,7 +1023,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_balance"
+                                    ]
                    },
                    {
                        "name":  "Finley Young",
@@ -825,7 +1043,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "gimbals_stage3",
+                                        "transmission_stage2"
+                                    ]
                    },
                    {
                        "name":  "Irina Belov",
@@ -842,7 +1064,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Luca Conti",
@@ -859,7 +1084,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "thrusters_stage2",
+                                        "gimbals_stage3",
+                                        "drivetrain_stage2"
+                                    ]
                    },
                    {
                        "name":  "Ryota Takahashi",
@@ -876,7 +1106,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "engine_port_polish",
+                                        "engine_balance"
+                                    ]
                    },
                    {
                        "name":  "Blake Bennett",
@@ -893,7 +1128,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "drivetrain_stage1",
+                                        "aether_stage3"
+                                    ]
                    },
                    {
                        "name":  "Yuki Suzuki",
@@ -910,7 +1149,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance"
+                                    ]
                    },
                    {
                        "name":  "Sora Hasegawa",
@@ -927,7 +1171,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Lewis Taylor",
@@ -944,7 +1193,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_balance",
+                                        "gimbals_stage2",
+                                        "engine_tune_stage1"
+                                    ]
                    },
                    {
                        "name":  "Ren Ono",
@@ -961,7 +1215,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "thrusters_stage1",
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Takumi Takahashi",
@@ -978,7 +1237,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_racing_exhaust",
+                                        "thrusters_stage1",
+                                        "gimbals_stage2"
+                                    ]
                    },
                    {
                        "name":  "Casey Reed",
@@ -995,7 +1259,12 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "thrusters_stage1",
+                                        "gimbals_stage1",
+                                        "engine_racing_exhaust"
+                                    ]
                    },
                    {
                        "name":  "Stefano Moretti",
@@ -1012,7 +1281,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "thrusters_stage2",
+                                        "engine_balance"
+                                    ]
                    },
                    {
                        "name":  "Riley Sawyer",
@@ -1029,7 +1302,11 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish",
+                                        "transmission_stage2"
+                                    ]
                    },
                    {
                        "name":  "Nico Wagner",
@@ -1046,7 +1323,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "thrusters_stage1"
+                                    ]
                    },
                    {
                        "name":  "Ren Ishikawa",
@@ -1063,7 +1343,10 @@
                                           "id":  "combat_endurance",
                                           "level":  1
                                       }
-                                  ]
+                                  ],
+                       "upgrades":  [
+                                        "engine_port_polish"
+                                    ]
                    },
                    {
                        "name":  "Grace Hill",
@@ -1079,6 +1362,868 @@
                                       {
                                           "id":  "combat_endurance",
                                           "level":  1
+                                      }
+                                  ],
+                       "upgrades":  [
+                                        "engine_displacement",
+                                        "gimbals_stage3",
+                                        "engine_tune_stage2"
+                                    ]
+                   },
+                   {
+                       "name":  "Ivan Petrov",
+                       "variantId":  "takeshido_lada_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Alex Johnson",
+                       "variantId":  "takeshido_crown_vic_taxi_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Maria Reyes",
+                       "variantId":  "takeshido_crown_vic_police_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Jake Miller",
+                       "variantId":  "takeshido_delorean_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Caleb Walker",
+                       "variantId":  "takeshido_mustang_2005_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Haruto Sato",
+                       "variantId":  "takeshido_ae86_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Ethan Brooks",
+                       "variantId":  "takeshido_mustang_1960_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Oliver Hughes",
+                       "variantId":  "takeshido_db5_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Keisuke Tanaka",
+                       "variantId":  "takeshido_ae86_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Sergey Volkov",
+                       "variantId":  "takeshido_lada_standard",
+                       "personality":  "steady",
+                       "skill":  0.45,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Mason Carter",
+                       "variantId":  "takeshido_firebird_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Chloe Anderson",
+                       "variantId":  "takeshido_stingray_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Ryota Nakamura",
+                       "variantId":  "takeshido_370z_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Yuki Mori",
+                       "variantId":  "takeshido_civic_type_r_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Klaus Richter",
+                       "variantId":  "takeshido_300sl_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Akira Fujimoto",
+                       "variantId":  "takeshido_s2000_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Thomas Ward",
+                       "variantId":  "takeshido_etype_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Ethan Powell",
+                       "variantId":  "takeshido_challenger_hellcat_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Charlotte Briggs",
+                       "variantId":  "takeshido_continental_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Hiroshi Aoki",
+                       "variantId":  "takeshido_civic_type_r_standard",
+                       "personality":  "steady",
+                       "skill":  0.55,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Kenji Ito",
+                       "variantId":  "takeshido_nsxr_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Marco Bianchi",
+                       "variantId":  "takeshido_countach_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Luca Moretti",
+                       "variantId":  "takeshido_testarossa_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Giovanni Rossi",
+                       "variantId":  "takeshido_miura_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Eleanor Hughes",
+                       "variantId":  "takeshido_xj13_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Takashi Saito",
+                       "variantId":  "takeshido_r34_skyline_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Dylan Carter",
+                       "variantId":  "takeshido_viper_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Ayumu Shimizu",
+                       "variantId":  "takeshido_lfa_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Shun Okada",
+                       "variantId":  "takeshido_rx7_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Hiro Tanaka",
+                       "variantId":  "takeshido_r35gtr_standard",
+                       "personality":  "steady",
+                       "skill":  0.65,
+                       "officerLevel":  1,
+                       "upgrades":  [
+
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  1
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Ayrton Senna",
+                       "variantId":  "takeshido_mp4_4_standard",
+                       "personality":  "aggressive",
+                       "skill":  1.00,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Max Verstappen",
+                       "variantId":  "takeshido_rb19_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.98,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Lewis Hamilton",
+                       "variantId":  "takeshido_w11_standard",
+                       "personality":  "steady",
+                       "skill":  0.97,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Sweet JP",
+                       "variantId":  "takeshido_sweetjps_transam20000wr_standard",
+                       "personality":  "steady",
+                       "skill":  0.90,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage2",
+                                        "transmission_stage2",
+                                        "aether_stage2",
+                                        "gimbals_stage2",
+                                        "engine_balance"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Mark Donohue",
+                       "variantId":  "takeshido_917_30_standard",
+                       "personality":  "steady",
+                       "skill":  0.93,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Nobuhiro Tajima",
+                       "variantId":  "takeshido_escudo_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.92,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "engine_port_polish"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Timo Bernhard",
+                       "variantId":  "takeshido_919_standard",
+                       "personality":  "steady",
+                       "skill":  0.92,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "engine_port_polish"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Johnny Herbert",
+                       "variantId":  "takeshido_787b_standard",
+                       "personality":  "steady",
+                       "skill":  0.90,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_balance",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Kenny Acheson",
+                       "variantId":  "takeshido_minolta_88cv_standard",
+                       "personality":  "steady",
+                       "skill":  0.89,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Felix Rosenqvist",
+                       "variantId":  "takeshido_jesko_absolut_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.91,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "gimbals_stage3",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2",
+                                        "thrusters_stage3"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Sebastien Loeb",
+                       "variantId":  "takeshido_rb19_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.95,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "transmission_stage3",
+                                        "aether_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "turbo_stage4",
+                                        "supercharger_stage3",
+                                        "engine_balance",
+                                        "gimbals_stage3",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2",
+                                        "thrusters_stage3"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Fernando Alonso",
+                       "variantId":  "takeshido_w11_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.98,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "transmission_stage3",
+                                        "aether_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "turbo_stage4",
+                                        "supercharger_stage3",
+                                        "engine_balance",
+                                        "gimbals_stage3",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2",
+                                        "thrusters_stage3"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Romain Dumas",
+                       "variantId":  "takeshido_veyron_standard",
+                       "personality":  "steady",
+                       "skill":  0.91,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "gimbals_stage3",
+                                        "engine_port_polish",
+                                        "thrusters_stage3"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Jan Magnussen",
+                       "variantId":  "takeshido_saleen_s7_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.90,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "gimbals_stage3",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2",
+                                        "thrusters_stage3"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Andy Wallace",
+                       "variantId":  "takeshido_f1_standard",
+                       "personality":  "steady",
+                       "skill":  0.92,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "gimbals_stage3",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2",
+                                        "thrusters_stage3"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Nigel Mansell",
+                       "variantId":  "takeshido_exige_standard",
+                       "personality":  "aggressive",
+                       "skill":  0.88,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "transmission_stage3",
+                                        "aether_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "gimbals_stage3",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2",
+                                        "thrusters_stage3"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
+                                      }
+                                  ]
+                   },
+                   {
+                       "name":  "Jorg Muller",
+                       "variantId":  "takeshido_m3_gtr_standard",
+                       "personality":  "steady",
+                       "skill":  0.89,
+                       "officerLevel":  6,
+                       "upgrades":  [
+                                        "engine_tune_stage3",
+                                        "engine_displacement",
+                                        "engine_racing_exhaust",
+                                        "engine_balance",
+                                        "gimbals_stage3",
+                                        "engine_port_polish",
+                                        "drivetrain_stage2",
+                                        "thrusters_stage3"
+                                    ],
+                       "skills":  [
+                                      {
+                                          "id":  "helmsmanship",
+                                          "level":  2
                                       }
                                   ]
                    }

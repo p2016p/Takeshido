@@ -68,6 +68,13 @@ public class TakeshidoRacingConfig {
                     CategorySpec spec = new CategorySpec();
                     spec.id = c.optString("id", "").trim().toLowerCase(Locale.ROOT);
                     spec.label = c.optString("label", spec.id);
+                    if (c.has("minScore")) {
+                        spec.minScore = (float) c.optDouble("minScore", 0f);
+                    }
+                    if (c.has("maxScore")) {
+                        spec.maxScore = (float) c.optDouble("maxScore", 0f);
+                    }
+                    spec.openSpec = c.optBoolean("openSpec", false);
                     JSONArray des = c.optJSONArray("designations");
                     if (des != null) {
                         for (int d = 0; d < des.length(); d++) {
@@ -145,6 +152,13 @@ public class TakeshidoRacingConfig {
                     rp.personality = r.optString("personality", "").trim();
                     rp.skill = (float) r.optDouble("skill", 0.7f);
                     rp.officerLevel = r.optInt("officerLevel", 0);
+                    JSONArray upgrades = r.optJSONArray("upgrades");
+                    if (upgrades != null) {
+                        for (int u = 0; u < upgrades.length(); u++) {
+                            String id = upgrades.optString(u, "").trim().toLowerCase(Locale.ROOT);
+                            if (!id.isEmpty()) rp.upgrades.add(id);
+                        }
+                    }
                     JSONArray skills = r.optJSONArray("skills");
                     if (skills != null) {
                         for (int s = 0; s < skills.length(); s++) {
@@ -172,6 +186,9 @@ public class TakeshidoRacingConfig {
     public static class CategorySpec {
         public String id;
         public String label;
+        public Float minScore = null;
+        public Float maxScore = null;
+        public boolean openSpec = false;
         public final List<String> designations = new ArrayList<>();
 
         public boolean matchesDesignation(String designation) {
@@ -181,6 +198,13 @@ public class TakeshidoRacingConfig {
                 if (d.equals(allowed)) return true;
             }
             return false;
+        }
+
+        public boolean matchesScore(float score) {
+            if (openSpec) return true;
+            if (minScore != null && score < minScore) return false;
+            if (maxScore != null && score >= maxScore) return false;
+            return minScore != null || maxScore != null;
         }
     }
 
@@ -202,6 +226,7 @@ public class TakeshidoRacingConfig {
         public String personality;
         public float skill;
         public int officerLevel;
+        public final List<String> upgrades = new ArrayList<>();
         public final List<RacerSkill> skills = new ArrayList<>();
     }
 

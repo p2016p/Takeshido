@@ -32,6 +32,9 @@ public class takeshido_NPCDialogCMD extends BaseCommandPlugin {
             case "RacecoordinatorDialog":
                 characterDialog = new takeshido_RacecoordinatorDialog();
                 break;
+            case "TunerShopDialog":
+                characterDialog = new takeshido_TunerShopDialog();
+                break;
 
         }
 

@@ -1,0 +1,962 @@
+{
+    "upgrades":  [
+                     {
+                         "id":  "turbo_stage1",
+                         "name":  "Turbo Kit Stage 1",
+                         "type":  "turbo",
+                         "description":  "Entry-level turbo kit tuned for reliable boost.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.10,
+                         "priceFlat":  5000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.018
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  6.32
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.028
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  1
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.01
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  1.12
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "turbo_stage2",
+                         "name":  "Turbo Kit Stage 2",
+                         "type":  "turbo",
+                         "description":  "Mid-range turbo kit for sustained high boost.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.18,
+                         "priceFlat":  10000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.035
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  12.63
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.052
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  1.87
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.018
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  1.87
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "turbo_stage3",
+                         "name":  "Turbo Kit Stage 3",
+                         "type":  "turbo",
+                         "description":  "High-performance turbo kit with aggressive tuning.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.28,
+                         "priceFlat":  20000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.056
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  20.21
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.077
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  2.75
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.024
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  2.62
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "turbo_stage4",
+                         "name":  "Turbo Kit Stage 4",
+                         "type":  "turbo",
+                         "description":  "Extreme boost system for maximum output.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.40,
+                         "priceFlat":  30000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.077
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  27.79
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.105
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  3.74
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.035
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  3.74
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "supercharger_stage1",
+                         "name":  "Supercharger Stage 1",
+                         "type":  "supercharger",
+                         "description":  "Low-boost supercharger setup for steady torque.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.12,
+                         "priceFlat":  8000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.014
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  5.05
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.035
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  1.25
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.014
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  1.5
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "supercharger_stage2",
+                         "name":  "Supercharger Stage 2",
+                         "type":  "supercharger",
+                         "description":  "High-boost supercharger tuned for punchy exits.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.22,
+                         "priceFlat":  16000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.028
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  10.11
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.063
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  2.25
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.021
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  2.25
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "supercharger_stage3",
+                         "name":  "Supercharger Stage 3",
+                         "type":  "supercharger",
+                         "description":  "Max-output supercharger package.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.32,
+                         "priceFlat":  25000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.042
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  15.16
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.091
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  3.24
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.028
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  3
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "engine_tune_stage1",
+                         "name":  "Engine Tuning Stage 1",
+                         "type":  "engine_tune",
+                         "description":  "Mild tuning pass for reliable gains.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.08,
+                         "priceFlat":  4000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.01
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  3.79
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.018
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  0.62
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "engine_tune_stage2",
+                         "name":  "Engine Tuning Stage 2",
+                         "type":  "engine_tune",
+                         "description":  "Aggressive tuning with re-mapped power curve.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.14,
+                         "priceFlat":  8000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.021
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  7.58
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.035
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  1.25
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "engine_tune_stage3",
+                         "name":  "Engine Tuning Stage 3",
+                         "type":  "engine_tune",
+                         "description":  "Race-grade tuning with optimized fuel and ignition.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.22,
+                         "priceFlat":  15000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.032
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  11.37
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.052
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  1.87
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "engine_port_polish",
+                         "name":  "Port \u0026 Polish",
+                         "type":  "engine_port",
+                         "description":  "Improved intake and exhaust flow.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.06,
+                         "priceFlat":  5000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.007
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  2.53
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.021
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  0.75
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "engine_balance",
+                         "name":  "Engine Balance",
+                         "type":  "engine_balance",
+                         "description":  "Precision balancing for smoother power delivery.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.05,
+                         "priceFlat":  4000,
+                         "mods":  [
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.014
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  0.5
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.014
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  2.19
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "engine_displacement",
+                         "name":  "Displacement Increase",
+                         "type":  "engine_displacement",
+                         "description":  "Bored cylinders for extra grunt.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.10,
+                         "priceFlat":  12000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.018
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  6.32
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.028
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  1
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "engine_racing_exhaust",
+                         "name":  "Racing Exhaust",
+                         "type":  "engine_exhaust",
+                         "description":  "Free-flow exhaust for higher rev efficiency.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.07,
+                         "priceFlat":  6000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.014
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  5.05
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.014
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  0.5
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "drivetrain_stage1",
+                         "name":  "Drivetrain Reinforcement Stage 1",
+                         "type":  "drivetrain",
+                         "description":  "Improved power delivery with reinforced couplers.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.09,
+                         "priceFlat":  6000,
+                         "mods":  [
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.021
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  0.75
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.018
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  1.87
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.007
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  2.53
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "drivetrain_stage2",
+                         "name":  "Drivetrain Reinforcement Stage 2",
+                         "type":  "drivetrain",
+                         "description":  "Race-grade drivetrain with reduced power loss.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.16,
+                         "priceFlat":  12000,
+                         "mods":  [
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.035
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  1.25
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.028
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  3
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.01
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  3.79
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "transmission_stage1",
+                         "name":  "Close-Ratio Transmission Stage 1",
+                         "type":  "transmission",
+                         "description":  "Tighter gearing for quicker response.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.08,
+                         "priceFlat":  5000,
+                         "mods":  [
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.018
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  0.62
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.01
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  3.79
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "transmission_stage2",
+                         "name":  "Close-Ratio Transmission Stage 2",
+                         "type":  "transmission",
+                         "description":  "Optimized ratios for stronger pull through corners.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.15,
+                         "priceFlat":  10000,
+                         "mods":  [
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.032
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  1.12
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.018
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  6.32
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "transmission_stage3",
+                         "name":  "Close-Ratio Transmission Stage 3",
+                         "type":  "transmission",
+                         "description":  "Competition-grade ratios for maximum drive.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.24,
+                         "priceFlat":  18000,
+                         "mods":  [
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "mult",
+                                          "value":  1.049
+                                      },
+                                      {
+                                          "stat":  "acceleration",
+                                          "mode":  "flat",
+                                          "value":  1.75
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.024
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  8.84
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "thrusters_stage1",
+                         "name":  "Thruster Compound Stage 1",
+                         "type":  "thrusters",
+                         "description":  "Balanced compound tuned for grip and heat.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.05,
+                         "priceFlat":  3000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.035
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  5.47
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.018
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  1.87
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "thrusters_stage2",
+                         "name":  "Thruster Compound Stage 2",
+                         "type":  "thrusters",
+                         "description":  "Performance compound for late-braking control.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.10,
+                         "priceFlat":  6000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.056
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  8.76
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.028
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  3
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "thrusters_stage3",
+                         "name":  "Thruster Compound Stage 3",
+                         "type":  "thrusters",
+                         "description":  "Track-grade compound with maximum grip.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.16,
+                         "priceFlat":  10000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.077
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  12.04
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.042
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  4.49
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "gimbals_stage1",
+                         "name":  "Thruster Gimbals Stage 1",
+                         "type":  "gimbals",
+                         "description":  "Stiffened mounts for sharper response.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.06,
+                         "priceFlat":  4000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.042
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  6.57
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.014
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  1.5
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "gimbals_stage2",
+                         "name":  "Thruster Gimbals Stage 2",
+                         "type":  "gimbals",
+                         "description":  "Reinforced gimbals for stable transitions.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.12,
+                         "priceFlat":  7000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.063
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  9.85
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.021
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  2.25
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "gimbals_stage3",
+                         "name":  "Thruster Gimbals Stage 3",
+                         "type":  "gimbals",
+                         "description":  "Competition-grade gimbal package.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.18,
+                         "priceFlat":  12000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.084
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  13.14
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "mult",
+                                          "value":  1.028
+                                      },
+                                      {
+                                          "stat":  "deceleration",
+                                          "mode":  "flat",
+                                          "value":  3
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "aether_stage1",
+                         "name":  "Aether Dynamics Stage 1",
+                         "type":  "aether",
+                         "description":  "Basic aero package for stability at speed.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.06,
+                         "priceFlat":  4000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.021
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  3.28
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.004
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  1.26
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "aether_stage2",
+                         "name":  "Aether Dynamics Stage 2",
+                         "type":  "aether",
+                         "description":  "Advanced aero surfaces for sustained grip.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.12,
+                         "priceFlat":  8000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.035
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  5.47
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.007
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  2.53
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "aether_stage3",
+                         "name":  "Aether Dynamics Stage 3",
+                         "type":  "aether",
+                         "description":  "Full aero kit tuned for racing lines.",
+                         "icon":  "graphics/hullmods/takeshido_default.png",
+                         "priceMult":  0.18,
+                         "priceFlat":  14000,
+                         "mods":  [
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "mult",
+                                          "value":  1.049
+                                      },
+                                      {
+                                          "stat":  "maxTurnRate",
+                                          "mode":  "flat",
+                                          "value":  7.66
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "mult",
+                                          "value":  1.01
+                                      },
+                                      {
+                                          "stat":  "maxSpeed",
+                                          "mode":  "flat",
+                                          "value":  3.79
+                                      }
+                                  ]
+                     }
+                 ]
+}

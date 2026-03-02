@@ -5,129 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9582f8a4-ef24-4756-ba28-527a78fdd486" name="Changes" comment="works">
-      <change afterPath="$PROJECT_DIR$/src/data/weapons/TakeshidoBombBayEveryFrame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/weapons/TakeshidoBombBayOnFire.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/hullmods/takeshido_tuner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/scripts/tuner/TakeshidoTunerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/scripts/tuner/TakeshidoTunerManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/scripts/utils/interactionUI/takeshido_TunerShopDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/Takeshido.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/Takeshido_new.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/classes/data/scripts/campaign/TakeshidoMeiyoMusicScript.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/console/commands/TakeshidoAddStrikecraft.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/hullmods/takeshido_powertrain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/hullmods/takeshido_racemod.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/hullmods/takeshido_strikecraftadder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/hullmods/takeshido_takeshido_comission.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/missions/TestRace/MissionDefinition.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/ai/TakeshidoRaceShipAI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/campaign/TakeshidoMeiyoMusicScript.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/campaign/rulecmd/TakeshidoRaceRuleCMD.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/campaign/rulecmd/takeshido_NPCDialogCMD.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TakeshidoRaceCombatPlugin$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TakeshidoRaceCombatPlugin$ClosestPoint.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TakeshidoRaceCombatPlugin$GateSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TakeshidoRaceCombatPlugin$RaceState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TakeshidoRaceCombatPlugin$RacerState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TakeshidoRaceCombatPlugin$WallAsteroidSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TakeshidoRaceCombatPlugin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TrackLoader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TrackSpec$GridSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/combat/TrackSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/everyframe/takeshido_PluginStarter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRaceBattleCreationPlugin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingCampaignPlugin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingConfig$CategorySpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingConfig$RacerProfile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingConfig$RacerSkill.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingConfig$RewardsSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingConfig$TournamentSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingManager$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingManager$RaceContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingManager$RaceResult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingManager$RaceType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingManager$RacerDefinition.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingManager$TakeshidoRaceBattleListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingManager$TournamentRacer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingManager$TournamentState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoRacingManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoTournamentIntel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/racing/TakeshidoTournamentIntel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/ships/takeshido_roadtrailplugin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/takeshido_ModPlugin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/utils/interactionUI/takeshido_RacecoordinatorDialog$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/utils/interactionUI/takeshido_RacecoordinatorDialog$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/utils/interactionUI/takeshido_RacecoordinatorDialog$OptionId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/utils/interactionUI/takeshido_RacecoordinatorDialog.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/utils/takeshido_util_misc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/utils/takeshido_util_sysgen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/world/ids/takeshido_Industries.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/world/industries_and_buildings/takeshido_raceways$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/world/industries_and_buildings/takeshido_raceways$RingChaseScript.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/world/industries_and_buildings/takeshido_raceways.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/world/submarkets/TakeshidoUsedCar$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/world/submarkets/TakeshidoUsedCar.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/world/systems/takeshido/takeshido_meiyoGen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/meiyo_music_tmp/jarwork/data/scripts/world/takeshido_takeshidoGen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/campaign/industries.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/campaign/industries.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/campaign/rules.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/campaign/rules.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/config/car_stat_pipeline.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/config/car_stat_pipeline.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/config/race_tracks.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/config/race_tracks.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/config/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/config/settings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/config/takeshido_racing.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/config/takeshido_racing.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/hullmods/hull_mods.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/hullmods/hull_mods.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/hulls/ship_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/ship_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_037.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_037.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_917_30.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_917_30.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_919.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_919.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_959.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_959.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_ae86.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_ae86.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_ares_special.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_ares_special.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_aventador.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_aventador.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_c6r.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_c6r.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_continental.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_continental.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_crown_vic_police.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_crown_vic_police.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_crown_vic_taxi.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_crown_vic_taxi.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_db5.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_db5.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_delorean.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_delorean.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_delorean_bttf.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_delorean_bttf.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_escudo.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_escudo.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_etype.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_etype.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_f1.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_f1.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_firebird.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_firebird.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_gt40.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_gt40.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_jp_special.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_jp_special.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_lfa.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_lfa.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_miura.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_miura.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_mustang_2005.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_mustang_2005.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_nsxr.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_nsxr.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_one_77.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_one_77.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_r34_skyline.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_r34_skyline.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_r35gtr.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_r35gtr.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_rs200.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_rs200.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_rx7.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_rx7.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_s2000.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_s2000.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_stingray.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_stingray.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_stratos.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_stratos.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_supra_mk4_paul.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_supra_mk4_paul.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_sweetjps_transam20000wr.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_sweetjps_transam20000wr.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_veyron.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_veyron.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_wrx_sti.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_wrx_sti.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_xj13.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_xj13.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hulls/takeshido_zonda_cinque.ship" beforeDir="false" afterPath="$PROJECT_DIR$/data/hulls/takeshido_zonda_cinque.ship" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/strings/descriptions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/strings/descriptions.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/weapons/weapon_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/weapons/weapon_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/world/factions/default_ship_roles.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/world/factions/default_ship_roles.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/world/factions/takeshido.faction" beforeDir="false" afterPath="$PROJECT_DIR$/data/world/factions/takeshido.faction" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/industries/takeshido_raceways.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/industries/takeshido_raceways.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jars/Takeshido.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jars/Takeshido.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/hullmods/takeshido_powertrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/hullmods/takeshido_powertrain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/hullmods/takeshido_racemod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/hullmods/takeshido_racemod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/scripts/ai/TakeshidoRaceShipAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/ai/TakeshidoRaceShipAI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/scripts/campaign/TakeshidoMeiyoMusicScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/campaign/TakeshidoMeiyoMusicScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/scripts/combat/TakeshidoRaceCombatPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/combat/TakeshidoRaceCombatPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/scripts/racing/TakeshidoRaceBattleCreationPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/racing/TakeshidoRaceBattleCreationPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/campaign/rulecmd/takeshido_NPCDialogCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/campaign/rulecmd/takeshido_NPCDialogCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/scripts/racing/TakeshidoRacingConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/racing/TakeshidoRacingConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/scripts/racing/TakeshidoRacingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/racing/TakeshidoRacingManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/scripts/utils/interactionUI/takeshido_RacecoordinatorDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/utils/interactionUI/takeshido_RacecoordinatorDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/scripts/world/industries_and_buildings/takeshido_raceways.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/world/industries_and_buildings/takeshido_raceways.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/scripts/world/systems/takeshido/takeshido_meiyoGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/scripts/world/systems/takeshido/takeshido_meiyoGen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +30,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="36" />
+    <option name="cachedIndexableFilesCount" value="40" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -177,29 +72,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.run.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/cohen/Documents/Starsector/mods/Takeshido/data/hulls&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.run.executor": "Debug",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "corretto-17",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/cohen/Documents/Starsector/mods/Takeshido/data/hulls",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "ml.llm.agents.accounts",
+    "to.speed.mode.migration.done": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\cohen\Documents\Starsector\mods\Takeshido\data\hulls" />

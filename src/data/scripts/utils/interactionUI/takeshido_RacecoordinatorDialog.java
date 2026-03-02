@@ -44,15 +44,23 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
         ABOUT_IMPROMPTU,
         ABOUT_TOURNAMENT,
         ABOUT_BETTING,
-        CATEGORY_SPORT,
-        CATEGORY_SUPER,
-        CATEGORY_HYPER,
+        CATEGORY_SUNDAY,
+        CATEGORY_OPEN_C,
+        CATEGORY_OPEN_B,
+        CATEGORY_OPEN_A,
+        CATEGORY_OPEN_S,
+        CATEGORY_DREAM,
+        CATEGORY_OPEN_SPEC,
         START_TOURNAMENT,
         START_NEXT_RACE,
         VIEW_STATUS,
-        BET_CATEGORY_SPORT,
-        BET_CATEGORY_SUPER,
-        BET_CATEGORY_HYPER,
+        BET_CATEGORY_SUNDAY,
+        BET_CATEGORY_OPEN_C,
+        BET_CATEGORY_OPEN_B,
+        BET_CATEGORY_OPEN_A,
+        BET_CATEGORY_OPEN_S,
+        BET_CATEGORY_DREAM,
+        BET_CATEGORY_OPEN_SPEC,
         BET_BACK_RACERS,
         BET_BACK_AMOUNT,
         BET_CONFIRM
@@ -124,14 +132,26 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
             case BET:
                 showBetting();
                 break;
-            case BET_CATEGORY_SPORT:
-                showBetRacerList("sportscar");
+            case BET_CATEGORY_SUNDAY:
+                showBetRacerList("sunday_cup");
                 break;
-            case BET_CATEGORY_SUPER:
-                showBetRacerList("supercar");
+            case BET_CATEGORY_OPEN_C:
+                showBetRacerList("open_c_spec");
                 break;
-            case BET_CATEGORY_HYPER:
-                showBetRacerList("hypercar");
+            case BET_CATEGORY_OPEN_B:
+                showBetRacerList("open_b_spec");
+                break;
+            case BET_CATEGORY_OPEN_A:
+                showBetRacerList("open_a_spec");
+                break;
+            case BET_CATEGORY_OPEN_S:
+                showBetRacerList("open_s_spec");
+                break;
+            case BET_CATEGORY_DREAM:
+                showBetRacerList("dream_car");
+                break;
+            case BET_CATEGORY_OPEN_SPEC:
+                showBetRacerList("open_spec");
                 break;
             case BET_BACK_RACERS:
                 showBetRacerList(betCategoryId);
@@ -151,14 +171,26 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
             case ABOUT_BETTING:
                 showBettingInfo();
                 break;
-            case CATEGORY_SPORT:
-                handleCategorySelected("sportscar");
+            case CATEGORY_SUNDAY:
+                handleCategorySelected("sunday_cup");
                 break;
-            case CATEGORY_SUPER:
-                handleCategorySelected("supercar");
+            case CATEGORY_OPEN_C:
+                handleCategorySelected("open_c_spec");
                 break;
-            case CATEGORY_HYPER:
-                handleCategorySelected("hypercar");
+            case CATEGORY_OPEN_B:
+                handleCategorySelected("open_b_spec");
+                break;
+            case CATEGORY_OPEN_A:
+                handleCategorySelected("open_a_spec");
+                break;
+            case CATEGORY_OPEN_S:
+                handleCategorySelected("open_s_spec");
+                break;
+            case CATEGORY_DREAM:
+                handleCategorySelected("dream_car");
+                break;
+            case CATEGORY_OPEN_SPEC:
+                handleCategorySelected("open_spec");
                 break;
             case START_NEXT_RACE:
                 startNextTournamentRace();
@@ -220,9 +252,13 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
         textPanel.addParagraph(isTournament ? "Pick a tournament class." : "Pick a class for the impromptu race.");
         selectingTournament = isTournament;
 
-        options.addOption("Sportscar", OptionId.CATEGORY_SPORT, null);
-        options.addOption("Supercar", OptionId.CATEGORY_SUPER, null);
-        options.addOption("Hypercar", OptionId.CATEGORY_HYPER, null);
+        options.addOption("Sunday Cup", OptionId.CATEGORY_SUNDAY, null);
+        options.addOption("Open C Spec", OptionId.CATEGORY_OPEN_C, null);
+        options.addOption("Open B Spec", OptionId.CATEGORY_OPEN_B, null);
+        options.addOption("Open A Spec", OptionId.CATEGORY_OPEN_A, null);
+        options.addOption("Open S Spec", OptionId.CATEGORY_OPEN_S, null);
+        options.addOption("Dream Car", OptionId.CATEGORY_DREAM, null);
+        options.addOption("Open Spec", OptionId.CATEGORY_OPEN_SPEC, null);
         options.addOption("Back", OptionId.INIT, null);
     }
 
@@ -324,9 +360,13 @@ public class takeshido_RacecoordinatorDialog implements InteractionDialogPlugin 
         textPanel.addParagraph("You step into the stands as the next grid assembles, the smell of hot engines and scorched rubber hanging over the track.");
         textPanel.addParagraph("\"Pick the class you're betting on,\" the coordinator says, flicking through the odds board.");
 
-        options.addOption("Sportscar", OptionId.BET_CATEGORY_SPORT, null);
-        options.addOption("Supercar", OptionId.BET_CATEGORY_SUPER, null);
-        options.addOption("Hypercar", OptionId.BET_CATEGORY_HYPER, null);
+        options.addOption("Sunday Cup", OptionId.BET_CATEGORY_SUNDAY, null);
+        options.addOption("Open C Spec", OptionId.BET_CATEGORY_OPEN_C, null);
+        options.addOption("Open B Spec", OptionId.BET_CATEGORY_OPEN_B, null);
+        options.addOption("Open A Spec", OptionId.BET_CATEGORY_OPEN_A, null);
+        options.addOption("Open S Spec", OptionId.BET_CATEGORY_OPEN_S, null);
+        options.addOption("Dream Car", OptionId.BET_CATEGORY_DREAM, null);
+        options.addOption("Open Spec", OptionId.BET_CATEGORY_OPEN_SPEC, null);
         options.addOption("Back", OptionId.INIT, null);
     }
 

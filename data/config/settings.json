@@ -25,7 +25,16 @@
       "Lizzie": "graphics/portraits/LizzieChen.png",
       "Biff": "graphics/portraits/BiffTanen.png",
       "burt": "graphics/portraits/burt.png"
+    },
+    "tunerIcons": {
+      "turbo": "graphics/tunerIcons/turbo.png",
+      "tires": "graphics/tunerIcons/tires.png",
+      "suspension": "graphics/tunerIcons/suspension.png",
+      "exhaust": "graphics/tunerIcons/exhaust.png",
+      "engine": "graphics/tunerIcons/engine.png",
+      "drivetrain": "graphics/tunerIcons/drivetrain.png",
+      "transmission": "graphics/tunerIcons/transmission.png",
+      "body": "graphics/tunerIcons/body.png"
     }
-
   }
 }

@@ -24,6 +24,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import com.fs.starfarer.api.util.ListMap;
+import data.scripts.tuner.TakeshidoTunerManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +32,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -165,7 +167,11 @@ public class TakeshidoRacingManager {
             ShipHullSpecAPI spec = member.getHullSpec();
             if (spec == null) continue;
             if (!spec.getHullId().startsWith("takeshido_")) continue;
-            if (category.matchesDesignation(spec.getDesignation())) {
+            TakeshidoTunerManager.ensureTunerHullmod(member);
+            member.updateStats();
+            member.setStatUpdateNeeded(true);
+            float score = computeTrackScoreForMember(member);
+            if (matchesCategory(category, spec.getDesignation(), score)) {
                 eligible.add(member);
             }
         }
@@ -195,7 +201,7 @@ public class TakeshidoRacingManager {
         ctx.raceId = Global.getSector().genUID();
         ctx.type = RaceType.IMPROMPTU;
         ctx.categoryId = categoryId;
-        ctx.lapsToWin = 1;
+        ctx.lapsToWin = 2;
         ctx.expectedRacers = Math.max(2, config.tournament.racersPerRace);
         ctx.playerRacerId = "player";
         ctx.playerFleetMember = playerShip;
@@ -290,7 +296,7 @@ public class TakeshidoRacingManager {
         ctx.type = RaceType.TOURNAMENT;
         ctx.tournamentId = state.tournamentId;
         ctx.categoryId = state.categoryId;
-        ctx.lapsToWin = 1;
+        ctx.lapsToWin = 2;
         ctx.expectedRacers = Math.max(2, state.racersPerRace);
         ctx.playerRacerId = "player";
         ctx.playerFleetMember = playerShip;
@@ -351,7 +357,7 @@ public class TakeshidoRacingManager {
         ctx.raceId = Global.getSector().genUID();
         ctx.type = RaceType.BET;
         ctx.categoryId = categoryId;
-        ctx.lapsToWin = 1;
+        ctx.lapsToWin = 2;
         ctx.expectedRacers = Math.max(2, racers.size());
         ctx.spectatorOnly = true;
         ctx.playerRacerId = "spectator";
@@ -812,6 +818,64 @@ public class TakeshidoRacingManager {
         return member;
     }
 
+    private static boolean matchesCategory(TakeshidoRacingConfig.CategorySpec category, String designation, float score) {
+        if (category == null) return false;
+        if (category.matchesScore(score)) return true;
+        if (category.designations != null && !category.designations.isEmpty()) {
+            return category.matchesDesignation(designation);
+        }
+        return false;
+    }
+
+    public static float computeTrackScoreForMember(FleetMemberAPI member) {
+        if (member == null || member.getStats() == null) return -999f;
+        float baseSpeed = member.getStats().getMaxSpeed().getBaseValue();
+        float baseAccel = member.getStats().getAcceleration().getBaseValue();
+        float baseTurn = member.getStats().getMaxTurnRate().getBaseValue();
+
+        TakeshidoTunerManager.UpgradeTotals totals =
+                TakeshidoTunerManager.computeTotals(TakeshidoTunerManager.getInstalledUpgradesNoBuiltIn(member));
+
+        float maxSpeed = baseSpeed * totals.maxSpeedMult + totals.maxSpeedFlat;
+        float accel = baseAccel * totals.accelMult + totals.accelFlat;
+        float turn = baseTurn * totals.maxTurnRateMult + totals.maxTurnRateFlat;
+        return computeTrackScore(maxSpeed, accel, turn);
+    }
+
+    public static float computeTrackScore(float maxSpeed, float accel, float maxTurnRate) {
+        float speedScore = (maxSpeed - 110f) / 15f;
+        float accelScore = (accel <= 0f) ? 0f : (6f - (60f / accel)) * 2f;
+        float turnScore = (maxTurnRate - 50f) / 6f;
+        return (speedScore + accelScore + turnScore) / 3f;
+    }
+
+    public static float computeTrackScoreForVariant(String variantId) {
+        if (variantId == null || variantId.trim().isEmpty()) return -999f;
+        if (!Global.getSettings().doesVariantExist(variantId)) return -999f;
+        FleetMemberAPI member = createFleetMemberForVariant(variantId, null);
+        if (member == null) return -999f;
+        return computeTrackScoreForMember(member);
+    }
+
+    public static float computeTrackScoreForHull(String hullId) {
+        if (hullId == null || hullId.trim().isEmpty()) return -999f;
+        FleetMemberAPI member = createFleetMemberForHull(hullId, null);
+        if (member == null) return -999f;
+        return computeTrackScoreForMember(member);
+    }
+
+    public static List<String> getEligibleCategoryLabels(float score) {
+        List<String> labels = new ArrayList<>();
+        TakeshidoRacingConfig config = TakeshidoRacingConfig.get();
+        for (TakeshidoRacingConfig.CategorySpec cat : config.categories.values()) {
+            if (cat == null) continue;
+            if (cat.matchesScore(score)) {
+                labels.add(cat.label != null ? cat.label : cat.id);
+            }
+        }
+        return labels;
+    }
+
     public static FleetMemberAPI createSpectatorMember() {
         ShipVariantAPI variant = null;
         String name = "Spectator";
@@ -864,7 +928,8 @@ public class TakeshidoRacingManager {
         for (ShipHullSpecAPI spec : Global.getSettings().getAllShipHullSpecs()) {
             if (spec == null) continue;
             if (!spec.getHullId().startsWith("takeshido_")) continue;
-            if (!category.matchesDesignation(spec.getDesignation())) continue;
+            float score = computeTrackScoreForHull(spec.getHullId());
+            if (!matchesCategory(category, spec.getDesignation(), score)) continue;
             eligible.add(spec.getHullId());
         }
 
@@ -895,7 +960,15 @@ public class TakeshidoRacingManager {
             if (rp == null || rp.variantId == null || rp.variantId.isEmpty()) continue;
             String designation = getDesignationForVariant(rp.variantId);
             TakeshidoRacingConfig.CategorySpec cat = TakeshidoRacingConfig.get().getCategory(categoryId);
-            if (cat != null && designation != null && cat.matchesDesignation(designation)) {
+            if (cat == null) continue;
+            float score;
+            FleetMemberAPI rosterMember = getRosterMember(roster, rp.name, rp.variantId);
+            if (rosterMember != null) {
+                score = computeTrackScoreForMember(rosterMember);
+            } else {
+                score = computeTrackScoreForVariant(rp.variantId);
+            }
+            if (matchesCategory(cat, designation, score)) {
                 pool.add(rp);
             }
         }
@@ -952,6 +1025,7 @@ public class TakeshidoRacingManager {
             member.setId("roster_" + index);
             PersonAPI captain = createRaceCaptain(rp);
             if (captain != null) member.setCaptain(captain);
+            applyRacerUpgrades(member, rp);
             fleetData.addFleetMember(member);
             resetRosterMember(member);
             index++;
@@ -973,6 +1047,15 @@ public class TakeshidoRacingManager {
             sb.append("|").append(rp.personality != null ? rp.personality.trim() : "");
             sb.append("|").append(rp.skill);
             sb.append("|").append(rp.officerLevel);
+            if (rp.upgrades != null && !rp.upgrades.isEmpty()) {
+                sb.append("|");
+                for (int i = 0; i < rp.upgrades.size(); i++) {
+                    String up = rp.upgrades.get(i);
+                    if (up == null) continue;
+                    if (i > 0) sb.append(",");
+                    sb.append(up.trim());
+                }
+            }
             if (rp.skills != null && !rp.skills.isEmpty()) {
                 sb.append("|");
                 for (int i = 0; i < rp.skills.size(); i++) {
@@ -984,6 +1067,17 @@ public class TakeshidoRacingManager {
             }
         }
         return sb.toString();
+    }
+
+    private static void applyRacerUpgrades(FleetMemberAPI member, TakeshidoRacingConfig.RacerProfile rp) {
+        if (member == null || rp == null || rp.upgrades == null || rp.upgrades.isEmpty()) return;
+        for (String id : rp.upgrades) {
+            if (id == null || id.trim().isEmpty()) continue;
+            data.scripts.tuner.TakeshidoTunerManager.installUpgrade(member, id.trim().toLowerCase(Locale.ROOT));
+        }
+        data.scripts.tuner.TakeshidoTunerManager.ensureTunerHullmod(member);
+        member.updateStats();
+        member.setStatUpdateNeeded(true);
     }
 
     private static FleetMemberAPI getRosterMember(CampaignFleetAPI roster, String racerName, String variantId) {

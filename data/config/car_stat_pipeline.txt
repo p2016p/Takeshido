@@ -6,50 +6,50 @@ This file documents the exact process used to derive car stats in `data/hulls/sh
 For each car, select:
 - Model year (most notable production; if multiple generations, the most famous/representative).
 - Top speed (mph) for that model/spec.
-- 0–60 mph time (seconds).
-- Handling baseline (a base max-turn rate value, 30–100, judged by drivetrain/weight/downforce/suspension).
+- 0-60 mph time (seconds).
+- Handling baseline (a base max-turn rate value, 30-100, judged by drivetrain/weight/downforce/suspension).
 - Category for durability/tech: road / sport / super / hyper / proto / race_gt / rally / sedan / special_*
 
 ### Variant adjustments (pre-age)
-These are multiplicative adjustments to base top speed, 0–60 time, and handling:
+These are multiplicative adjustments to base top speed, 0-60 time, and handling:
 - Tuner cars (RX-7, Supra MK4 Paul, R34):
-  - speed × 1.15
-  - 0–60 × 0.85
-  - handling × 1.05
+  - speed x 1.15
+  - 0-60 x 0.85
+  - handling x 1.05
 - Rally cars (037, Stratos, RS200, WRX STI, Lancer Evo):
-  - speed × 1.05
-  - 0–60 × 0.85
-  - handling × 1.10
+  - speed x 1.05
+  - 0-60 x 0.85
+  - handling x 1.10
 - Suzuki Escudo (GT version):
-  - speed × 1.15
-  - 0–60 × 0.75
-  - handling × 1.12
+  - speed x 1.15
+  - 0-60 x 0.75
+  - handling x 1.12
 - General Lee:
-  - speed × 1.05
-  - 0–60 × 0.90
-  - handling × 1.05
+  - speed x 1.05
+  - 0-60 x 0.90
+  - handling x 1.05
 
 ## 2) Age compensation (piecewise)
 We use the car year to scale top speed, accel, and handling separately, with caps.
 Let delta = 2025 - year.
 
 Top speed multiplier (cap 1.20):
-- 1965–1980: +0.15%/yr
-- 1980–2000: +0.30%/yr
-- 2000–2015: +0.20%/yr
-- 2015–2025: +0.10%/yr
+- 1965-1980: +0.15%/yr
+- 1980-2000: +0.30%/yr
+- 2000-2015: +0.20%/yr
+- 2015-2025: +0.10%/yr
 
 Acceleration multiplier (cap 1.60):
-- 1965–1980: +0.70%/yr
-- 1980–2000: +1.00%/yr
-- 2000–2015: +0.50%/yr
-- 2015–2025: +0.25%/yr
+- 1965-1980: +0.70%/yr
+- 1980-2000: +1.00%/yr
+- 2000-2015: +0.50%/yr
+- 2015-2025: +0.25%/yr
 
 Handling multiplier (cap 1.40):
-- 1965–1980: +0.60%/yr
-- 1980–2000: +0.80%/yr
-- 2000–2015: +0.40%/yr
-- 2015–2025: +0.20%/yr
+- 1965-1980: +0.60%/yr
+- 1980-2000: +0.80%/yr
+- 2000-2015: +0.40%/yr
+- 2015-2025: +0.20%/yr
 
 Apply:
 - speed_adj = speed * speed_mult
@@ -58,9 +58,9 @@ Apply:
 
 ## 3) Track stats (stored directly in CSV)
 - max speed = speed_adj (mph, rounded to int)
-- acceleration = 60 / t0_60_adj (clamped 10–60, rounded to int)
+- acceleration = 60 / t0_60_adj (clamped 10-60, rounded to int)
 - deceleration = acceleration * 3
-- max turn rate = handling_adj (clamped 30–100, rounded to int)
+- max turn rate = handling_adj (clamped 30-100, rounded to int)
 - turn acceleration = 1000 (fixed)
 
 ## 4) Absolute track score and designation
@@ -72,13 +72,43 @@ turn_score  = (max_turn_rate - 50) / 6
 AvgTrackScore = (speed_score + accel_score + turn_score) / 3
 
 Designation from AvgTrackScore:
-- > 8   → Prototype
-- > 6   → Hypercar
-- > 4   → Supercar
-- > 2   → Sportscar
-- else → Roadcar
+- > 8   -> Prototype
+- > 6   -> Hypercar
+- > 4   -> Supercar
+- > 2   -> Sportscar
+- else  -> Roadcar
 
 Tags field includes `AvgTrackScore=##.##` appended (keeps existing tags).
+
+### Upgrade tags (built-in + blocked)
+Follow this method when adding upgrade tags to `ship_data.csv`. This is based on stock hardware and defining systems, not on the car’s score.
+
+1) Classify the car by real-world category:
+- Rally cars (037, Stratos, RS200, WRX STI, Lancer Evo).
+- Tuner cars (RX-7, Supra MK4 Paul, R34).
+- Hypercars/prototypes with strong aero packages.
+- Muscle cars (Mustang, Firebird, Viper, General Lee).
+- Older/classic naturally aspirated sports cars (DB5, E-Type, Miura, 300SL).
+- Electrified/EV-style (VW ID.R).
+
+2) Assign built-ins by category:
+- Rally cars: add handling/driveline built-ins (`thrusters`, `gimbals`, `drivetrain`, `transmission`). Choose turbo vs supercharger based on the known forced-induction type for that class.
+- Tuner cars: add high-stage turbo + transmission + drivetrain.
+- Hypercars/prototypes with strong aero: add `aether_stage3` and `transmission_stage3`.
+- Muscle cars: add displacement + exhaust.
+- Older/classic NA sports cars: add engine balancing + port-polish.
+
+3) Apply block rules:
+- If the car is supercharged in real life, block turbo.
+- If the car is turbocharged in real life, block supercharger.
+- Electrified/EV-style cars block engine and forced-induction types plus transmission.
+
+4) Use tag syntax in the tags field:
+- Built-in: `tuner_builtin:<upgradeId>`
+- Block specific: `tuner_block:<upgradeId>`
+- Block type: `tuner_block_type:<type>`
+
+5) Use external lookups to determine what upgrades a car should have just in case
 
 ## 5) Non-track stats
 Category defaults:
@@ -97,8 +127,8 @@ Overrides are applied for specific cars (sturdiness or tech differences).
 Derived:
 - armor rating = 100
 - flux dissipation = round(max_flux / 5)
-- peak CR sec from category (bounded 1500–4000)
-- supplies/mo from category (bounded 1–10)
+- peak CR sec from category (bounded 1500-4000)
+- supplies/mo from category (bounded 1-10)
 
 ## 6) Fleet points / supplies/rec (absolute)
 Scores (absolute):
@@ -120,3 +150,39 @@ fleet_pts = average(
 Then:
 - fleet pts = fleet_pts (2 decimals)
 - supplies/rec = fleet_pts (same number)
+
+## 7) Base value (price)
+Base value is derived from fleet points:
+- base value = (fleet_pts + 1)^3 * 100
+
+Applied to all `takeshidostrikecraft` cars.
+
+## 8) .ship and .variant generation
+
+### .ship creation
+- hullSize: FRIGATE, style: TAKESHIDO, spriteName: graphics/ships/Cars/<SpriteName>.png
+- Size:
+  - Real cars: height from real length with 5 inches = 1 px, rounded to nearest even pixel.
+  - Width: take sprite width/height ratio and scale by the same factor as height (preserve sprite ratio), rounded to nearest even pixel.
+  - Special cars: height = 36 px, width from sprite ratio (rounded to even).
+- Center: [width/2, height/2] (even pixel halves)
+- Collision radius: (height/2) * 1.15, rounded to nearest pixel
+- Shield radius: (height/2) * 1.25, rounded to nearest pixel
+- Bounds: rectangle inset by 10% on each side (rounded to nearest 0.5 pixel)
+- Engines: 2 low-tech engine slots
+  - First coordinate (length axis) 10% lower than the lowest point of the bounds (rounded to nearest 0.5)
+  - Second coordinate (width axis) positioned to match exhaust layout, scaled to width
+- Weapon slots:
+  - WS_HEADLIGHT_L / WS_HEADLIGHT_R: hidden small ballistic, arc 10, angle 0
+  - Headlight slots share same first coordinate at the highest point of bounds, second coordinate based on headlight positions (scaled to width)
+  - WS_BOMB: hidden small ballistic at [0,0]
+- Built-ins:
+  - builtInMods: takeshido_racemod, strikeCraft, armaa_strikeCraftFrig, takeshido_powertrain
+  - builtInWeapons: headlights lightmg, bomb takeshido_bomb_bay
+
+### .variant creation
+- variantId: takeshido_<id>_standard
+- hullId: takeshido_<id>
+- displayName: standard, goalVariant: true
+- fluxCapacitors: 8, fluxVents: 8, quality: 1
+- Empty arrays for permaMods, hullMods, weaponGroups, modules, wings
