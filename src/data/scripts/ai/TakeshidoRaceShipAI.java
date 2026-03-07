@@ -26,9 +26,13 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
     private static final float OVERTAKE_DIST = 220f;
     private static final float OVERTAKE_LANE_WIDTH = 120f;
     private static final float OVERTAKE_OFFSET = 40f;
-    private static final float BRAKE_LOOKAHEAD_TIME = 0.65f;
-    private static final float BRAKE_LOOKAHEAD_MIN_UNITS = 40f;
-    private static final float BRAKE_LOOKAHEAD_MAX_UNITS = 420f;
+    // Increased significantly so racers begin slowing much earlier for tight corners.
+    private static final float BRAKE_LOOKAHEAD_TIME = 1.4f;
+    private static final float BRAKE_LOOKAHEAD_MIN_UNITS = 120f;
+    private static final float BRAKE_LOOKAHEAD_MAX_UNITS = 1100f;
+    // Above this speed, braking lookahead grows super-linearly.
+    private static final float BRAKE_LOOKAHEAD_SPEED_REF_UNITS = 180f;
+    private static final float BRAKE_LOOKAHEAD_SPEED_EXPONENT = 1.75f;
 
     public TakeshidoRaceShipAI(ShipAPI ship, RaceState race, RacerState state) {
         this.ship = ship;
@@ -91,7 +95,10 @@ public class TakeshidoRaceShipAI implements ShipAIPlugin {
         // Braking based on curvature of the actual line being targeted (centerline/raceline blend)
         if (race.unitsPerMeter > 0f) {
             float speedUnits = ship.getVelocity() != null ? ship.getVelocity().length() : 0f;
-            float brakeLookaheadUnits = clamp(speedUnits * BRAKE_LOOKAHEAD_TIME,
+            float normalizedSpeed = speedUnits / BRAKE_LOOKAHEAD_SPEED_REF_UNITS;
+            float highSpeedScale = (float) Math.pow(Math.max(1f, normalizedSpeed), BRAKE_LOOKAHEAD_SPEED_EXPONENT - 1f);
+            float scaledSpeed = speedUnits * highSpeedScale;
+            float brakeLookaheadUnits = clamp(scaledSpeed * BRAKE_LOOKAHEAD_TIME,
                     BRAKE_LOOKAHEAD_MIN_UNITS, BRAKE_LOOKAHEAD_MAX_UNITS);
             int brakeSteps = Math.max(1, Math.round(brakeLookaheadUnits / 40f));
 

@@ -1,0 +1,27 @@
+{
+    "id":"takeshido_lav_cannon",
+    "specClass":"projectile",
+    "type":"BALLISTIC",
+    "size":"MEDIUM",
+    "displayArcRadius":550,
+    "turretSprite":"graphics/ships/PleaseDont/LAVCannon.png",
+    "hardpointSprite":"graphics/ships/PleaseDont/LAVCannon.png",
+    "turretOffsets":[12, 0],
+    "turretAngleOffsets":[0],
+    "hardpointOffsets":[12, 0],
+    "hardpointAngleOffsets":[0],
+    "barrelMode":"ALTERNATING",
+    "animationType":"MUZZLE_FLASH",
+    "everyFrameEffect":"data.weapons.TakeshidoLavCannonEveryFrame",
+    "muzzleFlashSpec":{
+        "length":26.0,
+        "spread":8.0,
+        "particleSizeMin":8.0,
+        "particleSizeRange":14.0,
+        "particleDuration":0.25,
+        "particleCount":12,
+        "particleColor":[255,235,180,200]
+    },
+    "projectileSpecId":"heavymauler_shot",
+    "fireSoundTwo":"heavy_mauler_fire"
+}

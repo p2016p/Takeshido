@@ -21,9 +21,9 @@ These are multiplicative adjustments to base top speed, 0-60 time, and handling:
   - 0-60 x 0.85
   - handling x 1.10
 - Suzuki Escudo (GT version):
-  - speed x 1.15
-  - 0-60 x 0.75
-  - handling x 1.12
+  - speed x 1.11
+  - 0-60 x 0.79
+  - handling x 1.08
 - General Lee:
   - speed x 1.05
   - 0-60 x 0.90

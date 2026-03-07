@@ -9,13 +9,16 @@ import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
+import com.fs.starfarer.api.combat.BaseCombatLayeredRenderingPlugin;
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.combat.CollisionClass;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
+import com.fs.starfarer.api.combat.CombatEngineLayers;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.mission.FleetSide;
+import org.lwjgl.opengl.GL11;
 
 import data.scripts.ai.TakeshidoRaceShipAI;
 import data.scripts.racing.TakeshidoRacingManager;
@@ -45,8 +48,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     public int startIndex = 0;
 
     // Wall asteroid tuning
-    private float wallAsteroidSpacing = 180f;
-    private int wallAsteroidType = 0;
     private float wallAsteroidTrackBuffer = 40f;
 
 
@@ -66,7 +67,27 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private static final float CAR_REPEL_BUFFER = 8f;
     private static final float CAR_REPEL_PER_SEC = 120f;
     private static final float MAX_RACE_SECONDS = 600f;
+    private static final float RACE_BACKGROUND_UNLOAD_DELAY_AFTER_END = 1.25f;
     private static final String RACE_MUSIC_FORCE_KEY = "takeshido_race_music_id";
+    private static final String DEFAULT_SCREEN_LOCKED_BACKGROUND = "graphics/backgrounds/deserttrack.png";
+    private static final float DEFAULT_SCREEN_LOCKED_BACKGROUND_ALPHA = 1f;
+    private static final float TRACK_LOCKED_BACKGROUND_PADDING = 2400f;
+    private static final float TRACK_LOCKED_MAP_PADDING = 800f;
+    private static final float DEFAULT_TRACK_LOCKED_TILE_WORLD_WIDTH = 1024f;
+    private static final boolean ENABLE_BACKGROUND_DUAL_UV_BLEND = true;
+    private static final String DEFAULT_TRACK_RIBBON_TEXTURE = "graphics/tracks/asphalt.png";
+    private static final float DEFAULT_TRACK_RIBBON_TILE_WORLD_LENGTH = 128f;
+    private static final float DEFAULT_TRACK_RIBBON_WIDTH_REPEAT_SCALE = 1f;
+    private static final float DEFAULT_TRACK_RIBBON_ALPHA = 1f;
+    private static final float DEFAULT_TRACK_RIBBON_FEATHER_WIDTH = 8f;
+    private static final float DEFAULT_TRACK_SHOULDER_WIDTH = 15f;
+    private static final String DEFAULT_TRACK_SHOULDER_TEXTURE = DEFAULT_SCREEN_LOCKED_BACKGROUND;
+    private static final float DEFAULT_TRACK_SHOULDER_TILE_WORLD_LENGTH = 256f;
+    private static final float DEFAULT_TRACK_SHOULDER_WIDTH_REPEAT_SCALE = 1f;
+    private static final float DEFAULT_TRACK_SHOULDER_ALPHA_INNER = 0.85f;
+    private static final float DEFAULT_TRACK_SHOULDER_ALPHA_OUTER = 0.25f;
+    private static final boolean ENABLE_BACKGROUND_MACRO_NOISE = true;
+    private static final String DEFAULT_BACKGROUND_MACRO_NOISE_TEXTURE = "graphics/backgrounds/macro_noise.png";
     private static final List<String> RACE_MUSIC_IDS = Arrays.asList(
             "takeshido_race_kissyougoodbye",
             "takeshido_race_driveyoucrazy",
@@ -86,8 +107,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
     private RaceState race;
 
-    // track marker timing
-    private float markerTimer = 0f;
+    // race timing/state
     private boolean countdownActive = false;
     private float countdownTimer = 0f;
     private float countdownDelayTimer = 0f;
@@ -102,6 +122,32 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     private String currentRaceMusicId = null;
     private final Random raceMusicRandom = new Random();
     private float setupWaitTimer = 0f;
+    private boolean combatEndTriggered = false;
+    private float combatEndTimer = 0f;
+    private boolean raceBackgroundInitialized = false;
+    private boolean raceBackgroundLoaded = false;
+    private boolean raceBackgroundReleased = false;
+    private boolean raceBackgroundDisabledStarfield = false;
+    private boolean originalRenderStarfield = true;
+    private String raceBackgroundSpritePath = null;
+    private ScreenLockedBackgroundRenderer raceBackgroundRenderer = null;
+    private ScreenLockedBackgroundRenderer raceBackgroundSecondaryRenderer = null;
+    private BackgroundMacroNoiseRenderer raceBackgroundNoiseRenderer = null;
+    private boolean raceBackgroundNoiseLoaded = false;
+    private String raceBackgroundNoiseTexturePath = null;
+    private Vector2f raceBackgroundCenter = new Vector2f(0f, 0f);
+    private float raceBackgroundWidth = 12000f;
+    private float raceBackgroundHeight = 12000f;
+    private float raceBackgroundTileWorldWidth = DEFAULT_TRACK_LOCKED_TILE_WORLD_WIDTH;
+    private String trackShoulderTexturePath = DEFAULT_TRACK_SHOULDER_TEXTURE;
+    private boolean trackRibbonInitialized = false;
+    private boolean trackRibbonLoaded = false;
+    private final List<TrackBandRenderer> trackRibbonRenderers = new ArrayList<>();
+    private final Set<String> trackRibbonTexturePaths = new LinkedHashSet<>();
+    private boolean trackDecalsInitialized = false;
+    private boolean trackDecalsLoaded = false;
+    private final List<TrackDecalRenderer> trackDecalRenderers = new ArrayList<>();
+    private final Set<String> trackDecalTexturePaths = new LinkedHashSet<>();
 
     public TakeshidoRaceCombatPlugin(String raceHullmodId, int lapsToWin, int expectedRacers, boolean isDeathRace, String trackId) {
         this.raceHullmodId = raceHullmodId;
@@ -147,7 +193,18 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
 
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
-        if (engine == null || engine.isPaused()) return;
+        if (engine == null) return;
+        if (engine.isCombatOver()) {
+            releaseRaceBackgroundResources();
+            return;
+        }
+        if (combatEndTriggered && !raceBackgroundReleased) {
+            combatEndTimer += Math.max(0f, amount);
+            if (combatEndTimer >= RACE_BACKGROUND_UNLOAD_DELAY_AFTER_END) {
+                releaseRaceBackgroundResources();
+            }
+        }
+        if (engine.isPaused()) return;
 
         applySpectatorLock();
 
@@ -170,16 +227,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         if (countdownActive) {
-            // Track markers disabled
-//            markerTimer += amount;
-//            if (markerTimer >= 0.25f) {
-//                markerTimer = 0f;
-//                // spawnTrackMarkers(); // disabled: track markers no longer needed
-//            }
-
-            // keep wall asteroids in place
-            maintainWallAsteroids();
-
             updateCountdown(amount);
             return;
         }
@@ -190,16 +237,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
                 spectatorAI.advance(amount);
             }
         }
-
-        // Track markers disabled
-//        markerTimer += amount;
-//        if (markerTimer >= 0.25f) {
-//            markerTimer = 0f;
-//            // spawnTrackMarkers(); // disabled: track markers no longer needed
-//        }
-
-        // keep wall asteroids in place
-        maintainWallAsteroids();
 
         updateRaceProgress();
 
@@ -223,10 +260,14 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         if (race.finished) {
-            finalizeFinishOrder();
-            storeResultsIfNeeded();
-            playRaceFinish();
-            engine.endCombat(1f, race.winnerSide);
+            if (!combatEndTriggered) {
+                finalizeFinishOrder();
+                storeResultsIfNeeded();
+                playRaceFinish();
+                combatEndTriggered = true;
+                combatEndTimer = 0f;
+                engine.endCombat(1f, race.winnerSide);
+            }
         } else if (raceMusicStarted && !raceFinishPlayed) {
             ensureRaceMusicLoop();
         }
@@ -250,9 +291,8 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         if (cars.size() < needed) return false;
 
         TrackSpec track = data.scripts.combat.TrackLoader.get(trackId);
+        setupRaceBackground(track);
 
-        this.wallAsteroidSpacing = track.wallAsteroidSpacing;
-        this.wallAsteroidType = track.wallAsteroidType;
         this.wallAsteroidTrackBuffer = track.wallAsteroidTrackBuffer;
 
         race.checkpoints = track.checkpoints;
@@ -301,7 +341,8 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         this.aheadOffset = track.grid.aheadOffset;
 
         race.gates = buildGates();
-        race.wallAsteroids = buildWallAsteroids();
+        setupTrackDecals(track);
+        setupTrackRibbon();
 
 
 
@@ -341,6 +382,478 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         return true;
     }
 
+    private void setupRaceBackground(TrackSpec track) {
+        if (engine == null || raceBackgroundInitialized) return;
+        raceBackgroundInitialized = true;
+
+        String spritePath = track != null ? track.screenLockedBackground : null;
+        if (spritePath == null || spritePath.trim().isEmpty()) {
+            spritePath = DEFAULT_SCREEN_LOCKED_BACKGROUND;
+        }
+        if (spritePath == null || spritePath.trim().isEmpty()) return;
+
+        trackShoulderTexturePath = spritePath;
+
+        float alpha = track != null ? track.screenLockedBackgroundAlpha : DEFAULT_SCREEN_LOCKED_BACKGROUND_ALPHA;
+        alpha = clamp(alpha, 0f, 1f);
+        computeTrackLockedBackgroundBounds(track);
+        raceBackgroundTileWorldWidth = track != null
+                ? Math.max(128f, track.screenLockedBackgroundTileWorldWidth)
+                : DEFAULT_TRACK_LOCKED_TILE_WORLD_WIDTH;
+
+        raceBackgroundSpritePath = spritePath;
+        SpriteAPI sprite = null;
+        try {
+            Global.getSettings().loadTexture(raceBackgroundSpritePath);
+            sprite = Global.getSettings().getSprite(raceBackgroundSpritePath);
+            if (sprite == null) {
+                log.warn("Race background sprite not found after load: " + raceBackgroundSpritePath);
+                return;
+            }
+        } catch (Exception ex) {
+            log.warn("Failed to load race background texture: " + raceBackgroundSpritePath, ex);
+            return;
+        }
+
+        try {
+
+            raceBackgroundRenderer = new ScreenLockedBackgroundRenderer(
+                    sprite,
+                    alpha,
+                    raceBackgroundCenter,
+                    raceBackgroundWidth,
+                    raceBackgroundHeight,
+                    raceBackgroundTileWorldWidth
+            );
+            engine.addLayeredRenderingPlugin(raceBackgroundRenderer);
+            raceBackgroundLoaded = true;
+            setupSecondaryBackgroundBlend(track, sprite);
+            setupRaceMacroNoise(track);
+
+            boolean disableStarfield = track == null || track.screenLockedBackgroundDisableStarfield;
+            if (disableStarfield) {
+                originalRenderStarfield = engine.isRenderStarfield();
+                raceBackgroundDisabledStarfield = true;
+                engine.setRenderStarfield(false);
+            }
+        } catch (Exception ex) {
+            log.warn("Failed to initialize race background: " + raceBackgroundSpritePath, ex);
+        }
+    }
+
+    private void setupRaceMacroNoise(TrackSpec track) {
+        if (!ENABLE_BACKGROUND_MACRO_NOISE || engine == null || raceBackgroundNoiseRenderer != null) return;
+
+        raceBackgroundNoiseTexturePath = DEFAULT_BACKGROUND_MACRO_NOISE_TEXTURE;
+        SpriteAPI noiseSprite;
+        try {
+            Global.getSettings().loadTexture(raceBackgroundNoiseTexturePath);
+            noiseSprite = Global.getSettings().getSprite(raceBackgroundNoiseTexturePath);
+            if (noiseSprite == null) {
+                log.warn("Macro noise sprite not found: " + raceBackgroundNoiseTexturePath);
+                return;
+            }
+        } catch (Exception ex) {
+            log.warn("Failed to load macro noise texture: " + raceBackgroundNoiseTexturePath, ex);
+            return;
+        }
+
+        String seedSource = track != null && track.id != null ? track.id : trackId;
+        long seed = seedSource != null ? seedSource.hashCode() : 0L;
+        List<BackgroundMacroNoiseRenderer.OctaveSpec> octaves = buildMacroNoiseOctaves(seed);
+        if (octaves.isEmpty()) return;
+
+        raceBackgroundNoiseRenderer = new BackgroundMacroNoiseRenderer(
+                noiseSprite,
+                raceBackgroundCenter,
+                raceBackgroundWidth,
+                raceBackgroundHeight,
+                octaves
+        );
+        engine.addLayeredRenderingPlugin(raceBackgroundNoiseRenderer);
+        raceBackgroundNoiseLoaded = true;
+    }
+
+    private void setupSecondaryBackgroundBlend(TrackSpec track, SpriteAPI sprite) {
+        if (!ENABLE_BACKGROUND_DUAL_UV_BLEND || engine == null || sprite == null || raceBackgroundSecondaryRenderer != null) return;
+
+        String seedSource = track != null && track.id != null ? track.id : trackId;
+        long seed = seedSource != null ? seedSource.hashCode() : 0L;
+        Random rand = new Random(seed * 1103515245L + 12345L);
+
+        float tileScale = 1.9f + rand.nextFloat() * 0.7f; // 1.9x .. 2.6x base tile scale
+        float secondaryTileWorldWidth = Math.max(128f, raceBackgroundTileWorldWidth * tileScale);
+
+        float offsetMag = secondaryTileWorldWidth * 0.45f;
+        float offsetX = (rand.nextFloat() * 2f - 1f) * offsetMag;
+        float offsetY = (rand.nextFloat() * 2f - 1f) * offsetMag;
+        float alpha = 0.08f + rand.nextFloat() * 0.03f;
+
+        Vector2f secondaryCenter = new Vector2f(raceBackgroundCenter.x + offsetX, raceBackgroundCenter.y + offsetY);
+        raceBackgroundSecondaryRenderer = new ScreenLockedBackgroundRenderer(
+                sprite,
+                alpha,
+                secondaryCenter,
+                raceBackgroundWidth,
+                raceBackgroundHeight,
+                secondaryTileWorldWidth
+        );
+        engine.addLayeredRenderingPlugin(raceBackgroundSecondaryRenderer);
+    }
+
+    private List<BackgroundMacroNoiseRenderer.OctaveSpec> buildMacroNoiseOctaves(long seed) {
+        List<BackgroundMacroNoiseRenderer.OctaveSpec> octaves = new ArrayList<BackgroundMacroNoiseRenderer.OctaveSpec>();
+        Random rand = new Random(seed * 31L + 0x9E3779B97F4A7C15L);
+
+        float base = Math.max(256f, raceBackgroundTileWorldWidth);
+        float[] tileScales = new float[] {2.2f, 1.3f, 0.8f};
+        float[] darkAlphas = new float[] {0.05f, 0.03f, 0.02f};
+        float[] lightAlphas = new float[] {0.14f, 0.09f, 0.06f};
+
+        for (int i = 0; i < tileScales.length; i++) {
+            float tileWidth = base * tileScales[i];
+            float offsetX = (rand.nextFloat() * 2f - 1f) * tileWidth;
+            float offsetY = (rand.nextFloat() * 2f - 1f) * tileWidth;
+            float rotation = rand.nextFloat() * 360f;
+            octaves.add(new BackgroundMacroNoiseRenderer.OctaveSpec(
+                    tileWidth,
+                    darkAlphas[i],
+                    lightAlphas[i],
+                    offsetX,
+                    offsetY,
+                    rotation
+            ));
+        }
+        return octaves;
+    }
+
+    private void setupTrackDecals(TrackSpec track) {
+        if (engine == null || trackDecalsInitialized) return;
+        trackDecalsInitialized = true;
+        if (track == null || track.decals == null || track.decals.isEmpty()) return;
+
+        List<TrackDecalRenderer.DecalInstance> instances = new ArrayList<TrackDecalRenderer.DecalInstance>();
+        for (TrackSpec.DecalSpec decal : track.decals) {
+            if (decal == null || decal.sprite == null || decal.sprite.trim().isEmpty()) continue;
+
+            SpriteAPI sprite = loadTrackDecalSprite(decal.sprite);
+            if (sprite == null) continue;
+
+            float width = Math.max(16f, decal.width);
+            float height = Math.max(16f, decal.height);
+            float alpha = clamp(decal.alpha, 0f, 1f);
+            instances.add(new TrackDecalRenderer.DecalInstance(
+                    sprite,
+                    new Vector2f(decal.x, decal.y),
+                    width,
+                    height,
+                    decal.angle,
+                    alpha
+            ));
+        }
+
+        if (instances.isEmpty()) return;
+
+        TrackDecalRenderer renderer = new TrackDecalRenderer(instances);
+        trackDecalRenderers.add(renderer);
+        engine.addLayeredRenderingPlugin(renderer);
+        trackDecalsLoaded = true;
+    }
+
+    private void setupTrackRibbon() {
+        if (engine == null || trackRibbonInitialized) return;
+        trackRibbonInitialized = true;
+        if (race == null || race.centerline == null || race.centerline.size() < 2) return;
+
+        List<Vector2f> leftBoundary = buildTrackRibbonEdgePolyline(true, 0f);
+        List<Vector2f> rightBoundary = buildTrackRibbonEdgePolyline(false, 0f);
+        List<Vector2f> leftInner = buildTrackRibbonEdgePolyline(true, DEFAULT_TRACK_RIBBON_FEATHER_WIDTH);
+        List<Vector2f> rightInner = buildTrackRibbonEdgePolyline(false, DEFAULT_TRACK_RIBBON_FEATHER_WIDTH);
+        List<Vector2f> leftShoulderOuter = buildTrackRibbonEdgePolyline(true, -DEFAULT_TRACK_SHOULDER_WIDTH);
+        List<Vector2f> rightShoulderOuter = buildTrackRibbonEdgePolyline(false, -DEFAULT_TRACK_SHOULDER_WIDTH);
+
+        if (!edgesCompatible(leftBoundary, rightBoundary, leftInner, rightInner, leftShoulderOuter, rightShoulderOuter)) {
+            log.warn("Track ribbon geometry invalid for track " + trackId +
+                    " (leftBoundary=" + leftBoundary.size() +
+                    ", rightBoundary=" + rightBoundary.size() + ")");
+            return;
+        }
+
+        String shoulderTexturePath = trackShoulderTexturePath;
+        if (shoulderTexturePath == null || shoulderTexturePath.trim().isEmpty()) {
+            shoulderTexturePath = DEFAULT_TRACK_SHOULDER_TEXTURE;
+        }
+
+        SpriteAPI shoulderSprite = loadTrackRibbonSprite(shoulderTexturePath);
+        if (shoulderSprite == null && !DEFAULT_TRACK_SHOULDER_TEXTURE.equals(shoulderTexturePath)) {
+            log.warn("Failed to load track shoulder texture '" + shoulderTexturePath + "' for track " + trackId +
+                    "; falling back to default shoulder texture.");
+            shoulderSprite = loadTrackRibbonSprite(DEFAULT_TRACK_SHOULDER_TEXTURE);
+        }
+        if (shoulderSprite != null) {
+            addTrackRibbonBand(
+                    shoulderSprite,
+                    leftShoulderOuter,
+                    leftBoundary,
+                    DEFAULT_TRACK_SHOULDER_TILE_WORLD_LENGTH,
+                    DEFAULT_TRACK_SHOULDER_WIDTH_REPEAT_SCALE,
+                    DEFAULT_TRACK_SHOULDER_ALPHA_OUTER,
+                    DEFAULT_TRACK_SHOULDER_ALPHA_INNER,
+                    1f
+            );
+            addTrackRibbonBand(
+                    shoulderSprite,
+                    rightBoundary,
+                    rightShoulderOuter,
+                    DEFAULT_TRACK_SHOULDER_TILE_WORLD_LENGTH,
+                    DEFAULT_TRACK_SHOULDER_WIDTH_REPEAT_SCALE,
+                    DEFAULT_TRACK_SHOULDER_ALPHA_INNER,
+                    DEFAULT_TRACK_SHOULDER_ALPHA_OUTER,
+                    1f
+            );
+        }
+
+        SpriteAPI asphaltSprite = loadTrackRibbonSprite(DEFAULT_TRACK_RIBBON_TEXTURE);
+        if (asphaltSprite == null) {
+            log.warn("Track ribbon asphalt texture missing; shoulders only for track " + trackId);
+            trackRibbonLoaded = !trackRibbonRenderers.isEmpty();
+            return;
+        }
+
+        addTrackRibbonBand(
+                asphaltSprite,
+                leftBoundary,
+                leftInner,
+                DEFAULT_TRACK_RIBBON_TILE_WORLD_LENGTH,
+                Math.max(0.25f, DEFAULT_TRACK_RIBBON_WIDTH_REPEAT_SCALE * 0.5f),
+                0f,
+                1f,
+                DEFAULT_TRACK_RIBBON_ALPHA
+        );
+        addTrackRibbonBand(
+                asphaltSprite,
+                leftInner,
+                rightInner,
+                DEFAULT_TRACK_RIBBON_TILE_WORLD_LENGTH,
+                DEFAULT_TRACK_RIBBON_WIDTH_REPEAT_SCALE,
+                1f,
+                1f,
+                DEFAULT_TRACK_RIBBON_ALPHA
+        );
+        addTrackRibbonBand(
+                asphaltSprite,
+                rightInner,
+                rightBoundary,
+                DEFAULT_TRACK_RIBBON_TILE_WORLD_LENGTH,
+                Math.max(0.25f, DEFAULT_TRACK_RIBBON_WIDTH_REPEAT_SCALE * 0.5f),
+                1f,
+                0f,
+                DEFAULT_TRACK_RIBBON_ALPHA
+        );
+
+        trackRibbonLoaded = !trackRibbonRenderers.isEmpty();
+    }
+
+    private SpriteAPI loadTrackDecalSprite(String path) {
+        if (path == null || path.trim().isEmpty()) return null;
+        try {
+            Global.getSettings().loadTexture(path);
+            SpriteAPI sprite = Global.getSettings().getSprite(path);
+            if (sprite != null) {
+                trackDecalTexturePaths.add(path);
+                return sprite;
+            }
+            log.warn("Track decal sprite not found: " + path);
+        } catch (Exception ex) {
+            log.warn("Failed to load track decal texture: " + path, ex);
+        }
+        return null;
+    }
+
+    private SpriteAPI loadTrackRibbonSprite(String path) {
+        if (path == null || path.trim().isEmpty()) return null;
+        try {
+            Global.getSettings().loadTexture(path);
+            SpriteAPI sprite = Global.getSettings().getSprite(path);
+            if (sprite != null) {
+                trackRibbonTexturePaths.add(path);
+                return sprite;
+            }
+            log.warn("Track ribbon sprite not found: " + path);
+        } catch (Exception ex) {
+            log.warn("Failed to load track ribbon texture: " + path, ex);
+        }
+        return null;
+    }
+
+    private void addTrackRibbonBand(SpriteAPI sprite,
+                                    List<Vector2f> edgeA,
+                                    List<Vector2f> edgeB,
+                                    float tileWorldLength,
+                                    float widthRepeats,
+                                    float edgeAlphaA,
+                                    float edgeAlphaB,
+                                    float alphaMult) {
+        TrackBandRenderer renderer = new TrackBandRenderer(
+                sprite,
+                edgeA,
+                edgeB,
+                tileWorldLength,
+                widthRepeats,
+                edgeAlphaA,
+                edgeAlphaB,
+                alphaMult
+        );
+        trackRibbonRenderers.add(renderer);
+        engine.addLayeredRenderingPlugin(renderer);
+    }
+
+    private boolean edgesCompatible(List<Vector2f>... edges) {
+        if (edges == null || edges.length == 0) return false;
+        int expected = -1;
+        for (List<Vector2f> edge : edges) {
+            if (edge == null || edge.size() < 2) return false;
+            if (expected < 0) {
+                expected = edge.size();
+            } else if (edge.size() != expected) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void releaseRaceBackgroundResources() {
+        if (raceBackgroundReleased) return;
+        raceBackgroundReleased = true;
+
+        if (raceBackgroundNoiseRenderer != null) {
+            raceBackgroundNoiseRenderer.expire();
+            raceBackgroundNoiseRenderer = null;
+        }
+        if (raceBackgroundNoiseLoaded && raceBackgroundNoiseTexturePath != null) {
+            try {
+                Global.getSettings().unloadTexture(raceBackgroundNoiseTexturePath);
+            } catch (Exception ex) {
+                log.warn("Failed to unload macro noise texture: " + raceBackgroundNoiseTexturePath, ex);
+            }
+        }
+        raceBackgroundNoiseLoaded = false;
+        raceBackgroundNoiseTexturePath = null;
+
+        for (TrackDecalRenderer renderer : trackDecalRenderers) {
+            if (renderer != null) renderer.expire();
+        }
+        trackDecalRenderers.clear();
+
+        for (String path : trackDecalTexturePaths) {
+            try {
+                Global.getSettings().unloadTexture(path);
+            } catch (Exception ex) {
+                log.warn("Failed to unload track decal texture: " + path, ex);
+            }
+        }
+        trackDecalTexturePaths.clear();
+        trackDecalsLoaded = false;
+
+        for (TrackBandRenderer renderer : trackRibbonRenderers) {
+            if (renderer != null) renderer.expire();
+        }
+        trackRibbonRenderers.clear();
+
+        for (String path : trackRibbonTexturePaths) {
+            try {
+                Global.getSettings().unloadTexture(path);
+            } catch (Exception ex) {
+                log.warn("Failed to unload track ribbon texture: " + path, ex);
+            }
+        }
+        trackRibbonTexturePaths.clear();
+        trackRibbonLoaded = false;
+
+        if (raceBackgroundRenderer != null) {
+            raceBackgroundRenderer.expire();
+            raceBackgroundRenderer = null;
+        }
+        if (raceBackgroundSecondaryRenderer != null) {
+            raceBackgroundSecondaryRenderer.expire();
+            raceBackgroundSecondaryRenderer = null;
+        }
+        if (raceBackgroundDisabledStarfield && engine != null) {
+            engine.setRenderStarfield(originalRenderStarfield);
+            raceBackgroundDisabledStarfield = false;
+        }
+        if (raceBackgroundLoaded && raceBackgroundSpritePath != null) {
+            try {
+                Global.getSettings().unloadTexture(raceBackgroundSpritePath);
+            } catch (Exception ex) {
+                log.warn("Failed to unload race background texture: " + raceBackgroundSpritePath, ex);
+            }
+        }
+        raceBackgroundLoaded = false;
+    }
+
+    private void computeTrackLockedBackgroundBounds(TrackSpec track) {
+        if (track == null) return;
+
+        List<Vector2f> points = track.centerline != null && !track.centerline.isEmpty()
+                ? track.centerline
+                : track.checkpoints;
+        if (points == null || points.isEmpty()) return;
+
+        float minX = Float.MAX_VALUE;
+        float minY = Float.MAX_VALUE;
+        float maxX = -Float.MAX_VALUE;
+        float maxY = -Float.MAX_VALUE;
+
+        boolean hasPerPointWidths =
+                track.useCsvWidths &&
+                track.centerline != null &&
+                track.wLeft != null &&
+                track.wRight != null &&
+                track.wLeft.size() == track.centerline.size() &&
+                track.wRight.size() == track.centerline.size() &&
+                points == track.centerline;
+
+        float edgeMargin = track.grid != null ? track.grid.edgeMargin : 80f;
+        float fallbackRadius = track.checkpointRadius + track.wallAsteroidTrackBuffer + edgeMargin;
+        if (fallbackRadius < 200f) fallbackRadius = 200f;
+
+        for (int i = 0; i < points.size(); i++) {
+            Vector2f p = points.get(i);
+            if (p == null) continue;
+
+            float radius = fallbackRadius;
+            if (hasPerPointWidths) {
+                float left = track.wLeft.get(i);
+                float right = track.wRight.get(i);
+                radius = Math.max(left, right) + track.wallAsteroidTrackBuffer + edgeMargin;
+                if (radius < 200f) radius = 200f;
+            }
+            radius += TRACK_LOCKED_BACKGROUND_PADDING;
+
+            minX = Math.min(minX, p.x - radius);
+            minY = Math.min(minY, p.y - radius);
+            maxX = Math.max(maxX, p.x + radius);
+            maxY = Math.max(maxY, p.y + radius);
+        }
+
+        // Ensure the tiled background also covers the combat map extents.
+        if (engine != null) {
+            float halfMapWidth = Math.max(0f, engine.getMapWidth() * 0.5f) + TRACK_LOCKED_MAP_PADDING;
+            float halfMapHeight = Math.max(0f, engine.getMapHeight() * 0.5f) + TRACK_LOCKED_MAP_PADDING;
+            minX = Math.min(minX, -halfMapWidth);
+            maxX = Math.max(maxX, halfMapWidth);
+            minY = Math.min(minY, -halfMapHeight);
+            maxY = Math.max(maxY, halfMapHeight);
+        }
+
+        if (minX >= maxX || minY >= maxY) return;
+
+        raceBackgroundCenter = new Vector2f((minX + maxX) * 0.5f, (minY + maxY) * 0.5f);
+        raceBackgroundWidth = Math.max(2000f, maxX - minX);
+        raceBackgroundHeight = Math.max(2000f, maxY - minY);
+    }
+
 
     private List<GateSpec> buildGates() {
         List<GateSpec> gates = new ArrayList<>();
@@ -363,70 +876,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         return gates;
-    }
-
-    private List<WallAsteroidSpec> buildWallAsteroids() {
-        List<WallAsteroidSpec> out = new ArrayList<>();
-        if (race.centerline == null || race.centerline.size() < 2) return out;
-
-        float spacing = Math.max(40f, wallAsteroidSpacing);
-        float inset = 0f;
-
-        List<Vector2f> leftEdge = buildOffsetPolyline(true, inset);
-        List<Vector2f> rightEdge = buildOffsetPolyline(false, inset);
-
-        float effectiveSpacing = spacing;
-
-        for (Vector2f p : samplePolylineAtSpacing(leftEdge, effectiveSpacing)) {
-            Vector2f pos = pushOutOfTrackAgainstCenterline(p);
-            out.add(spawnWallAsteroid(pos));
-        }
-        for (Vector2f p : samplePolylineAtSpacing(rightEdge, effectiveSpacing)) {
-            Vector2f pos = pushOutOfTrackAgainstCenterline(p);
-            out.add(spawnWallAsteroid(pos));
-        }
-
-        return out;
-    }
-
-    private WallAsteroidSpec spawnWallAsteroid(Vector2f location) {
-        WallAsteroidSpec spec = new WallAsteroidSpec(location, wallAsteroidType);
-        if (engine == null) return spec;
-
-        CombatEntityAPI entity = engine.spawnAsteroid(spec.type, location.x, location.y, 0f, 0f);
-        if (entity != null) {
-            entity.setCollisionClass(CollisionClass.NONE);
-            entity.setHitpoints(1000000f);
-            if (entity.getVelocity() != null) {
-                entity.getVelocity().set(0f, 0f);
-            }
-            entity.setAngularVelocity(0f);
-        }
-        spec.entity = entity;
-        return spec;
-    }
-
-    private void maintainWallAsteroids() {
-        if (race.wallAsteroids == null || race.wallAsteroids.isEmpty() || engine == null) return;
-
-        for (WallAsteroidSpec spec : race.wallAsteroids) {
-            if (spec == null) continue;
-            if (spec.entity == null || !engine.isEntityInPlay(spec.entity)) {
-                spec.entity = engine.spawnAsteroid(spec.type, spec.location.x, spec.location.y, 0f, 0f);
-                if (spec.entity != null) {
-                    spec.entity.setCollisionClass(CollisionClass.NONE);
-                    spec.entity.setHitpoints(1000000f);
-                }
-            }
-            if (spec.entity != null) {
-                spec.entity.getLocation().set(spec.location);
-                if (spec.entity.getVelocity() != null) {
-                    spec.entity.getVelocity().set(0f, 0f);
-                }
-                spec.entity.setAngularVelocity(0f);
-                spec.entity.setHitpoints(1000000f);
-            }
-        }
     }
 
     private float getLeftWidth(int segIndex, float tSeg) {
@@ -492,35 +941,9 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         return new ClosestPoint(segIndex, t, point, distSq);
     }
 
-    private Vector2f pushOutOfTrackAgainstCenterline(Vector2f pos) {
-        ClosestPoint cp = findClosestPointOnCenterline(pos);
-        if (cp == null) return pos;
-
-        Vector2f a = race.centerline.get(cp.segIndex);
-        Vector2f b = race.centerline.get((cp.segIndex + 1) % race.centerline.size());
-        Vector2f tangent = unit(b.x - a.x, b.y - a.y);
-        Vector2f normal = new Vector2f(-tangent.y, tangent.x);
-
-        float wl = getLeftWidth(cp.segIndex, cp.t);
-        float wr = getRightWidth(cp.segIndex, cp.t);
-
-        float dx = pos.x - cp.point.x;
-        float dy = pos.y - cp.point.y;
-        float side = dx * normal.x + dy * normal.y;
-
-        float desired = (side >= 0f ? wl : wr) + Math.max(0f, wallAsteroidTrackBuffer);
-        float deficit = desired - Math.abs(side);
-        if (deficit > 0f) {
-            float sign = side >= 0f ? 1f : -1f;
-            pos.x += normal.x * deficit * sign;
-            pos.y += normal.y * deficit * sign;
-        }
-
-        return pos;
-    }
-
-    private List<Vector2f> buildOffsetPolyline(boolean leftSide, float inset) {
+    private List<Vector2f> buildTrackRibbonEdgePolyline(boolean leftSide, float offsetFromBoundary) {
         List<Vector2f> out = new ArrayList<>();
+        if (race.centerline == null) return out;
         int n = race.centerline.size();
         if (n < 2) return out;
 
@@ -528,6 +951,7 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             Vector2f prev = race.centerline.get((i - 1 + n) % n);
             Vector2f cur = race.centerline.get(i);
             Vector2f next = race.centerline.get((i + 1) % n);
+            if (prev == null || cur == null || next == null) continue;
 
             Vector2f t1 = unit(cur.x - prev.x, cur.y - prev.y);
             Vector2f t2 = unit(next.x - cur.x, next.y - cur.y);
@@ -542,65 +966,21 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             }
 
             float width = leftSide ? getLeftWidth(i, 0f) : getRightWidth(i, 0f);
-            float dist = width + wallAsteroidTrackBuffer + inset;
-            float miterScale = dist / dot;
-            float maxMiter = dist * 2f;
+            // Positive offset moves inward, negative offset moves outward.
+            float edgeDistance = Math.max(5f, width - offsetFromBoundary);
+            float miterScale = edgeDistance / dot;
+            float maxMiter = edgeDistance * 2f;
             if (miterScale > maxMiter) miterScale = maxMiter;
             if (miterScale < -maxMiter) miterScale = -maxMiter;
 
-            Vector2f offset = new Vector2f(
-                    cur.x + miter.x * miterScale * (leftSide ? 1f : -1f),
-                    cur.y + miter.y * miterScale * (leftSide ? 1f : -1f)
-            );
-
-            out.add(offset);
+            float sideSign = leftSide ? 1f : -1f;
+            out.add(new Vector2f(
+                    cur.x + miter.x * miterScale * sideSign,
+                    cur.y + miter.y * miterScale * sideSign
+            ));
         }
 
         return out;
-    }
-
-    private List<Vector2f> samplePolylineAtSpacing(List<Vector2f> line, float spacing) {
-        List<Vector2f> samples = new ArrayList<>();
-        if (line == null || line.size() < 2) return samples;
-
-        float totalLen = 0f;
-        for (int i = 0; i < line.size(); i++) {
-            Vector2f a = line.get(i);
-            Vector2f b = line.get((i + 1) % line.size());
-            totalLen += distance(a, b);
-        }
-        if (totalLen <= 0.001f) return samples;
-
-        int steps = Math.max(1, Math.round(totalLen / spacing));
-        float stepLen = totalLen / steps;
-
-        float acc = 0f;
-        Vector2f prev = new Vector2f(line.get(0));
-        samples.add(new Vector2f(prev));
-
-        for (int i = 0; i < line.size(); i++) {
-            Vector2f cur = line.get((i + 1) % line.size());
-            float seg = distance(prev, cur);
-            float remaining = seg;
-            Vector2f start = new Vector2f(prev);
-
-            while (acc + remaining >= stepLen) {
-                float step = stepLen - acc;
-                float f = (seg - remaining + step) / seg;
-                Vector2f p = new Vector2f(
-                        start.x + (cur.x - start.x) * f,
-                        start.y + (cur.y - start.y) * f
-                );
-                samples.add(p);
-                remaining -= step;
-                acc = 0f;
-            }
-
-            acc += remaining;
-            prev = cur;
-        }
-
-        return samples;
     }
 
     private Vector2f unit(float x, float y) {
@@ -610,40 +990,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
     }
 
 
-
-    private void spawnTrackMarkers() {
-        if (race.checkpoints == null || race.checkpoints.isEmpty()) return;
-
-        // Mark every other checkpoint to keep it light
-        for (int i = 0; i < race.checkpoints.size(); i += 2) {
-            Vector2f p = race.checkpoints.get(i);
-            engine.addSmoothParticle(
-                    new Vector2f(p.x, p.y),
-                    new Vector2f(0f, 0f),
-                    120f,        // size
-                    0.9f,        // brightness
-                    0.35f,       // duration
-                    new Color(255, 255, 255, 200)
-            );
-        }
-
-        // Also mark the next checkpoint for the player
-        ShipAPI player = engine.getPlayerShip();
-        if (player != null) {
-            RacerState ps = race.racers.get(player);
-            if (ps != null && !race.checkpoints.isEmpty()) {
-                Vector2f next = race.checkpoints.get(ps.nextCheckpoint % race.checkpoints.size());
-                engine.addSmoothParticle(
-                        new Vector2f(next.x, next.y),
-                        new Vector2f(0f, 0f),
-                        220f,
-                        1.0f,
-                        0.25f,
-                        new Color(255, 240, 120, 220)
-                );
-            }
-        }
-    }
 
 
     private void applyOffTrackPenalty() {
@@ -1524,6 +1870,462 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         return dx * axis.x + dy * axis.y;
     }
 
+    private static class BackgroundMacroNoiseRenderer extends BaseCombatLayeredRenderingPlugin {
+        private final SpriteAPI sprite;
+        private final Vector2f center;
+        private final float width;
+        private final float height;
+        private final List<OctaveSpec> octaves;
+        private boolean expired = false;
+
+        public BackgroundMacroNoiseRenderer(SpriteAPI sprite,
+                                            Vector2f center,
+                                            float width,
+                                            float height,
+                                            List<OctaveSpec> octaves) {
+            super(CombatEngineLayers.BELOW_PLANETS);
+            this.sprite = sprite;
+            this.center = new Vector2f(center);
+            this.width = Math.max(1f, width);
+            this.height = Math.max(1f, height);
+            this.octaves = new ArrayList<OctaveSpec>(octaves);
+        }
+
+        public void expire() {
+            expired = true;
+        }
+
+        @Override
+        public boolean isExpired() {
+            return expired;
+        }
+
+        @Override
+        public float getRenderRadius() {
+            return Float.MAX_VALUE;
+        }
+
+        @Override
+        public void render(CombatEngineLayers layer, com.fs.starfarer.api.combat.ViewportAPI viewport) {
+            if (expired || sprite == null || viewport == null || octaves.isEmpty()) return;
+
+            float rectMinX = center.x - width * 0.5f;
+            float rectMaxX = center.x + width * 0.5f;
+            float rectMinY = center.y - height * 0.5f;
+            float rectMaxY = center.y + height * 0.5f;
+
+            float viewMinX = viewport.getLLX();
+            float viewMinY = viewport.getLLY();
+            float viewMaxX = viewMinX + viewport.getVisibleWidth();
+            float viewMaxY = viewMinY + viewport.getVisibleHeight();
+
+            float drawMinX = Math.max(rectMinX, viewMinX);
+            float drawMaxX = Math.min(rectMaxX, viewMaxX);
+            float drawMinY = Math.max(rectMinY, viewMinY);
+            float drawMaxY = Math.min(rectMaxY, viewMaxY);
+            if (drawMinX >= drawMaxX || drawMinY >= drawMaxY) return;
+
+            float vpAlpha = viewport.getAlphaMult();
+            float spriteW = Math.max(1f, sprite.getWidth());
+            float spriteH = Math.max(1f, sprite.getHeight());
+            float aspect = spriteW / spriteH;
+
+            sprite.bindTexture();
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glDisable(GL11.GL_CULL_FACE);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
+
+            for (OctaveSpec octave : octaves) {
+                if (octave == null) continue;
+
+                float tileW = Math.max(64f, octave.tileWorldWidth);
+                float tileH = Math.max(64f, tileW / aspect);
+                float rad = (float) Math.toRadians(octave.rotationDeg);
+                float cos = (float) Math.cos(rad);
+                float sin = (float) Math.sin(rad);
+
+                float darkAlpha = octave.darkAlpha * vpAlpha;
+                if (darkAlpha > 0.001f) {
+                    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                    GL11.glColor4f(0f, 0f, 0f, darkAlpha);
+                    GL11.glBegin(GL11.GL_QUADS);
+                    putNoiseVertex(drawMinX, drawMinY, center, octave, tileW, tileH, cos, sin);
+                    putNoiseVertex(drawMaxX, drawMinY, center, octave, tileW, tileH, cos, sin);
+                    putNoiseVertex(drawMaxX, drawMaxY, center, octave, tileW, tileH, cos, sin);
+                    putNoiseVertex(drawMinX, drawMaxY, center, octave, tileW, tileH, cos, sin);
+                    GL11.glEnd();
+                }
+
+                float lightAlpha = octave.lightAlpha * vpAlpha;
+                if (lightAlpha > 0.001f) {
+                    float radLight = rad + 0.67f;
+                    float cosLight = (float) Math.cos(radLight);
+                    float sinLight = (float) Math.sin(radLight);
+                    OctaveSpec lightOctave = octave.withOffset(octave.offsetX + tileW * 0.19f, octave.offsetY - tileW * 0.14f);
+
+                    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+                    GL11.glColor4f(1f, 1f, 1f, lightAlpha);
+                    GL11.glBegin(GL11.GL_QUADS);
+                    putNoiseVertex(drawMinX, drawMinY, center, lightOctave, tileW, tileH, cosLight, sinLight);
+                    putNoiseVertex(drawMaxX, drawMinY, center, lightOctave, tileW, tileH, cosLight, sinLight);
+                    putNoiseVertex(drawMaxX, drawMaxY, center, lightOctave, tileW, tileH, cosLight, sinLight);
+                    putNoiseVertex(drawMinX, drawMaxY, center, lightOctave, tileW, tileH, cosLight, sinLight);
+                    GL11.glEnd();
+                }
+            }
+
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GL11.glColor4f(1f, 1f, 1f, 1f);
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+        }
+
+        private static void putNoiseVertex(float x,
+                                           float y,
+                                           Vector2f center,
+                                           OctaveSpec octave,
+                                           float tileW,
+                                           float tileH,
+                                           float cos,
+                                           float sin) {
+            float dx = x - center.x - octave.offsetX;
+            float dy = y - center.y - octave.offsetY;
+            float rx = cos * dx + sin * dy;
+            float ry = -sin * dx + cos * dy;
+            GL11.glTexCoord2f(rx / tileW, ry / tileH);
+            GL11.glVertex2f(x, y);
+        }
+
+        private static class OctaveSpec {
+            private final float tileWorldWidth;
+            private final float darkAlpha;
+            private final float lightAlpha;
+            private final float offsetX;
+            private final float offsetY;
+            private final float rotationDeg;
+
+            private OctaveSpec(float tileWorldWidth,
+                               float darkAlpha,
+                               float lightAlpha,
+                               float offsetX,
+                               float offsetY,
+                               float rotationDeg) {
+                this.tileWorldWidth = tileWorldWidth;
+                this.darkAlpha = darkAlpha;
+                this.lightAlpha = lightAlpha;
+                this.offsetX = offsetX;
+                this.offsetY = offsetY;
+                this.rotationDeg = rotationDeg;
+            }
+
+            private OctaveSpec withOffset(float offsetX, float offsetY) {
+                return new OctaveSpec(tileWorldWidth, darkAlpha, lightAlpha, offsetX, offsetY, rotationDeg);
+            }
+        }
+    }
+
+    private static class TrackDecalRenderer extends BaseCombatLayeredRenderingPlugin {
+        private final List<DecalInstance> decals;
+        private boolean expired = false;
+
+        public TrackDecalRenderer(List<DecalInstance> decals) {
+            super(CombatEngineLayers.BELOW_SHIPS_LAYER);
+            this.decals = new ArrayList<DecalInstance>(decals);
+        }
+
+        public void expire() {
+            expired = true;
+        }
+
+        @Override
+        public boolean isExpired() {
+            return expired;
+        }
+
+        @Override
+        public float getRenderRadius() {
+            return Float.MAX_VALUE;
+        }
+
+        @Override
+        public void render(CombatEngineLayers layer, com.fs.starfarer.api.combat.ViewportAPI viewport) {
+            if (expired || viewport == null || decals.isEmpty()) return;
+
+            float viewMinX = viewport.getLLX();
+            float viewMinY = viewport.getLLY();
+            float viewMaxX = viewMinX + viewport.getVisibleWidth();
+            float viewMaxY = viewMinY + viewport.getVisibleHeight();
+            float vpAlpha = viewport.getAlphaMult();
+
+            for (DecalInstance decal : decals) {
+                if (decal == null || decal.sprite == null || decal.alpha <= 0f) continue;
+
+                float halfW = decal.width * 0.5f;
+                float halfH = decal.height * 0.5f;
+                float pad = Math.max(halfW, halfH);
+                if (decal.center.x + pad < viewMinX || decal.center.x - pad > viewMaxX ||
+                        decal.center.y + pad < viewMinY || decal.center.y - pad > viewMaxY) {
+                    continue;
+                }
+
+                decal.sprite.setNormalBlend();
+                decal.sprite.setAlphaMult(decal.alpha * vpAlpha);
+                decal.sprite.setAngle(decal.angle);
+                decal.sprite.setSize(decal.width, decal.height);
+                decal.sprite.renderAtCenter(decal.center.x, decal.center.y);
+            }
+        }
+
+        private static class DecalInstance {
+            private final SpriteAPI sprite;
+            private final Vector2f center;
+            private final float width;
+            private final float height;
+            private final float angle;
+            private final float alpha;
+
+            private DecalInstance(SpriteAPI sprite, Vector2f center, float width, float height, float angle, float alpha) {
+                this.sprite = sprite;
+                this.center = center;
+                this.width = width;
+                this.height = height;
+                this.angle = angle;
+                this.alpha = alpha;
+            }
+        }
+    }
+
+    private static class TrackBandRenderer extends BaseCombatLayeredRenderingPlugin {
+        private final SpriteAPI sprite;
+        private final List<Vector2f> edgeA;
+        private final List<Vector2f> edgeB;
+        private final List<Float> uCoords;
+        private final float widthRepeats;
+        private final float edgeAlphaA;
+        private final float edgeAlphaB;
+        private final float alpha;
+        private boolean expired = false;
+
+        public TrackBandRenderer(SpriteAPI sprite,
+                                 List<Vector2f> edgeA,
+                                 List<Vector2f> edgeB,
+                                 float tileWorldLength,
+                                 float widthRepeatScale,
+                                 float edgeAlphaA,
+                                 float edgeAlphaB,
+                                 float alpha) {
+            super(CombatEngineLayers.BELOW_SHIPS_LAYER);
+            this.sprite = sprite;
+            this.edgeA = new ArrayList<Vector2f>();
+            this.edgeB = new ArrayList<Vector2f>();
+            for (Vector2f p : edgeA) {
+                this.edgeA.add(new Vector2f(p));
+            }
+            for (Vector2f p : edgeB) {
+                this.edgeB.add(new Vector2f(p));
+            }
+            this.alpha = Math.max(0f, Math.min(1f, alpha));
+            this.uCoords = buildUCoords(this.edgeA, this.edgeB, tileWorldLength);
+            this.widthRepeats = computeWidthRepeats(this.sprite, this.edgeA, this.edgeB, tileWorldLength, widthRepeatScale);
+            this.edgeAlphaA = Math.max(0f, Math.min(1f, edgeAlphaA));
+            this.edgeAlphaB = Math.max(0f, Math.min(1f, edgeAlphaB));
+        }
+
+        public void expire() {
+            expired = true;
+        }
+
+        @Override
+        public boolean isExpired() {
+            return expired;
+        }
+
+        @Override
+        public float getRenderRadius() {
+            return Float.MAX_VALUE;
+        }
+
+        @Override
+        public void render(CombatEngineLayers layer, com.fs.starfarer.api.combat.ViewportAPI viewport) {
+            if (expired || sprite == null || viewport == null) return;
+            int n = Math.min(edgeA.size(), edgeB.size());
+            if (n < 2 || uCoords.size() < n + 1) return;
+
+            sprite.bindTexture();
+
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GL11.glDisable(GL11.GL_CULL_FACE);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
+            float vpAlpha = alpha * viewport.getAlphaMult();
+
+            GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+            for (int i = 0; i <= n; i++) {
+                int idx = i % n;
+                float u = uCoords.get(i);
+                Vector2f l = edgeA.get(idx);
+                Vector2f r = edgeB.get(idx);
+                GL11.glColor4f(1f, 1f, 1f, vpAlpha * edgeAlphaA);
+                GL11.glTexCoord2f(u, 0f);
+                GL11.glVertex2f(l.x, l.y);
+                GL11.glColor4f(1f, 1f, 1f, vpAlpha * edgeAlphaB);
+                GL11.glTexCoord2f(u, widthRepeats);
+                GL11.glVertex2f(r.x, r.y);
+            }
+            GL11.glEnd();
+
+            GL11.glColor4f(1f, 1f, 1f, 1f);
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+        }
+
+        private static List<Float> buildUCoords(List<Vector2f> left, List<Vector2f> right, float tileWorldLength) {
+            List<Float> out = new ArrayList<Float>();
+            int n = Math.min(left.size(), right.size());
+            if (n < 2) return out;
+
+            float repeatLen = Math.max(32f, tileWorldLength);
+            float accum = 0f;
+            out.add(0f);
+            for (int i = 1; i <= n; i++) {
+                int prev = i - 1;
+                int curr = i % n;
+
+                Vector2f cPrev = new Vector2f(
+                        (left.get(prev).x + right.get(prev).x) * 0.5f,
+                        (left.get(prev).y + right.get(prev).y) * 0.5f
+                );
+                Vector2f cCurr = new Vector2f(
+                        (left.get(curr).x + right.get(curr).x) * 0.5f,
+                        (left.get(curr).y + right.get(curr).y) * 0.5f
+                );
+                float dx = cCurr.x - cPrev.x;
+                float dy = cCurr.y - cPrev.y;
+                accum += (float) Math.sqrt(dx * dx + dy * dy);
+                out.add(accum / repeatLen);
+            }
+            return out;
+        }
+
+        private static float computeWidthRepeats(SpriteAPI sprite,
+                                                 List<Vector2f> edgeA,
+                                                 List<Vector2f> edgeB,
+                                                 float tileWorldLength,
+                                                 float widthRepeatScale) {
+            int n = Math.min(edgeA.size(), edgeB.size());
+            if (n < 2) return 1f;
+
+            float widthSum = 0f;
+            for (int i = 0; i < n; i++) {
+                Vector2f a = edgeA.get(i);
+                Vector2f b = edgeB.get(i);
+                float dx = b.x - a.x;
+                float dy = b.y - a.y;
+                widthSum += (float) Math.sqrt(dx * dx + dy * dy);
+            }
+            float avgWidth = widthSum / Math.max(1, n);
+            float repeatLen = Math.max(32f, tileWorldLength);
+            float scale = Math.max(0.1f, widthRepeatScale);
+
+            float spriteW = Math.max(1f, sprite.getWidth());
+            float spriteH = Math.max(1f, sprite.getHeight());
+            float textureAspect = spriteW / spriteH;
+
+            float repeats = (avgWidth * textureAspect / repeatLen) * scale;
+            return Math.max(0.1f, repeats);
+        }
+    }
+
+    private static class ScreenLockedBackgroundRenderer extends BaseCombatLayeredRenderingPlugin {
+        private final SpriteAPI sprite;
+        private final float alpha;
+        private final Vector2f center;
+        private final float width;
+        private final float height;
+        private final float tileWidth;
+        private final float tileHeight;
+        private boolean expired = false;
+
+        public ScreenLockedBackgroundRenderer(SpriteAPI sprite, float alpha, Vector2f center, float width, float height, float tileWorldWidth) {
+            super(CombatEngineLayers.BELOW_PLANETS);
+            this.sprite = sprite;
+            this.alpha = alpha;
+
+            this.center = new Vector2f(center);
+            this.width = Math.max(1f, width);
+            this.height = Math.max(1f, height);
+
+            float spriteWidth = Math.max(1f, sprite.getWidth());
+            float spriteHeight = Math.max(1f, sprite.getHeight());
+            float spriteAspect = spriteWidth / spriteHeight;
+
+            float tw = Math.max(64f, tileWorldWidth);
+            float th = tw / spriteAspect;
+            this.tileWidth = tw;
+            this.tileHeight = Math.max(64f, th);
+        }
+
+        public void expire() {
+            expired = true;
+        }
+
+        @Override
+        public boolean isExpired() {
+            return expired;
+        }
+
+        @Override
+        public float getRenderRadius() {
+            return Float.MAX_VALUE;
+        }
+
+        @Override
+        public void render(CombatEngineLayers layer, com.fs.starfarer.api.combat.ViewportAPI viewport) {
+            if (expired || sprite == null || viewport == null) return;
+
+            float rectMinX = center.x - width * 0.5f;
+            float rectMaxX = center.x + width * 0.5f;
+            float rectMinY = center.y - height * 0.5f;
+            float rectMaxY = center.y + height * 0.5f;
+
+            float viewMinX = viewport.getLLX();
+            float viewMinY = viewport.getLLY();
+            float viewMaxX = viewMinX + viewport.getVisibleWidth();
+            float viewMaxY = viewMinY + viewport.getVisibleHeight();
+
+            float drawMinX = Math.max(rectMinX, viewMinX - tileWidth);
+            float drawMaxX = Math.min(rectMaxX, viewMaxX + tileWidth);
+            float drawMinY = Math.max(rectMinY, viewMinY - tileHeight);
+            float drawMaxY = Math.min(rectMaxY, viewMaxY + tileHeight);
+            if (drawMinX >= drawMaxX || drawMinY >= drawMaxY) return;
+
+            float startX = rectMinX + (float) Math.floor((drawMinX - rectMinX) / tileWidth) * tileWidth;
+            float startY = rectMinY + (float) Math.floor((drawMinY - rectMinY) / tileHeight) * tileHeight;
+
+            sprite.setNormalBlend();
+            sprite.setAngle(0f);
+            sprite.setAlphaMult(alpha * viewport.getAlphaMult());
+
+            final float overlap = 1f;
+            for (float x = startX; x < drawMaxX; x += tileWidth) {
+                float w = Math.min(tileWidth, rectMaxX - x);
+                if (w <= 0f) continue;
+
+                for (float y = startY; y < drawMaxY; y += tileHeight) {
+                    float h = Math.min(tileHeight, rectMaxY - y);
+                    if (h <= 0f) continue;
+
+                    float renderW = Math.max(1f, w + overlap);
+                    float renderH = Math.max(1f, h + overlap);
+                    sprite.setSize(renderW, renderH);
+                    sprite.renderAtCenter(x + w * 0.5f, y + h * 0.5f);
+                }
+            }
+        }
+    }
+
     private static class GateSpec {
         public final Vector2f center;
         public final Vector2f tangent;
@@ -1537,17 +2339,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
             this.normal = normal;
             this.wLeft = wLeft;
             this.wRight = wRight;
-        }
-    }
-
-    private static class WallAsteroidSpec {
-        public final Vector2f location;
-        public final int type;
-        public CombatEntityAPI entity;
-
-        public WallAsteroidSpec(Vector2f location, int type) {
-            this.location = location;
-            this.type = type;
         }
     }
 
@@ -1587,7 +2378,6 @@ public class TakeshidoRaceCombatPlugin extends BaseEveryFrameCombatPlugin {
         public boolean useWidths = false;
         public float corridorHalfWidth = 350f; // fallback
         public List<GateSpec> gates = new ArrayList<>();
-        public List<WallAsteroidSpec> wallAsteroids = new ArrayList<>();
         public List<String> finishOrderMemberIds = new ArrayList<>();
         public List<String> dnfMemberIds = new ArrayList<>();
         public boolean endedByTimeout = false;

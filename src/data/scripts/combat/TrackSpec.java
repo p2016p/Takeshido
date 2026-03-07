@@ -35,6 +35,11 @@ public class TrackSpec {
 
     public boolean useCsvWidths = true;
     public float widthScale = 1f;
+    public String screenLockedBackground = null;
+    public float screenLockedBackgroundAlpha = 1f;
+    public boolean screenLockedBackgroundDisableStarfield = true;
+    public float screenLockedBackgroundTileWorldWidth = 1024f;
+    public List<DecalSpec> decals = new ArrayList<>();
 
     public float checkpointSpacing = 900f; // used only if no "checkpoints" array is provided
 
@@ -55,6 +60,16 @@ public class TrackSpec {
         public float rowSpacing = 320f;
         public float edgeMargin = 80f;
         public float aheadOffset = 900f;
+    }
+
+    public static class DecalSpec {
+        public String sprite;
+        public float x = 0f;
+        public float y = 0f;
+        public float width = 256f;
+        public float height = 256f;
+        public float angle = 0f;
+        public float alpha = 1f;
     }
 }
 

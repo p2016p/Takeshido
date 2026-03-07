@@ -1,0 +1,77 @@
+{
+    "hullName": "LAV",
+    "hullId": "takeshido_LAV",
+    "hullSize": "FRIGATE",
+    "spriteName": "graphics/ships/PleaseDont/LAVBase.png",
+    "style": "TAKESHIDO",
+    "height": 50,
+    "width": 24,
+    "center": [
+        12.0,
+        25.0
+    ],
+    "collisionRadius": 29,
+    "shieldCenter": [
+        0,
+        0
+    ],
+    "shieldRadius": 31,
+    "viewOffset": 0,
+    "builtInMods": [
+        "takeshido_racemod",
+        "strikeCraft",
+        "armaa_strikeCraftFrig",
+        "takeshido_powertrain"
+    ],
+    "weaponSlots": [
+        {
+            "id": "WS_TURRET",
+            "size": "MEDIUM",
+            "type": "BALLISTIC",
+            "mount": "TURRET",
+            "arc": 360,
+            "angle": 0,
+            "locations": [
+                -2.0,
+                0
+            ]
+        }
+    ],
+    "engineSlots": [
+        {
+            "location": [
+                -25.0,
+                -2.5
+            ],
+            "length": 8,
+            "width": 3,
+            "angle": 180,
+            "contrailSize": 3,
+            "style": "LOW_TECH"
+        },
+        {
+            "location": [
+                -25.0,
+                2.5
+            ],
+            "length": 8,
+            "width": 3,
+            "angle": 180,
+            "contrailSize": 3,
+            "style": "LOW_TECH"
+        }
+    ],
+    "bounds": [
+        22.5,
+        11.0,
+        22.5,
+        -11.0,
+        -22.5,
+        -11.0,
+        -22.5,
+        11.0
+    ],
+    "builtInWeapons": {
+        "WS_TURRET": "takeshido_lav_cannon"
+    }
+}

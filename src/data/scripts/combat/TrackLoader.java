@@ -103,6 +103,63 @@ public class TrackLoader {
 
         spec.useCsvWidths = t.optBoolean("useCsvWidths", spec.useCsvWidths);
         spec.widthScale = (float) t.optDouble("widthScale", spec.widthScale);
+        spec.screenLockedBackground = t.optString("screenLockedBackground", spec.screenLockedBackground);
+        if (spec.screenLockedBackground != null && spec.screenLockedBackground.trim().isEmpty()) {
+            spec.screenLockedBackground = null;
+        }
+        spec.screenLockedBackgroundAlpha = (float) t.optDouble("screenLockedBackgroundAlpha", spec.screenLockedBackgroundAlpha);
+        spec.screenLockedBackgroundDisableStarfield = t.optBoolean(
+                "screenLockedBackgroundDisableStarfield",
+                spec.screenLockedBackgroundDisableStarfield
+        );
+        spec.screenLockedBackgroundTileWorldWidth = (float) t.optDouble(
+                "screenLockedBackgroundTileWorldWidth",
+                spec.screenLockedBackgroundTileWorldWidth
+        );
+        if (spec.screenLockedBackgroundTileWorldWidth <= 0f) {
+            spec.screenLockedBackgroundTileWorldWidth = 1024f;
+        }
+        JSONArray decals = t.optJSONArray("decals");
+        if (decals != null) {
+            for (int i = 0; i < decals.length(); i++) {
+                JSONObject d = decals.optJSONObject(i);
+                if (d == null) continue;
+
+                TrackSpec.DecalSpec decal = new TrackSpec.DecalSpec();
+                decal.sprite = d.optString("sprite", null);
+                if (decal.sprite != null && decal.sprite.trim().isEmpty()) {
+                    decal.sprite = null;
+                }
+                if (decal.sprite == null) continue;
+
+                decal.x = (float) d.optDouble("x", decal.x);
+                decal.y = (float) d.optDouble("y", decal.y);
+                JSONArray pos = d.optJSONArray("position");
+                if (pos != null && pos.length() >= 2) {
+                    decal.x = (float) pos.optDouble(0, decal.x);
+                    decal.y = (float) pos.optDouble(1, decal.y);
+                }
+
+                decal.width = (float) d.optDouble("width", decal.width);
+                decal.height = (float) d.optDouble("height", decal.height);
+                JSONArray size = d.optJSONArray("size");
+                if (size != null && size.length() >= 1) {
+                    decal.width = (float) size.optDouble(0, decal.width);
+                    decal.height = size.length() >= 2
+                            ? (float) size.optDouble(1, decal.height)
+                            : decal.width;
+                }
+                if (decal.width <= 0f) decal.width = 64f;
+                if (decal.height <= 0f) decal.height = decal.width;
+
+                decal.angle = (float) d.optDouble("angle", decal.angle);
+                decal.alpha = (float) d.optDouble("alpha", decal.alpha);
+                if (decal.alpha < 0f) decal.alpha = 0f;
+                if (decal.alpha > 1f) decal.alpha = 1f;
+
+                spec.decals.add(decal);
+            }
+        }
 
         spec.checkpointSpacing = (float) t.optDouble("checkpointSpacing", spec.checkpointSpacing);
         if (spec.checkpointSpacing <= 0f) spec.checkpointSpacing = 900f;
